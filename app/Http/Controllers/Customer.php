@@ -15,7 +15,7 @@ class Customer extends Controller
     public function index()
     {
         $customers = CustomerModel::all();
-        return view('customer', ['customers' => $customers]);
+       return view('dashboard.customer.index', ['customers' => $customers]);
     }
 
     /**
