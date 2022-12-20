@@ -36,7 +36,28 @@ class EventOrganizer extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'password' => 'required',
+            'password-confirm' => 'required|same:password',
+            'location' => 'required',
+            'description' => 'required',
+        ]);
+
+        $data = [
+            'EventOrganizerName' => $request->name,
+            'EventOrganizerEmail' => $request->email,
+            'EventOrganizerPhone' => $request->phone,
+            'EventOrganizerPass' => $request->password,
+            'EventOrganizerOfficeAddress' => $request->location,
+            'EventOrganizerDesc' => $request->description
+        ];
+
+        EOModel::create($data);
+
+        return redirect('/dashboard/event-organizer')->with('status', $request->name.' has been added!');
     }
 
     /**

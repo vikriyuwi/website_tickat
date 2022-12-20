@@ -43,9 +43,5 @@ Route::prefix('dashboard')->group(function () {
         Route::get('/add', [Customer::class, 'create']);
         Route::get('/edit', [Customer::class, 'edit']);
     });
-    Route::prefix('event-organizer')->group(function () {
-        Route::get('/', [EventOrganizer::class, 'index']);
-        Route::get('/add', [EventOrganizer::class, 'create']);
-        Route::get('/edit', [EventOrganizer::class, 'edit']);
-    });
+    Route::resource('event-organizer', EventOrganizer::class);
 });

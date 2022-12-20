@@ -10,6 +10,7 @@ class EventOrganizer extends Model
     use HasFactory;
 
     protected $table = "EventOrganizer";
+    public $timestamps = false;
 
     protected $fillable = [
         'EventOrganizerName',
