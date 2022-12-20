@@ -9,7 +9,7 @@
 
 {{--  --}}
 @section('breadcrumb')
-<li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Dashboard</a></li>
+<li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="{{ url('/dashboard') }}">Dashboard</a></li>
 <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Event Organizer</li>
 @endsection
 
