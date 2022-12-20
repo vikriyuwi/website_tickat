@@ -334,7 +334,7 @@
       </div>
     </nav>
     <!-- End Navbar -->
-    @yield('main-content');
+    @yield('main-content')
   </main>
   
   <!--   Core JS Files   -->
