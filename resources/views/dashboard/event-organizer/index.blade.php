@@ -1,9 +1,13 @@
+{{-- tetep --}}
 @extends('../../template')
 
+{{-- tetep --}}
 @section('page-title','Dashboard')
 
+{{-- Sessuain --}}
 @section('title','View Event Organizer')
 
+{{--  --}}
 @section('breadcrumb')
 <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Event Organizer</a></li>
 <li class="breadcrumb-item text-sm text-dark active" aria-current="page">view</li>
