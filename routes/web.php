@@ -37,10 +37,12 @@ Route::resource('ticket-readem', TicketReadem::class);
 Route::prefix('dashboard')->group(function () {
     Route::prefix('customer')->group(function () {
         Route::get('/', [Customer::class, 'index']);
-        Route::post('/add', [Customer::class, 'store']);
+        Route::get('/add', [Customer::class, 'create']);
+        Route::get('/edit', [Customer::class, 'edit']);
     });
     Route::prefix('event-organizer')->group(function () {
         Route::get('/', [EventOrganizer::class, 'index']);
-        Route::post('/add', [EventOrganizer::class, 'store']);
+        Route::get('/add', [EventOrganizer::class, 'create']);
+        Route::get('/edit', [EventOrganizer::class, 'edit']);
     });
 });
