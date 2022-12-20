@@ -24,7 +24,7 @@
                     </div>
                     <br/>
                     <div class="d-grid gap-2 col-6 mx-auto">
-                        <button class="btn btn-primary" type="button">Tambah Data</button>
+                        <a class="btn btn-primary" type="button" href="{{ url('/dashboard/customer/add') }}">add new customer</a>
                       </div>
                     <br/>
                     <div class="card-body px-0 pt-0 pb-2">
@@ -65,6 +65,7 @@
                                             </a>
                                             <a href="javascript:;" class="ps-2 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                                 Edit
+                                            </a>
                                             </a>
                                             <a href="javascript:;" class="ps-2 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                                 Delete

@@ -25,7 +25,7 @@ class Customer extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.customer.add');
     }
 
     /**
@@ -36,7 +36,7 @@ class Customer extends Controller
      */
     public function store(Request $request)
     {
-        //
+    
     }
 
     /**
@@ -58,7 +58,7 @@ class Customer extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
