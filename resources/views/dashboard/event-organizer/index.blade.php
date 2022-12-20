@@ -49,7 +49,7 @@
                                     @foreach ($eos as $eo)
                                     <tr>
                                         <td class="text-center">
-                                            <p class="text-xs font-weight-bold mb-0">1</p>
+                                            <p class="text-xs font-weight-bold mb-0">{{ $loop->iteration }}</p>
                                         </td>
                                         <td>
                                             <div class="d-flex px-2 py-1">
@@ -67,13 +67,13 @@
                                             <p class="text-xs text-secondary mb-0">{{ $eo->EventOrganizerPhone }}</p>
                                         </td>
                                         <td class="align-middle">
-                                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                            <a href="{{ url('/dashboard/event-organizer/show/'.$eo->EventOrganizerId) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                                 View
                                             </a>
-                                            <a href="javascript:;" class="ps-2 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                            <a href="{{ url('/dashboard/event-organizer/edit/'.$eo->EventOrganizerId) }}" class="ps-2 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                                 Edit
                                             </a>
-                                            <a href="javascript:;" class="ps-2 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                            <a href="{{ url('/dashboard/event-organizer/destroy/'.$eo->EventOrganizerId) }}" class="ps-2 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                                 Delete
                                             </a>
                                         </td>
