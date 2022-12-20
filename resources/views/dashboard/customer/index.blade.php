@@ -22,6 +22,11 @@
                     <div class="card-header pb-0">
                         <h6>Customer Data</h6>
                     </div>
+                    <br/>
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                        <button class="btn btn-primary" type="button">Tambah Data</button>
+                      </div>
+                    <br/>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
                             <table class="table align-items-center mb-0">
