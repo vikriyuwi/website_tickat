@@ -35,6 +35,9 @@ Route::resource('ticket', Ticket::class);
 Route::resource('ticket-readem', TicketReadem::class);
 
 Route::prefix('dashboard')->group(function () {
+    Route::get('/', function () {
+        return view('dashboard.index');
+    });
     Route::prefix('customer')->group(function () {
         Route::get('/', [Customer::class, 'index']);
         Route::get('/add', [Customer::class, 'create']);
