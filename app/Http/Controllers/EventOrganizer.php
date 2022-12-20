@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\EventOrganizer as EOModel;
 
 class EventOrganizer extends Controller
 {
@@ -13,7 +14,8 @@ class EventOrganizer extends Controller
      */
     public function index()
     {
-        //
+        $eos = EOModel::all();
+        return view('dashboard.event-organizer.index',['eos' => $eos]);
     }
 
     /**

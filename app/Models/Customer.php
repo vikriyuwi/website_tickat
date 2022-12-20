@@ -11,7 +11,6 @@ class Customer extends Model
 
     protected $table = "Customer";
     protected $fillable = [
-        'CustomerID',
         'CustomerName',
         'CustomerEmail',
         'CustomerPhone',

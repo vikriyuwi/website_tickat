@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class EventOrganizer extends Model
 {
     use HasFactory;
+
+    protected $table = "EventOrganizer";
+
+    protected $fillable = [
+        'EventOrganizerName',
+        'EventOrganizerEmail',
+        'EventOrganizerPhone',
+        'EventOrganizerPass',
+        'EventOrganizerOfficeAddress',
+        'EventOrganizerDesc',
+    ];
 }
