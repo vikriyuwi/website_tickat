@@ -15,12 +15,16 @@
 
 @section('main-content')
 <section>
-    @if(session()->has('success'))
-    <div class="alert alert-success py-3" role="alert">
-        {{ session('success') }}
-    </div>
-    @endif
     <div class="container">
+        @if(session()->has('status'))
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success py-3" role="alert">
+                    {{ session('status') }}
+                </div>
+            </div>
+        </div>
+        @endif
         <div class="row">
             <div class="col-12">
                 <div class="card mb-4">
@@ -42,7 +46,7 @@
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Contact</th>
-                                        <th class="text-secondary opacity-7"></th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -66,16 +70,20 @@
                                             <p class="text-xs font-weight-bold mb-0">{{ $eo->EventOrganizerEmail }}</p>
                                             <p class="text-xs text-secondary mb-0">{{ $eo->EventOrganizerPhone }}</p>
                                         </td>
-                                        <td class="align-middle">
-                                            <a href="{{ url('/dashboard/event-organizer/show/'.$eo->EventOrganizerId) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                View
+                                        <td class="text-center d-flex">
+                                            <a href="{{ url('/dashboard/event-organizer/'.$eo->EventOrganizerId) }}" class="btn btn-sm btn-primary px-3 text-light text-center me-2">
+                                                <i class="fa-solid fa-eye" aria-hidden="true"></i>
                                             </a>
-                                            <a href="{{ url('/dashboard/event-organizer/edit/'.$eo->EventOrganizerId) }}" class="ps-2 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                Edit
+                                            <a href="{{ url('/dashboard/event-organizer/'.$eo->EventOrganizerId.'/edit') }}" class="btn btn-sm btn-secondary px-3 text-light text-center me-2">
+                                                <i class="fa-solid fa-pen" aria-hidden="true"></i>
                                             </a>
-                                            <a href="{{ url('/dashboard/event-organizer/destroy/'.$eo->EventOrganizerId) }}" class="ps-2 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                Delete
-                                            </a>
+                                            <form action="{{ url('/dashboard/event-organizer/'.$eo->EventOrganizerId) }}" method="post">
+                                                @method('delete')
+                                                @csrf
+                                                <button href="{{ url('/dashboard/event-organizer/destroy/'.$eo->EventOrganizerId) }}" class="btn btn-sm btn-danger px-3 text-center" data-toggle="tooltip" data-original-title="Edit user" onclick="return confirm('Are you sure want to delete {{ $eo->EventOrganizerName }}?')">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                     @endforeach

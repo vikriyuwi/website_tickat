@@ -28,8 +28,6 @@
   <!-- Nucleo Icons -->
   <link href="{{ url('assets/css/nucleo-icons.css') }}" rel="stylesheet" />
   <link href="{{ url('assets/css/nucleo-svg.css') }}" rel="stylesheet" />
-  <!-- Font Awesome Icons -->
-  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <link href="{{ url('assets/css/nucleo-svg.css" rel="stylesheet') }}" />
   <!-- CSS Files -->
   <link id="pagestyle" href="{{ url('assets/css/soft-ui-dashboard.css?v=1.0.7') }}" rel="stylesheet" />
@@ -239,6 +237,17 @@
     <!-- Navbar -->
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
       <div class="container-fluid py-1 px-3">
+        <ul class="navbar-nav justify-content-end">
+          <li class="nav-item d-xl-none ps-3 d-flex align-items-center me-3">
+            <a href="javascript:;" class="nav-link p-0 text-body" id="iconNavbarSidenav">
+              <div class="sidenav-toggler-inner">
+                <i class="sidenav-toggler-line"></i>
+                <i class="sidenav-toggler-line"></i>
+                <i class="sidenav-toggler-line"></i>
+              </div>
+            </a>
+          </li>
+        </ul>
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             @yield('breadcrumb')
@@ -246,7 +255,7 @@
           <h6 class="font-weight-bolder mb-0">@yield('title')</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-          <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+          <div class="ms-md-auto d-flex align-items-center d-none d-xl-block">
             <div class="input-group">
               <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
               <input type="text" class="form-control" placeholder="Type here...">
@@ -258,7 +267,7 @@
     <!-- End Navbar -->
     <div class="container-fluid py-4">
       @yield('main-content')
-      <footer class="footer pt-3  ">
+      <footer class="footer pt-3">
         <div class="container-fluid">
           <div class="row align-items-center justify-content-lg-between">
             <div class="col-lg-6 mb-lg-0 mb-4">
@@ -288,6 +297,8 @@
       Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
   </script>
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/5c65d8dae4.js" crossorigin="anonymous"></script>
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->

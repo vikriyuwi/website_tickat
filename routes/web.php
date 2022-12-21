@@ -28,7 +28,6 @@ Route::get('/template', function () {
 });
 
 Route::resource('event', Event::class);
-Route::resource('event-organizer', EventOrganizer::class);
 Route::resource('event-type', EventType::class);
 Route::resource('payment', Payment::class);
 Route::resource('ticket', Ticket::class);
