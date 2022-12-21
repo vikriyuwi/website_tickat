@@ -23,16 +23,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/template', function () {
-    return view('template');
-});
-
-Route::resource('event', Event::class);
-Route::resource('event-type', EventType::class);
-Route::resource('payment', Payment::class);
-Route::resource('ticket', Ticket::class);
-Route::resource('ticket-readem', TicketReadem::class);
-
 Route::prefix('dashboard')->group(function () {
     Route::get('/', function () {
         return view('dashboard.index');
@@ -43,4 +33,5 @@ Route::prefix('dashboard')->group(function () {
         Route::get('/edit', [Customer::class, 'edit']);
     });
     Route::resource('event-organizer', EventOrganizer::class);
+    Route::resource('event', Event::class);
 });

@@ -13,6 +13,10 @@ class EventOrganizer extends Model
     protected $primaryKey = 'EventOrganizerId';
     public $timestamps = false;
 
+    public function Event() {
+        return $this->hasMany('App\Models\Event','EventOrganizerId','EventOrganizerId');
+    }
+
     protected $fillable = [
         'EventOrganizerName',
         'EventOrganizerEmail',
