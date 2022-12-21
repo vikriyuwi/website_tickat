@@ -79,7 +79,10 @@ class Event extends Controller
      */
     public function show($id)
     {
-        //
+        $event = EModel::with(['EventOrganizer','EventType'])->find($id)->first();
+        $EventStart=  explode(" ", $event->EventStart );
+        $EventEnd=  explode(" ", $event->EventEnd );
+        return view('dashboard.event.show',['event' => $event, 'est' => $EventStart, 'een' => $EventEnd]);
     }
 
     /**
@@ -147,6 +150,9 @@ class Event extends Controller
      */
     public function destroy($id)
     {
-        //
+        $event = EModel::find($id);
+        EModel::destroy($id);
+        
+        return redirect('/dashboard/event')->with('status', $event->EventName.' has been deleted!');
     }
 }

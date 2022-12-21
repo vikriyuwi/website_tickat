@@ -79,7 +79,7 @@
                                             <form action="{{ url('/dashboard/event/'.$event->EventId) }}" method="post">
                                                 @method('delete')
                                                 @csrf
-                                                <button class="btn btn-sm btn-danger px-3 text-center" data-toggle="tooltip" data-original-title="Edit user" onclick="return confirm('Are you sure want to delete {{ $event->EventOrganizerName }}?')">
+                                                <button class="btn btn-sm btn-danger px-3 text-center" data-toggle="tooltip" data-original-title="Edit user" onclick="return confirm('Are you sure want to delete {{ $event->EventName }}?')">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                                 </button>
                                             </form>
