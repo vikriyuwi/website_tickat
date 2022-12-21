@@ -17,7 +17,7 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-12 text-center">
-                <h1>This website is on development</h1>
+                <h1>Dashboard is under development</h1>
             </div>
         </div>
     </div>

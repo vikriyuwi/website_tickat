@@ -25,7 +25,7 @@ class EventOrganizer extends Controller
      */
     public function create()
     {
-        return view('dashboard.event-organizer.add');
+        return view('dashboard.event-organizer.create');
     }
 
     /**
@@ -36,7 +36,28 @@ class EventOrganizer extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'password' => 'required',
+            'password-confirm' => 'required|same:password',
+            'location' => 'required',
+            'description' => 'required',
+        ]);
+
+        $data = [
+            'EventOrganizerName' => $request->name,
+            'EventOrganizerEmail' => $request->email,
+            'EventOrganizerPhone' => $request->phone,
+            'EventOrganizerPass' => $request->password,
+            'EventOrganizerOfficeAddress' => $request->location,
+            'EventOrganizerDesc' => $request->description
+        ];
+
+        EOModel::create($data);
+
+        return redirect('/dashboard/event-organizer')->with('status', $request->name.' has been added!');
     }
 
     /**
@@ -47,7 +68,8 @@ class EventOrganizer extends Controller
      */
     public function show($id)
     {
-        //
+        $eos = EOModel::find($id);
+        return view('dashboard.event-organizer.show',['eos' => $eos]);
     }
 
     /**
@@ -58,7 +80,8 @@ class EventOrganizer extends Controller
      */
     public function edit($id)
     {
-        //
+        $eos = EOModel::find($id);
+        return view('dashboard.event-organizer.edit',['eos' => $eos]);
     }
 
     /**
@@ -70,7 +93,25 @@ class EventOrganizer extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'location' => 'required',
+            'description' => 'required',
+        ]);
+
+        $eos = EOModel::find($id);
+
+        $eos->EventOrganizerName = $request->name;
+        $eos->EventOrganizerEmail = $request->email;
+        $eos->EventOrganizerPhone = $request->phone;
+        $eos->EventOrganizerOfficeAddress = $request->location;
+        $eos->EventOrganizerDesc = $request->description;
+
+        $eos->save();
+
+        return redirect('/dashboard/event-organizer')->with('status', $request->name.' has been updated!');
     }
 
     /**
@@ -81,6 +122,8 @@ class EventOrganizer extends Controller
      */
     public function destroy($id)
     {
-        //
+        $eo = EOModel::find($id);
+        EOModel::destroy($id);
+        return redirect('/dashboard/event-organizer')->with('status', $eo->EventOrganizerName.' has been deleted!');
     }
 }
