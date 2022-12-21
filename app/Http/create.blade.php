@@ -31,7 +31,7 @@
                                     {{ session('success') }}
                                 </div>
                                 @endif
-                                <form action="{{ url('/dashboard/event-organizer/') }}" method="post" class="text-start">
+                                <form action="/dashboard/event-organizer/" method="post" class="text-start">
                                     @csrf
                                     <div class="mb-2">
                                         <label for="name">Event organizer name</label>

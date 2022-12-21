@@ -124,6 +124,7 @@ class EventOrganizer extends Controller
     {
         $eo = EOModel::find($id);
         EOModel::destroy($id);
+        
         return redirect('/dashboard/event-organizer')->with('status', $eo->EventOrganizerName.' has been deleted!');
     }
 }
