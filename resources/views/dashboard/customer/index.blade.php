@@ -5,28 +5,39 @@
 @section('page-title','Dashboard')
 
 {{-- Sessuain --}}
-@section('title','View Customer Data')
+@section('title','customer')
 
 {{--  --}}
 @section('breadcrumb')
-<li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Customer</a></li>
-<li class="breadcrumb-item text-sm text-dark active" aria-current="page">view</li>
+<li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="{{ url('/dashboard') }}">Dashboard</a></li>
+<li class="breadcrumb-item text-sm text-dark active" aria-current="page">Customer</li>
 @endsection
 
 @section('main-content')
 <section>
-    <div class="container mt-5">
+    <div class="container">
+        @if(session()->has('status'))
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert-success py-3" role="alert">
+                    {{ session('status') }}
+                </div>
+            </div>
+        </div>
+        @endif
         <div class="row">
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0">
-                        <h6>Customer Data</h6>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Customer Data</h6>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <a class="btn btn-primary" type="button" href="{{ url('/dashboard/customer/create') }}">add new customer</a>
+                            </div>
+                        </div>
                     </div>
-                    <br/>
-                    <div class="d-grid gap-2 col-6 mx-auto">
-                        <a class="btn btn-primary" type="button" href="{{ url('/dashboard/customer/add') }}">add new customer</a>
-                      </div>
-                    <br/>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
                             <table class="table align-items-center mb-0">
@@ -35,41 +46,44 @@
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Contact</th>
-                                        <th class="text-secondary opacity-7"></th>
+                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($customers as $c)
+                                    @foreach ($customers as $customer)
                                     <tr>
                                         <td class="text-center">
-                                            <p class="text-xs font-weight-bold mb-0">1</p>
+                                            <p class="text-xs font-weight-bold mb-0">{{ $loop->iteration }}</p>
                                         </td>
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div>
-                                                    <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
+                                                    <img src="{{ url('/assets/img/team-1.jpg') }}" class="avatar avatar-sm me-3" alt="user1">
                                                 </div>
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">{{ $c->CustomerName }}</h6>
-                                                    <p class="text-xs text-secondary mb-0">{{ $c->CustomerGender }}</p>
+                                                    <h6 class="mb-0 text-sm">{{ $customer->CustomerName }}</h6>
+                                                    <p class="text-xs text-secondary mb-0">{{ $customer->CustomerGender }}</p>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
-                                            <p class="text-xs font-weight-bold mb-0">{{ $c->CustomerEmail }}</p>
-                                            <p class="text-xs text-secondary mb-0">{{ $c->CustomerPhone }}</p>
+                                            <p class="text-xs font-weight-bold mb-0">{{ $customer->CustomerEmail }}</p>
+                                            <p class="text-xs text-secondary mb-0">{{ $customer->CustomerPhone }}</p>
                                         </td>
-                                        <td class="align-middle">
-                                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                View
+                                        <td class="text-center d-flex">
+                                            <a href="{{ url('/dashboard/customer/'.$customer->CustomerId) }}" class="btn btn-sm btn-primary px-3 text-light text-center me-2">
+                                                <i class="fa-solid fa-eye" aria-hidden="true"></i>
                                             </a>
-                                            <a href="javascript:;" class="ps-2 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                Edit
+                                            <a href="{{ url('/dashboard/customer/'.$customer->CustomerId.'/edit') }}" class="btn btn-sm btn-secondary px-3 text-light text-center me-2">
+                                                <i class="fa-solid fa-pen" aria-hidden="true"></i>
                                             </a>
-                                            </a>
-                                            <a href="javascript:;" class="ps-2 text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                Delete
-                                            </a>
+                                            <form action="{{ url('/dashboard/customer/'.$customer->CustomerId) }}" method="post">
+                                                @method('delete')
+                                                @csrf
+                                                <button href="{{ url('/dashboard/customer/destroy/'.$customer->CustomerId) }}" class="btn btn-sm btn-danger px-3 text-center" data-toggle="tooltip" data-original-title="Edit user" onclick="return confirm('Are you sure want to delete {{ $customer->Name }}?')">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                     @endforeach

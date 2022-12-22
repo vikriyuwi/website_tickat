@@ -36,7 +36,27 @@ class Customer extends Controller
      */
     public function store(Request $request)
     {
-    
+    $request->validate([
+        'name' => 'required',
+        'email' => 'required',
+        'phone' => 'required',
+        'gender' => 'required',
+        'password' => 'required',
+        'password-confirm' => 'required|same:password',
+    ]);
+
+    $datas = [
+        'CustomerName' => $request->name,
+        'CustomerEmail' => $request->email,
+        'CustomerPhone' => $request->phone,
+        'CustomerGender' => $request->gender,
+        'CustomerPass' => $request->password,
+        ];
+
+    CustomerModel::create($datas);
+
+    return redirect('/dashboard/customer')->with('status', $request->email.' has been added!');
+
     }
 
     /**
@@ -47,7 +67,8 @@ class Customer extends Controller
      */
     public function show($id)
     {
-        //
+        $customers = CustomerModel::find($id);
+        return view('dashboard.customer.show', ['customers' => $customers]);
     }
 
     /**
