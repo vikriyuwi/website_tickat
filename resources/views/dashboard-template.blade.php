@@ -31,6 +31,38 @@
   <link href="{{ url('assets/css/nucleo-svg.css" rel="stylesheet') }}" />
   <!-- CSS Files -->
   <link id="pagestyle" href="{{ url('assets/css/soft-ui-dashboard.css?v=1.0.7') }}" rel="stylesheet" />
+  <style>
+    body{
+      height: 100%;
+      width: 100%;
+    }
+    
+    #screen {
+      position: fixed;
+      z-index: 9999;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      -moz-backdrop-filter: blur(10px);
+      -ms-backdrop-filter: blur(10px);
+      transform: translate3d(0, 0, 0);
+      display: none;
+      overflow: scroll;
+      duration: 1s;
+    }
+
+    #screen.show {
+      display: block;
+      duration: 1s;
+    }
+
+  </style>
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
@@ -295,6 +327,14 @@
         damping: '0.5'
       }
       Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+
+    function showCreateModal() {
+      document.getElementById("screen").classList.add("show");
+    }
+
+    function closeCreateModal() {
+      document.getElementById("screen").classList.remove("show");
     }
   </script>
   <!-- Font Awesome Icons -->

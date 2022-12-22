@@ -30,4 +30,7 @@ Route::prefix('dashboard')->group(function () {
     Route::resource('customer', Customer::class);
     Route::resource('event-organizer', EventOrganizer::class);
     Route::resource('event', Event::class);
+    Route::prefix('dashboard')->group(function () {
+        
+    });
 });
