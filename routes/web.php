@@ -34,4 +34,9 @@ Route::prefix('dashboard')->group(function () {
     });
     Route::resource('event-organizer', EventOrganizer::class);
     Route::resource('event', Event::class);
+    Route::post('event/ticket', [Ticket::class, 'store']);
+    Route::get('event/ticket/create', [Ticket::class, 'create']);
+    Route::get('event/ticket/{ticket}/edit', [Ticket::class, 'edit']);
+    Route::put('event/ticket/{ticket}', [Ticket::class, 'update']);
+    Route::delete('event/ticket/{ticket}', [Ticket::class, 'destroy']);
 });
