@@ -17,7 +17,9 @@ class Event extends Controller
     public function index()
     {
         $events = EModel::with(['EventOrganizer','EventType'])->get();
-        return view('dashboard.event.index',['events' => $events]);
+        $eos = EOModel::all();
+        $ets = ETModel::all();
+        return view('dashboard.event.index',['events' => $events,'eos' => $eos,'ets' => $ets]);
     }
 
     /**

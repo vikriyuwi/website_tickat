@@ -336,7 +336,14 @@
     function closeCreateModal() {
       document.getElementById("screen").classList.remove("show");
     }
+
+    
   </script>
+  @if (count($errors) > 0)
+    <script type="text/javascript">
+        showCreateModal();
+    </script>
+  @endif
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/5c65d8dae4.js" crossorigin="anonymous"></script>
   <!-- Github buttons -->

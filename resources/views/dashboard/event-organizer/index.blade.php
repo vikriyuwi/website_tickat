@@ -138,7 +138,7 @@
                                 <h6>Event Organizer Data</h6>
                             </div>
                             <div class="col-md-6 text-end">
-                                <button class="btn btn-primary" type="button" onclick="showCreateModal()">add new event organizer</button>
+                                <button class="btn btn-primary" type="button" onclick="showCreateModal()">register new event organizer</button>
                             </div>
                         </div>
                     </div>
