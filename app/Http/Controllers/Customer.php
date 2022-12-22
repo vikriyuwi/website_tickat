@@ -55,7 +55,7 @@ class Customer extends Controller
 
     CustomerModel::create($datas);
 
-    return redirect('/dashboard/customer')->with('status', $request->email.' has been added!');
+    return redirect('/dashboard/customer')->with('status', $request->name.' has been added!');
 
     }
 

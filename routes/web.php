@@ -27,16 +27,7 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/', function () {
         return view('dashboard.index');
     });
-    Route::prefix('customer')->group(function () {
-        Route::get('/', [Customer::class, 'index']);
-        Route::get('/add', [Customer::class, 'create']);
-        Route::get('/edit', [Customer::class, 'edit']);
-    });
+    Route::resource('customer', Customer::class);
     Route::resource('event-organizer', EventOrganizer::class);
     Route::resource('event', Event::class);
-    Route::post('event/ticket', [Ticket::class, 'store']);
-    Route::get('event/ticket/create', [Ticket::class, 'create']);
-    Route::get('event/ticket/{ticket}/edit', [Ticket::class, 'edit']);
-    Route::put('event/ticket/{ticket}', [Ticket::class, 'update']);
-    Route::delete('event/ticket/{ticket}', [Ticket::class, 'destroy']);
 });
