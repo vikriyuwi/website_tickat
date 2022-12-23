@@ -33,10 +33,10 @@
                             <div class="col-auto my-auto">
                                 <div class="h-100">
                                     <h5 class="mb-1">
-                                        {{ $customers->Name }}
+                                        {{ $customers->CustomerName }}
                                     </h5>
                                     <p class="mb-0 font-weight-bold text-sm">
-                                        {{ $customers->Gender }}
+                                        {{ $customers->CustomerGender }}
                                     </p>
                                 </div>
                             </div>
