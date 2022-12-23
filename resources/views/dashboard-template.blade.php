@@ -47,19 +47,21 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      -moz-backdrop-filter: blur(10px);
-      -ms-backdrop-filter: blur(10px);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      -moz-backdrop-filter: blur(20px);
+      -ms-backdrop-filter: blur(20px);
       transform: translate3d(0, 0, 0);
       display: none;
       overflow: scroll;
-      duration: 1s;
+      transition: all 1s !important;
+      -webkit-transition: all 1s !important;
+      -moz-transition: all 1s !important;
+      -o-transition: all 1s !important;
     }
 
     #screen.show {
       display: block;
-      duration: 1s;
     }
 
   </style>
