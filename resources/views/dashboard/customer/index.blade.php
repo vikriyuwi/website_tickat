@@ -35,7 +35,7 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12 text-start">
                         @if(session()->has('success'))
                         <div class="alert alert-success" role="alert">
                             {{ session('success') }}
@@ -70,16 +70,27 @@
                                     </div>
                                 @enderror
                             </div>
-                        </div>
-                        <div class="mb-2" style="text-align: left;">
-                            <label >Customer Gender</label>
-                            <input class="form-control @error('gender') is-invalid @enderror" type="gender" name="gender" id="gender" placeholder="Male" value="{{ old('gender') }}">
-                            @error('gender')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
+                            <div class="mb-2">
+                                <label for="gender">Customer Gender</label>
+                                <select class="form-select @error('gender') is-invalid @enderror" aria-label="Default select example" name="gender">
+                                    <option value="0">Select gender</option>
+                                    @if(old('gender') == "Male")
+                                        <option value="Male"selected >Male</option>
+                                        <option value="Female">Female</option>
+                                    @elseif(old('gender') == "Female")
+                                        <option value="Male">Male</option>
+                                        <option value="Female" selected>Female</option>
+                                    @else
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    @endif
+                                </select>
+                                @error('gender')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
                             <div class="mb-2">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -101,6 +112,7 @@
                                         @enderror
                                     </div>
                                 </div>
+                            </div>
                             <button class="btn btn-primary mt-2 w-100" type="submit">add this data</button>
                         </form>
                     </div>

@@ -15,31 +15,31 @@ class Customer extends Controller
 
     public function create()
     {
-        return view('dashboard.customer.add');
+        return view('dashboard.customer.create');
     }
 
     public function store(Request $request)
     {
-    $request->validate([
-        'name' => 'required',
-        'email' => 'required',
-        'phone' => 'required',
-        'gender' => 'required',
-        'password' => 'required',
-        'password-confirm' => 'required|same:password',
-    ]);
+        $request->validate([
+            'name' => 'required|max:64',
+            'email' => 'required|max:64|unique:Customer,CustomerEmail',
+            'phone' => 'required|max_digits:16',
+            'gender' => 'required|in:Male,Female',
+            'password' => 'required|max:128',
+            'password-confirm' => 'required|same:password|max:128',
+        ]);
 
-    $datas = [
-        'CustomerName' => $request->name,
-        'CustomerEmail' => $request->email,
-        'CustomerPhone' => $request->phone,
-        'CustomerGender' => $request->gender,
-        'CustomerPass' => $request->password,
-        ];
+        $datas = [
+            'CustomerName' => $request->name,
+            'CustomerEmail' => $request->email,
+            'CustomerPhone' => $request->phone,
+            'CustomerGender' => $request->gender,
+            'CustomerPass' => $request->password,
+            ];
 
-    CustomerModel::create($datas);
+        CustomerModel::create($datas);
 
-    return redirect('/dashboard/customer')->with('status', $request->name.' has been added!');
+        return redirect('/dashboard/customer')->with('status', $request->name.' has been added!');
 
     }
 
