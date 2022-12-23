@@ -39,7 +39,7 @@ class EventOrganizer extends Controller
         $request->validate([
             'name' => 'required|max:64',
             'email' => 'required|max:64',
-            'phone' => 'required|numeric|max_digit:17',
+            'phone' => 'required|numeric|max_digits:17',
             'password' => 'required',
             'password-confirm' => 'required|same:password',
             'location' => 'required|max:100',
@@ -96,7 +96,7 @@ class EventOrganizer extends Controller
         $request->validate([
             'name' => 'required|max:64',
             'email' => 'required|max:64',
-            'phone' => 'required|numeric|max_digit:17',
+            'phone' => 'required|numeric|max_digits:17',
             'location' => 'required|max:100',
             'description' => 'required',
         ]);
