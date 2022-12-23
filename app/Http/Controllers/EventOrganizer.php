@@ -37,12 +37,12 @@ class EventOrganizer extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|max_digits:64',
-            'email' => 'required|max_digits:64',
-            'phone' => 'required|max_digits:13',
+            'name' => 'required|max:64',
+            'email' => 'required|max:64',
+            'phone' => 'required|numeric|max:13',
             'password' => 'required',
             'password-confirm' => 'required|same:password',
-            'location' => 'required|max_digits:100',
+            'location' => 'required|max:100',
             'description' => 'required',
         ]);
 
@@ -94,10 +94,10 @@ class EventOrganizer extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|max_digits:64',
-            'email' => 'required|max_digits:64',
-            'phone' => 'required|max_digits:13',
-            'location' => 'required|max_digits:100',
+            'name' => 'required|max:64',
+            'email' => 'required|max:64',
+            'phone' => 'required|max:13',
+            'location' => 'required|max:100',
             'description' => 'required',
         ]);
 
