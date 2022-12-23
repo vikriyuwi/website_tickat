@@ -58,12 +58,10 @@ class Customer extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
-            'gender' => 'required',
-            'password' => 'required',
-            'password-confirm' => 'required|same:password',
+            'name' => 'required | max:64',
+            'email' => 'required | max:64 ',
+            'phone' => 'required | max_digits:16',
+            'gender' => 'required | in:Male,Female',
         ]);
     
         $datas = CustomerModel::find($id);
