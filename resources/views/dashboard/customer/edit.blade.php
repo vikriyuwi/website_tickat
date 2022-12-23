@@ -8,11 +8,9 @@
 @section('title','Edit Customer')
 
 {{--  --}}
-
-{{--  --}}
 @section('breadcrumb')
 <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="{{ url('/dashboard') }}">Dashboard</a></li>
-<li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="{{ url('/dashboard/customer') }}">Customers</a></li>
+<li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="{{ url('/dashboard/customer') }}">Customer Edit</a></li>
 <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Edit</li>
 @endsection
 
@@ -29,18 +27,18 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-2">
-                                    <a href="{{ url('/dashboard/event-organizer/'.$customers->CustomerId.'/change-password') }}" class="btn btn-primary mt-2 w-100">Change Password</a>
+                                    <a href="{{ url('/dashboard/customer/'.$customers->CustomerId.'/change-password') }}" class="btn btn-primary mt-2 w-100">Change Password</a>
                                 </div>
                                 @if(session()->has('success'))
                                 <div class="alert alert-success" role="alert">
                                     {{ session('success') }}
                                 </div>
                                 @endif
-                                <form action="{{ url('/dashboard/event-organizer/'.$customers->CustomerId) }}" method="post" class="text-start">
+                                <form action="{{ url('/dashboard/customer/'.$customers->CustomerId) }}" method="post" class="text-start">
                                     @method('patch')
                                     @csrf
                                     <div class="mb-2">
-                                        <label for="name">Customer Name</label>
+                                        <label for="name">Customer name</label>
                                         <input class="form-control @error('name') is-invalid @enderror " type="text" name="name" id="name" placeholder="Joy Sakera" value="{{ $customers->CustomerName }}">
                                         @error('name')
                                             <div class="invalid-feedback">
@@ -91,7 +89,7 @@
                                     <div class="mb-2">
                                         <label for="gender">Customer Gender</label>
                                         <input class="form-control @error('gender') is-invalid @enderror" type="text" name="gender" id="gender" placeholder="Male" value="{{ $customers->CustomerGender }}">
-                                        @error('gender')
+                                        @error('customer')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
                                             </div>

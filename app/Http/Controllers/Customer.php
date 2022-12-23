@@ -66,7 +66,7 @@ class Customer extends Controller
             'password-confirm' => 'required|same:password',
         ]);
     
-        $datas = CustomerMiodel::find($id);
+        $datas = CustomerModel::find($id);
 
             $datas->CustomerName = $request->name;
             $datas->CustomerEmail = $request->email;
@@ -75,7 +75,7 @@ class Customer extends Controller
 
             $datas->save();
     
-        return redirect('/dashboard/customer')->with('status', $request->name.' has been added!');
+        return redirect('/dashboard/customer')->with('status', $request->name.' has been update!');
     
         }
 

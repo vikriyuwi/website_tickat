@@ -61,7 +61,7 @@
                                         @enderror
                                     </div>
                                     <div class="mb-2">
-                                        <label for="phone">Gender</label>
+                                        <label for="gender">Gender</label>
                                         <input class="form-control @error('gender') is-invalid @enderror" type="text" name="gender" id="gender" placeholder="Male" value="{{ old('gender') }}">
                                         @error('gender')
                                             <div class="invalid-feedback">
