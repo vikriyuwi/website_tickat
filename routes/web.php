@@ -34,4 +34,7 @@ Route::prefix('dashboard')->group(function () {
     });
     Route::resource('event-organizer', EventOrganizer::class);
     Route::resource('event', Event::class);
+    Route::get('/event-type', function () {
+        return view('...');
+    });
 });
