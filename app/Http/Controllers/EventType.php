@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\EventType as ETModel;
 
 class EventType extends Controller
 {
@@ -13,7 +14,8 @@ class EventType extends Controller
      */
     public function index()
     {
-        //
+        $ets = ETModel::all();
+        return view('dashboard.event.event-type.index',['ets' => $ets]);
     }
 
     /**
