@@ -334,9 +334,12 @@
   @endif
   <script>
     
+    $('#inputChange').change(function(){
+      $('.myInput').innerHTML = $(this).val();
+    });
+
     $('#colorOption').change(function(){
-        $('.card').removeClass(selectedColor).addClass('bg-'+$(this).val());
-        $('.card-header').removeClass(selectedColor).addClass('bg-'+$(this).val());
+        $('.color-theme').removeClass(selectedColor).addClass('bg-'+$(this).val());
         selectedColor = 'bg-'+$(this).val();
     });
 

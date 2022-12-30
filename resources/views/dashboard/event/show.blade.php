@@ -71,8 +71,9 @@
                                     @enderror
                                 </div>
                                 <div class="mb-2">
+                                    <div class="col-12 p-3 color-theme bg rounded"></div>
                                     <label for="color">Color</label>
-                                    <select class="form-select @error('color') is-sinvalid @enderror" aria-label="Default select example" name="color">
+                                    <select class="form-select @error('color') is-sinvalid @enderror" aria-label="Default select example" name="color" id="colorOption">
                                         <option value="0">Select color</option>
                                         @foreach($colors as $color)
                                             @if(old('color') == $color)

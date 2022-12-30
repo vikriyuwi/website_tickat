@@ -90,7 +90,7 @@ class Event extends Controller
         $colors = [
             'primary',
             'secondary',
-            'sucess',
+            'success',
             'info',
             'warning',
             'danger'

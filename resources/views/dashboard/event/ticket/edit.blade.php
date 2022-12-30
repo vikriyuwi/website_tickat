@@ -19,8 +19,8 @@
     <div class="container">
         <div class="row">
             <div class="col-12 text-start">
-                <div class="card p-3 bg-{{ $ticket->TicketColor }}">
-                    <div class="card-header bg-{{ $ticket->TicketColor }}">
+                <div class="card p-3">
+                    <div class="card-header">
                         <h1>Edit ticket</h1>
                     </div>
                     <div class="card-body">
@@ -31,6 +31,7 @@
                                     {{ session('status') }}
                                 </div>
                                 @endif
+                                
                                 <form action="{{ url('/dashboard/ticket/'.$ticket->TicketId) }}" method="post" class="text-start">
                                     @method('patch')
                                     @csrf
@@ -62,6 +63,7 @@
                                         @enderror
                                     </div>
                                     <div class="mb-2">
+                                        <div class="col-12 p-3 color-theme bg-{{ $ticket->TicketColor }} rounded"></div>
                                         <label for="color">Color</label>
                                         <select class="form-select @error('color') is-sinvalid @enderror" aria-label="Default select example" name="color" id="colorOption">
                                             <option value="0">Select color</option>
@@ -83,7 +85,7 @@
                                 </form>
                             </div>
                             <div class="col-md-6">
-                                <img class="w-100 position-relative z-index-2 pt-4" src="{{ url('assets/img/illustrations/rocket-white.png') }}" alt="rocket">
+                                
                             </div>
                         </div>
                     </div>
