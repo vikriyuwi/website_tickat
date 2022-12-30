@@ -318,11 +318,31 @@
     </div>
   </main>
   <!--   Core JS Files   -->
+  <script src="{{ url('assets/js/core/jquery.js') }}"></script>
   <script src="{{ url('assets/js/core/popper.min.js') }}"></script>
   <script src="{{ url('assets/js/core/bootstrap.min.js') }}"></script>
   <script src="{{ url('assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
   <script src="{{ url('assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
+  @if(isset($ticket))
   <script>
+    var selectedColor = 'bg-<?php echo $ticket->TicketColor ?>';
+  </script>
+  @else
+  <script>
+    var selectedColor = 'bg';
+  </script>
+  @endif
+  <script>
+    
+    $('#inputChange').change(function(){
+      $('.myInput').innerHTML = $(this).val();
+    });
+
+    $('#colorOption').change(function(){
+        $('.color-theme').removeClass(selectedColor).addClass('bg-'+$(this).val());
+        selectedColor = 'bg-'+$(this).val();
+    });
+
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
       var options = {

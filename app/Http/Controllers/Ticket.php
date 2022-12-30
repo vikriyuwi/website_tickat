@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Ticket as TModel;
 
 class Ticket extends Controller
 {
@@ -34,7 +35,24 @@ class Ticket extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:64',
+            'amount' => 'required',
+            'price' => 'required',
+            'color' => 'required|not_in:0',
+        ]);
+
+        $data = [
+            'EventId' => $request->eventId,
+            'TicketName' => $request->name,
+            'TicketAmount' => $request->amount,
+            'TicketPrice' => $request->price,
+            'TicketColor' => $request->color
+        ];
+        
+        TModel::create($data);
+        
+        return redirect('/dashboard/event/'.$request->eventId)->with('status', $request->name.' has been added!');
     }
 
     /**
@@ -56,7 +74,17 @@ class Ticket extends Controller
      */
     public function edit($id)
     {
-        //
+        $ticket = TModel::find($id);
+        $colors = [
+            'primary',
+            'secondary',
+            'success',
+            'info',
+            'warning',
+            'danger'
+        ];
+
+        return view('dashboard.event.ticket.edit',['ticket' => $ticket,'colors' => $colors]);
     }
 
     /**
@@ -68,7 +96,23 @@ class Ticket extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:64',
+            'amount' => 'required',
+            'price' => 'required',
+            'color' => 'required|not_in:0',
+        ]);
+
+        $ticket = TModel::find($id);
+
+        $ticket->TicketName = $request->name;
+        $ticket->TicketAmount = $request->amount;
+        $ticket->TicketPrice = $request->price;
+        $ticket->TicketColor = $request->color;
+
+        $ticket->save();
+
+        return redirect( url('/dashboard/event/'.$ticket->EventId) )->with('status', 'Ticket '.$request->name.' has been updated!');
     }
 
     /**
@@ -79,6 +123,9 @@ class Ticket extends Controller
      */
     public function destroy($id)
     {
-        //
+        $ticket = TModel::find($id);
+        TModel::destroy($id);
+        
+        return redirect('/dashboard/event/'.$ticket->EventId)->with('status', 'Ticket '.$ticket->TicketName.' has been deleted!');
     }
 }
