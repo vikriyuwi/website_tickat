@@ -225,7 +225,7 @@
                                 <div class="col-auto ms-auto">
                                     <div class="row">
                                         <div class="col-auto d-flex align-items-center">
-                                            <h5 class="text-primary mb-0">@price($ticket->TicketPrice)</h5>
+                                            <h5 class="text-primary mb-0"><b>IDR {{number_format($ticket->TicketPrice, 0)}}</b></h5>
                                         </div>
                                         <div class="col-auto d-flex align-items-center">
                                             <td class="text-center d-flex">
