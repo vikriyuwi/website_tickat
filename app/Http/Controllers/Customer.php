@@ -7,80 +7,81 @@ use App\Models\Customer as CustomerModel;
 
 class Customer extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $customers = CustomerModel::all();
        return view('dashboard.customer.index', ['customers' => $customers]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        return view('dashboard.customer.add');
+        return view('dashboard.customer.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-    
+        $request->validate([
+            'name' => 'required|max:64',
+            'email' => 'required|max:64|unique:Customer,CustomerEmail',
+            'phone' => 'required|max_digits:16',
+            'gender' => 'required|in:Male,Female',
+            'password' => 'required|max:128',
+            'password-confirm' => 'required|same:password|max:128',
+        ]);
+
+        $datas = [
+            'CustomerName' => $request->name,
+            'CustomerEmail' => $request->email,
+            'CustomerPhone' => $request->phone,
+            'CustomerGender' => $request->gender,
+            'CustomerPass' => $request->password,
+            ];
+
+        CustomerModel::create($datas);
+
+        return redirect('/dashboard/customer')->with('status', $request->name.' has been added!');
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        $customers = CustomerModel::find($id);
+        return view('dashboard.customer.show', ['customers' => $customers]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        
+        $customers = CustomerModel::find($id);
+        return view('dashboard.customer.edit',['customers' => $customers]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
-    }
+        $request->validate([
+            'name' => 'required | max:64',
+            'email' => 'required | max:64 ',
+            'phone' => 'required | max_digits:16',
+            'gender' => 'required | in:Male,Female',
+        ]);
+    
+        $datas = CustomerModel::find($id);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+            $datas->CustomerName = $request->name;
+            $datas->CustomerEmail = $request->email;
+            $datas->CustomerPhone = $request->phone;
+            $datas->CustomerGender = $request->gender;
+
+            $datas->save();
+    
+        return redirect('/dashboard/customer')->with('status', $request->name.' has been update!');
+    
+        }
+
     public function destroy($id)
     {
-        //
+        $customers = CustomerModel::find($id);
+        CustomerModel::destroy($id);
+        
+        return redirect('/dashboard/customer')->with('status', $customers->name.' has been deleted!');
     }
 }

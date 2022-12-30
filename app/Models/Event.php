@@ -20,6 +20,10 @@ class Event extends Model
         return $this->belongsTo('App\Models\EventType','EventTypeId','EventTypeId');
     }
 
+    public function Ticket() {
+        return $this->hasMany('App\Models\Tickat','EventId','EventId');
+    }
+
     protected $fillable = [
         'EventName',
         'EventOrganizerId',

@@ -17,7 +17,9 @@ class Event extends Controller
     public function index()
     {
         $events = EModel::with(['EventOrganizer','EventType'])->get();
-        return view('dashboard.event.index',['events' => $events]);
+        $eos = EOModel::all();
+        $ets = ETModel::all();
+        return view('dashboard.event.index',['events' => $events,'eos' => $eos,'ets' => $ets]);
     }
 
     /**
@@ -41,7 +43,7 @@ class Event extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|max:64',
             'eventOrganizer' => 'required|exists:EventOrganizer,EventOrganizerId',
             'eventType' => 'required|exists:EventType,EventTypeId',
             'description' => 'required',
@@ -49,9 +51,9 @@ class Event extends Controller
             'eventStartTime' => 'required',
             'eventEndDate' => 'required|date|after:today',
             'eventEndTime' => 'required',
-            'eventLocation' => 'required',
+            'eventLocation' => 'required|max:64',
             'gmapsCode' => 'required',
-            'detailPlace' => 'required'
+            'detailPlace' => 'required|max:64'
         ]);
 
         $data = [
@@ -112,7 +114,7 @@ class Event extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|max:64',
             'eventOrganizer' => 'required|exists:EventOrganizer,EventOrganizerId',
             'eventType' => 'required|exists:EventType,EventTypeId',
             'description' => 'required',
@@ -120,9 +122,9 @@ class Event extends Controller
             'eventStartTime' => 'required',
             'eventEndDate' => 'required|date|after:today',
             'eventEndTime' => 'required',
-            'eventLocation' => 'required',
+            'eventLocation' => 'required|max:64',
             'gmapsCode' => 'required',
-            'detailPlace' => 'required'
+            'detailPlace' => 'required|max:64'
         ]);
 
         $event = EModel::find($id);

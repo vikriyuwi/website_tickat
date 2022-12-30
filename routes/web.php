@@ -27,14 +27,10 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/', function () {
         return view('dashboard.index');
     });
-    Route::prefix('customer')->group(function () {
-        Route::get('/', [Customer::class, 'index']);
-        Route::get('/add', [Customer::class, 'create']);
-        Route::get('/edit', [Customer::class, 'edit']);
-    });
+    Route::resource('customer', Customer::class);
     Route::resource('event-organizer', EventOrganizer::class);
     Route::resource('event', Event::class);
-    Route::get('/event-type', function () {
-        return view('...');
+    Route::prefix('dashboard')->group(function () {
+        
     });
 });

@@ -31,6 +31,40 @@
   <link href="{{ url('assets/css/nucleo-svg.css" rel="stylesheet') }}" />
   <!-- CSS Files -->
   <link id="pagestyle" href="{{ url('assets/css/soft-ui-dashboard.css?v=1.0.7') }}" rel="stylesheet" />
+  <style>
+    body{
+      height: 100%;
+      width: 100%;
+    }
+    
+    #screen {
+      position: fixed;
+      z-index: 9999;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      -moz-backdrop-filter: blur(20px);
+      -ms-backdrop-filter: blur(20px);
+      transform: translate3d(0, 0, 0);
+      display: none;
+      overflow: scroll;
+      transition: all 1s !important;
+      -webkit-transition: all 1s !important;
+      -moz-transition: all 1s !important;
+      -o-transition: all 1s !important;
+    }
+
+    #screen.show {
+      display: block;
+    }
+
+  </style>
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
@@ -296,7 +330,22 @@
       }
       Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
+
+    function showCreateModal() {
+      document.getElementById("screen").classList.add("show");
+    }
+
+    function closeCreateModal() {
+      document.getElementById("screen").classList.remove("show");
+    }
+
+    
   </script>
+  @if (count($errors) > 0)
+    <script type="text/javascript">
+        showCreateModal();
+    </script>
+  @endif
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/5c65d8dae4.js" crossorigin="anonymous"></script>
   <!-- Github buttons -->
