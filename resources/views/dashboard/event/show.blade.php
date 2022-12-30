@@ -42,7 +42,8 @@
                             @endif
                             <form action="{{ url('/dashboard/ticket/') }}" method="post" class="text-start">
                                 @csrf
-                                <input class="form-control" type="hidden" name="eventId" id="eventId" placeholder="VVIP" value="{{ $event->EventId }}">
+
+                                <input class="form-control" type="hidden" name="eventId" id="eventId" placeholder="VVIP" value="{{ $EventId }}">
                                 <div class="mb-2">
                                     <label for="name">Name</label>
                                     <input class="form-control @error('name') is-invalid @enderror " type="text" name="name" id="name" placeholder="VVIP" value="{{ old('name') }}">

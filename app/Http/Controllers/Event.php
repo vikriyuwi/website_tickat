@@ -95,7 +95,7 @@ class Event extends Controller
             'warning',
             'danger'
         ];
-        return view('dashboard.event.show',['event' => $event, 'est' => $EventStart, 'een' => $EventEnd, 'tickets' => $tickets, 'colors' => $colors]);
+        return view('dashboard.event.show',['EventId' => $id, 'event' => $event, 'est' => $EventStart, 'een' => $EventEnd, 'tickets' => $tickets, 'colors' => $colors]);
     }
 
     /**
