@@ -39,7 +39,7 @@
                                 {{ session('status') }}
                             </div>
                             @endif
-                            <form action="/dashboard/event/" method="post" class="text-start">
+                            <form action="{{ url('/dashboard/event/') }}" method="post" class="text-start">
                                 @csrf
                                 <div class="mb-2">
                                     <label for="name">Name</label>
