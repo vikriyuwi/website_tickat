@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Event as EModel;
 use App\Models\EventOrganizer as EOModel;
 use App\Models\EventType as ETModel;
+use App\Models\Ticket as TModel;
 
 class Event extends Controller
 {
@@ -84,7 +85,17 @@ class Event extends Controller
         $event = EModel::with(['EventOrganizer','EventType'])->find($id)->first();
         $EventStart=  explode(" ", $event->EventStart );
         $EventEnd=  explode(" ", $event->EventEnd );
-        return view('dashboard.event.show',['event' => $event, 'est' => $EventStart, 'een' => $EventEnd]);
+        $tickets = TModel::where('EventId','=',$id)->get();
+
+        $colors = [
+            'primary',
+            'secondary',
+            'sucess',
+            'info',
+            'warning',
+            'danger'
+        ];
+        return view('dashboard.event.show',['event' => $event, 'est' => $EventStart, 'een' => $EventEnd, 'tickets' => $tickets, 'colors' => $colors]);
     }
 
     /**

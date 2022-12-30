@@ -23,6 +23,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        \Blade::directive('price', function ($amount) {
+            setlocale(LC_ALL, 'IND');
+            return "<?php echo 'IDR <b>' . number_format($amount, 0) . '</b>';?>";
+        });
     }
 }
