@@ -29,9 +29,12 @@ Route::prefix('dashboard')->group(function () {
     });
     Route::resource('customer', Customer::class);
     Route::resource('event-organizer', EventOrganizer::class);
+    Route::resource('event-type', EventType::class);
     Route::resource('event', Event::class);
     Route::resource('ticket', Ticket::class);
     Route::prefix('dashboard')->group(function () {
         
     });
+    Route::resource('payment', Payment::class);
+    Route::resource('readem', TicketReadem::class);
 });
