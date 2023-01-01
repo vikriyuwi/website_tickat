@@ -19,6 +19,6 @@ class Customer extends Model
         'CustomerPhone',
         'CustomerPass',
         'CustomerGender',
-        // 'CustomerStatus',
+        'CustomerStatus',
     ];
 }

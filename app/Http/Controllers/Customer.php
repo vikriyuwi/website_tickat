@@ -37,7 +37,7 @@ class Customer extends Controller
             'CustomerPass' => $request->password,
             ];
 
-        CustomerModel::create($datas);
+        CustomerModel::save($datas);
 
         return redirect('/dashboard/customer')->with('status', $request->name.' has been added!');
 
@@ -76,6 +76,22 @@ class Customer extends Controller
         return redirect('/dashboard/customer')->with('status', $request->name.' has been update!');
     
         }
+    
+    public function active($id)
+    {
+        $customers = CustomerModel::find($id);
+        $customers->CustomerStatus = 'active';
+        $customers->save();
+        return redirect('/dashboard/customer')->with('status', $customers->name.' has been activated!');
+    }
+
+    public function deactive($id)
+    {
+        $customers = CustomerModel::find($id);
+        $customers->CustomerStatus = 'deactive';
+        $customers->save();
+        return redirect('/dashboard/customer')->with('status', $customers->name.' has been deactivated!');
+    }
 
     public function destroy($id)
     {

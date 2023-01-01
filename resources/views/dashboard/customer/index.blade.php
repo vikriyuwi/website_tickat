@@ -5,14 +5,12 @@
 @section('page-title','Dashboard')
 
 {{-- Sessuain --}}
-@section('title','View customer')
-
-{{-- tetep --}}
+@section('title','View Customer')
 
 {{--  --}}
 @section('breadcrumb')
 <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="{{ url('/dashboard') }}">Dashboard</a></li>
-<li class="breadcrumb-item text-sm text-dark active" aria-current="page">customer</li>
+<li class="breadcrumb-item text-sm text-dark active" aria-current="page">Customer</li>
 @endsection
 
 @section('main-content')
@@ -24,7 +22,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-md-8 d-flex text-start">
-                        <h5 class="mb-0 text-primary"><b>Register new<br>customer</b></h5>
+                        <h5 class="mb-0 text-primary"><b>Register new<br>Customer</b></h5>
                     </div>
                     <div class="col-md-4 text-end">
                         <button onclick="closeCreateModal()" class="btn btn-sm btn-outline-secondary px-3 text-center">
@@ -35,7 +33,7 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-12 text-start">
+                    <div class="col-md-12">
                         @if(session()->has('success'))
                         <div class="alert alert-success" role="alert">
                             {{ session('success') }}
@@ -45,7 +43,7 @@
                             @csrf
                             <div class="mb-2">
                                 <label for="name">Customer Name</label>
-                                <input class="form-control @error('name') is-invalid @enderror " type="text" name="name" id="name" placeholder="Joy Sakera" value="{{ old('name') }}">
+                                <input class="form-control @error('name') is-invalid @enderror " type="text" name="name" id="name" placeholder="Joy" value="{{ old('name') }}">
                                 @error('name')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -54,10 +52,10 @@
                             </div>
                             <div class="mb-2">
                                 <label for="email">Customer Email</label>
-                                <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" id="email" placeholder="tickat@fikriyuwi.com" value="{{ old('email') }}">
+                                <input class="form-control @error('email') is-invalid @enderror" type="email" name="email" id="email" placeholder="joy@gmail.com" value="{{ old('email') }}">
                                 @error('email')
                                     <div class="invalid-feedback">
-                                        {{ $message }} 
+                                        {{ $message }}
                                     </div>
                                 @enderror
                             </div>
@@ -71,21 +69,9 @@
                                 @enderror
                             </div>
                             <div class="mb-2">
-                                <label for="gender">Customer Gender</label>
-                                <select class="form-select @error('gender') is-invalid @enderror" aria-label="Default select example" name="gender">
-                                    <option value="0">Select gender</option>
-                                    @if(old('gender') == "Male")
-                                        <option value="Male"selected >Male</option>
-                                        <option value="Female">Female</option>
-                                    @elseif(old('gender') == "Female")
-                                        <option value="Male">Male</option>
-                                        <option value="Female" selected>Female</option>
-                                    @else
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
-                                    @endif
-                                </select>
-                                @error('gender')
+                                <label for="location">Gender</label>
+                                <input class="form-control @error('location') is-invalid @enderror" type="text" name="location" id="location" placeholder="Male" value="{{ old('gender') }}">
+                                @error('location')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -143,7 +129,7 @@
                                 <h6>Customer Data</h6>
                             </div>
                             <div class="col-md-6 text-end">
-                                <button class="btn btn-primary" type="button" onclick="showCreateModal()">add new customer</button>
+                                <button class="btn btn-primary" type="button" onclick="showCreateModal()">Register New Customer</button>
                             </div>
                         </div>
                     </div>
@@ -154,7 +140,7 @@
                                     <tr>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Contact</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
                                     </tr>
                                 </thead>
@@ -176,8 +162,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <p class="text-xs font-weight-bold mb-0">{{ $customer->CustomerEmail }}</p>
-                                            <p class="text-xs text-secondary mb-0">{{ $customer->CustomerPhone }}</p>
+                                            <span class="badge badge-sm bg-gradient-{{ $customer->CustomerStatus == 'active' ? 'success' : 'danger' }}">{{ $customer->CustomerStatus }}</span>
                                         </td>
                                         <td class="text-center d-flex">
                                             <a href="{{ url('/dashboard/customer/'.$customer->CustomerId) }}" class="btn btn-sm btn-primary px-3 text-light text-center me-2">
@@ -189,8 +174,14 @@
                                             <form action="{{ url('/dashboard/customer/'.$customer->CustomerId) }}" method="post">
                                                 @method('delete')
                                                 @csrf
-                                                <button href="{{ url('/dashboard/customer/destroy/'.$customer->CustomerId) }}" class="btn btn-sm btn-danger px-3 text-center" data-toggle="tooltip" data-original-title="Edit user" onclick="return confirm('Are you sure want to delete {{ $customer->EventOrganizerName }}?')">
+                                                <button class="btn btn-sm btn-danger px-3 text-center me-2" data-toggle="tooltip" data-original-title="Edit user" onclick="return confirm('Are you sure want to delete {{ $customer->CustomerName }}?')">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>
+                                                </button>
+                                            </form>
+                                            <form action="{{ url('/dashboard/customer/'.$customer->CustomerId) }}{{$customer->CustomerStatus == 'active' ? '/deactive' : '/active'}}" method="get">
+                                                @csrf
+                                                <button class="btn btn-sm btn-{{ $customer->CustomerStatus == 'active' ? 'danger' : 'success' }} px-3 text-center" data-toggle="tooltip" data-original-title="Edit user" onclick="return confirm('Are you sure want to {{ $customer->CustomerStatus == 'active' ? 'deactive ' : 'active '}}{{$customer->CustomerName}}?')">
+                                                    <i class="fa-solid fa-{{ $customer->CustomerStatus == 'active' ? 'xmark' : 'check' }}"></i>
                                                 </button>
                                             </form>
                                         </td>
