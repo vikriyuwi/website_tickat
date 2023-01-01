@@ -149,7 +149,7 @@
                                     <tr>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Contact</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
                                     </tr>
                                 </thead>
@@ -171,8 +171,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <p class="text-xs font-weight-bold mb-0">{{ $eo->EventOrganizerEmail }}</p>
-                                            <p class="text-xs text-secondary mb-0">{{ $eo->EventOrganizerPhone }}</p>
+                                            <span class="badge badge-sm bg-gradient-{{ $eo->EventOrganizerStatus == 'active' ? 'success' : 'danger' }}">{{ $eo->EventOrganizerStatus }}</span>
                                         </td>
                                         <td class="text-center d-flex">
                                             <a href="{{ url('/dashboard/event-organizer/'.$eo->EventOrganizerId) }}" class="btn btn-sm btn-primary px-3 text-light text-center me-2">
@@ -184,8 +183,14 @@
                                             <form action="{{ url('/dashboard/event-organizer/'.$eo->EventOrganizerId) }}" method="post">
                                                 @method('delete')
                                                 @csrf
-                                                <button href="{{ url('/dashboard/event-organizer/destroy/'.$eo->EventOrganizerId) }}" class="btn btn-sm btn-danger px-3 text-center" data-toggle="tooltip" data-original-title="Edit user" onclick="return confirm('Are you sure want to delete {{ $eo->EventOrganizerName }}?')">
+                                                <button class="btn btn-sm btn-danger px-3 text-center me-2" data-toggle="tooltip" data-original-title="Edit user" onclick="return confirm('Are you sure want to delete {{ $eo->EventOrganizerName }}?')">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>
+                                                </button>
+                                            </form>
+                                            <form action="{{ url('/dashboard/event-organizer/'.$eo->EventOrganizerId) }}{{$eo->EventOrganizerStatus == 'active' ? '/deactive' : '/active'}}" method="get">
+                                                @csrf
+                                                <button class="btn btn-sm btn-{{ $eo->EventOrganizerStatus == 'active' ? 'danger' : 'success' }} px-3 text-center" data-toggle="tooltip" data-original-title="Edit user" onclick="return confirm('Are you sure want to {{ $eo->EventOrganizerStatus == 'active' ? 'deactive ' : 'active '}}{{$eo->EventOrganizerName}}?')">
+                                                    <i class="fa-solid fa-{{ $eo->EventOrganizerStatus == 'active' ? 'xmark' : 'check' }}"></i>
                                                 </button>
                                             </form>
                                         </td>

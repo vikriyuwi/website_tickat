@@ -8,6 +8,8 @@ use App\Http\Controllers\EventType;
 use App\Http\Controllers\Payment;
 use App\Http\Controllers\Ticket;
 use App\Http\Controllers\TicketReadem;
+
+use App\Http\Controllers\Authentication;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,18 +25,32 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::prefix('auth')->group(function () {
+    Route::controller(Authentication::class)->group(function () {
+        Route::get('/', 'index');
+        Route::post('/customer/resgister', 'customerRegister');
+        Route::post('/event-organizer/register', 'eventOrganizerRegister');
+        Route::get('/logout', 'logout');
+    });
+});
+
 Route::prefix('dashboard')->group(function () {
     Route::get('/', function () {
         return view('dashboard.index');
     });
     Route::resource('customer', Customer::class);
+    Route::prefix('customer')->group(function () {
+        Route::get('{customer}/active',[Customer::class, 'active']);
+        Route::get('{customer}/deactive',[Customer::class, 'deactive']);
+    });
     Route::resource('event-organizer', EventOrganizer::class);
+    Route::prefix('event-organizer')->group(function () {
+        Route::get('{event_organizer}/active',[EventOrganizer::class, 'active']);
+        Route::get('{event_organizer}/deactive',[EventOrganizer::class, 'deactive']);
+    });
     Route::resource('event-type', EventType::class);
     Route::resource('event', Event::class);
     Route::resource('ticket', Ticket::class);
-    Route::prefix('dashboard')->group(function () {
-        
-    });
     Route::resource('payment', Payment::class);
     Route::resource('readem', TicketReadem::class);
 });

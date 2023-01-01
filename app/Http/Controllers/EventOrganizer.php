@@ -52,7 +52,8 @@ class EventOrganizer extends Controller
             'EventOrganizerPhone' => $request->phone,
             'EventOrganizerPass' => $request->password,
             'EventOrganizerOfficeAddress' => $request->location,
-            'EventOrganizerDesc' => $request->description
+            'EventOrganizerDesc' => $request->description,
+            'EventOrganizerStatus' => 'active',
         ];
 
         EOModel::create($data);
@@ -112,6 +113,24 @@ class EventOrganizer extends Controller
         $eos->save();
 
         return redirect('/dashboard/event-organizer')->with('status', $request->name.' has been updated!');
+    }
+
+    public function active($id)
+    {
+        $eos = EOModel::find($id);
+        $eos->EventOrganizerStatus = 'active';
+        $eos->save();
+
+        return redirect('/dashboard/event-organizer')->with('status', $eos->EventOrganizerName.' is active!');
+    }
+
+    public function deactive($id)
+    {
+        $eos = EOModel::find($id);
+        $eos->EventOrganizerStatus = 'deactive';
+        $eos->save();
+
+        return redirect('/dashboard/event-organizer')->with('status', $eos->EventOrganizerName.' is deactive!');
     }
 
     /**

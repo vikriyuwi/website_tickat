@@ -24,5 +24,6 @@ class EventOrganizer extends Model
         'EventOrganizerPass',
         'EventOrganizerOfficeAddress',
         'EventOrganizerDesc',
+        'EventOrganizerStatus',
     ];
 }
