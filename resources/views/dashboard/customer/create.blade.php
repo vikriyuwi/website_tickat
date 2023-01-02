@@ -10,7 +10,7 @@
 {{--  --}}
 @section('breadcrumb')
 <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="{{ url('/dashboard') }}">Dashboard</a></li>
-<li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="{{ url('/dashboard/customer/create') }}">Customer</a></li>
+<li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="{{ url('/dashboard/customer') }}">Customer</a></li>
 <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Create</li>
 @endsection
 
@@ -90,9 +90,8 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                    </div>
-                                    
-                                    <button class="btn btn-primary mt-2 w-100" type="submit">add this data</button>
+                                    </div>    
+                                    <button class="btn btn-primary mt-2 w-100" type="submit">Add this data</button>
                                 </form>
                             </div>
                             <div class="col-md-6">

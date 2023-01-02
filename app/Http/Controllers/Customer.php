@@ -29,15 +29,16 @@ class Customer extends Controller
             'password-confirm' => 'required|same:password|max:128',
         ]);
 
-        $datas = [
+        $data = [
             'CustomerName' => $request->name,
             'CustomerEmail' => $request->email,
             'CustomerPhone' => $request->phone,
             'CustomerGender' => $request->gender,
             'CustomerPass' => $request->password,
+            'CustomerStatus' => 'active',
             ];
 
-        CustomerModel::save($datas);
+        CustomerModel::create($data);
 
         return redirect('/dashboard/customer')->with('status', $request->name.' has been added!');
 
@@ -64,14 +65,14 @@ class Customer extends Controller
             'gender' => 'required | in:Male,Female',
         ]);
     
-        $datas = CustomerModel::find($id);
+        $data = CustomerModel::find($id);
 
-            $datas->CustomerName = $request->name;
-            $datas->CustomerEmail = $request->email;
-            $datas->CustomerPhone = $request->phone;
-            $datas->CustomerGender = $request->gender;
+            $data->CustomerName = $request->name;
+            $data->CustomerEmail = $request->email;
+            $data->CustomerPhone = $request->phone;
+            $data->CustomerGender = $request->gender;
 
-            $datas->save();
+            $data->save();
     
         return redirect('/dashboard/customer')->with('status', $request->name.' has been update!');
     
