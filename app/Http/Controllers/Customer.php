@@ -82,7 +82,8 @@ class Customer extends Controller
         $customers = CustomerModel::find($id);
         $customers->CustomerStatus = 'active';
         $customers->save();
-        return redirect('/dashboard/customer')->with('status', $customers->name.' has been activated!');
+
+        return redirect('/dashboard/customer')->with('status', $customers->CustomerName.' has been activated!');
     }
 
     public function deactive($id)
@@ -90,7 +91,7 @@ class Customer extends Controller
         $customers = CustomerModel::find($id);
         $customers->CustomerStatus = 'deactive';
         $customers->save();
-        return redirect('/dashboard/customer')->with('status', $customers->name.' has been deactivated!');
+        return redirect('/dashboard/customer')->with('status', $customers->CustomerName.' has been deactivated!');
     }
 
     public function destroy($id)
@@ -98,6 +99,6 @@ class Customer extends Controller
         $customers = CustomerModel::find($id);
         CustomerModel::destroy($id);
         
-        return redirect('/dashboard/customer')->with('status', $customers->name.' has been deleted!');
+        return redirect('/dashboard/customer')->with('status', $customers->CustomerName.' has been deleted!');
     }
 }
