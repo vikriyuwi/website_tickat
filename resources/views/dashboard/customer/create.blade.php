@@ -31,7 +31,7 @@
                                     {{ session('success') }}
                                 </div>
                                 @endif
-                                <form action="{{ url('/dashboard/customer') }}" method="post" class="text-start">
+                                <form action="{{ url('/dashboard/customer') }}" method="POST" class="text-start">
                                     @csrf
                                     <div class="mb-2">
                                         <label for="name">New Name</label>

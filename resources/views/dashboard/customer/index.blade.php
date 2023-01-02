@@ -43,7 +43,7 @@
                             @csrf
                             <div class="mb-2">
                                 <label for="name">Customer Name</label>
-                                <input class="form-control @error('name') is-invalid @enderror " type="text" name="name" id="name" placeholder="Joy" value="{{ old('name') }}">
+                                <input class="form-control @error('name') is-invalid @enderror " type="text" name="name" id="name" placeholder="Joy Sakera" value="{{ old('name') }}">
                                 @error('name')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -69,9 +69,9 @@
                                 @enderror
                             </div>
                             <div class="mb-2">
-                                <label for="location">Gender</label>
-                                <input class="form-control @error('location') is-invalid @enderror" type="text" name="location" id="location" placeholder="Male" value="{{ old('gender') }}">
-                                @error('location')
+                                <label for="gender">Customer Gender</label>
+                                <input class="form-control @error('gender') is-invalid @enderror" type="text" name="gender" id="gender" placeholder="Male" value="{{ old('gender') }}">
+                                @error('gender')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
@@ -129,7 +129,7 @@
                                 <h6>Customer Data</h6>
                             </div>
                             <div class="col-md-6 text-end">
-                                <button class="btn btn-primary" type="button" onclick="showCreateModal()">Register New Customer</button>
+                                <button class="btn btn-primary" type="button" onclick="showCreateModal()">register new customer</button>
                             </div>
                         </div>
                     </div>
@@ -157,7 +157,7 @@
                                                 </div>
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <h6 class="mb-0 text-sm">{{ $customer->CustomerName }}</h6>
-                                                    <p class="text-xs text-secondary mb-0">{{ $customer->CustomerGender }}</p>
+                                                    <p class="text-xs text-secondary mb-0">{{ $customer->CustomerPhone }}</p>
                                                 </div>
                                             </div>
                                         </td>

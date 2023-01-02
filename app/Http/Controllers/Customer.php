@@ -20,13 +20,14 @@ class Customer extends Controller
 
     public function store(Request $request)
     {
+
         $request->validate([
             'name' => 'required|max:64',
-            'email' => 'required|max:64|unique:Customer,CustomerEmail',
-            'phone' => 'required|max_digits:16',
+            'email' => 'required|max:64',
+            'phone' => 'required|numeric|max_digits:16',
             'gender' => 'required|in:Male,Female',
-            'password' => 'required|max:128',
-            'password-confirm' => 'required|same:password|max:128',
+            'password' => 'required',
+            'password-confirm' => 'required|same:password',
         ]);
 
         $data = [
@@ -37,7 +38,7 @@ class Customer extends Controller
             'CustomerPass' => $request->password,
             'CustomerStatus' => 'active',
             ];
-
+            
         CustomerModel::create($data);
 
         return redirect('/dashboard/customer')->with('status', $request->name.' has been added!');
