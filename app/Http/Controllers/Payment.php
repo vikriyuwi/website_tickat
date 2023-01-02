@@ -63,7 +63,7 @@ class Payment extends Controller
         'verificationtime' => 'required|date',
         ]);
 
-        $datas = PaymentModels::find($id);
+        $datas = PaymentModel::find($id);
         $datas->PaymentMethod = $request->method;
         $datas->PaymentCode = $request->code;
         $datas->PaymentVerification = $request->verification;
@@ -72,6 +72,31 @@ class Payment extends Controller
         
         $datas->save();
         return redirect('/dashboard/payment')->with('status', $request->method.' has been updated!');
+    }
+
+    public function paid($id)
+    {
+        $payments = PaymentModel::find($id);
+        $payments->PaymentStatus = 'paid';
+        $payments->save();
+
+        return redirect('/dashboard/payment')->with('status', $payments->PaymentMethod.' has been paid!');
+    }
+
+    public function pending($id)
+    {
+        $payments = PaymentModel::find($id);
+        $payments->PaymentStatus = 'pending';
+        $payments->save();
+        return redirect('/dashboard/payment')->with('status', $payments->PaymentMethod.' has been pending!');
+    }
+
+    public function fail($id)
+    {
+        $payments = PaymentModel::find($id);
+        $payments->PaymentStatus = 'fail';
+        $payments->save();
+        return redirect('/dashboard/payment')->with('status', $payments->PaymentMethod.' has been fail!');
     }
 
     public function destroy($id)

@@ -10,7 +10,7 @@
 {{--  --}}
 @section('breadcrumb')
 <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="{{ url('/dashboard') }}">Dashboard</a></li>
-<li class="breadcrumb-item text-sm text-dark active" aria-current="page">Payment</li>
+<li class="breadcrumb-item text-sm text-dark paid" aria-current="page">Payment</li>
 @endsection
 
 @section('main-content')
@@ -161,7 +161,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <span class="badge badge-sm bg-gradient-{{ $payment->PaymentStatus == 'active' ? 'success' : 'danger' }}">{{ $payment->PaymentStatus }}</span>
+                                            <span class="badge badge-sm bg-gradient-{{ $payment->PaymentStatus == 'paid' ? 'success' : 'danger' }}">{{ $payment->PaymentStatus }}</span>
                                         </td>
                                         <td class="text-center d-flex">
                                             <a href="{{ url('/dashboard/payment/'.$payment->PaymentId) }}" class="btn btn-sm btn-primary px-3 text-light text-center me-2">
@@ -170,10 +170,10 @@
                                             <a href="{{ url('/dashboard/payment/'.$payment->PaymentId.'/edit') }}" class="btn btn-sm btn-secondary px-3 text-light text-center me-2">
                                                 <i class="fa-solid fa-pen" aria-hidden="true"></i>
                                             </a>
-                                            <form action="{{ url('/dashboard/payment/'.$payment->PaymentId) }}{{$payment->PaymentStatus == 'active' ? '/deactive' : '/active'}}" method="get">
+                                            <form action="{{ url('/dashboard/payment/'.$payment->PaymentId) }}{{$payment->PaymentStatus == 'paid' ? '/pending' : '/paid'}}" method="get">
                                                 @csrf
-                                                <button class="btn btn-sm btn-{{ $payment->PaymentStatus == 'active' ? 'danger' : 'success' }} px-3 text-center" data-toggle="tooltip" data-original-title="Edit user" onclick="return confirm('Are you sure want to {{ $payment->PaymentStatus == 'active' ? 'deactive ' : 'active '}}{{$payment->PaymentMethod}}?')">
-                                                    <i class="fa-solid fa-{{ $payment->PaymentStatus == 'active' ? 'xmark' : 'check' }}"></i>
+                                                <button class="btn btn-sm btn-{{ $payment->PaymentStatus == 'paid' ? 'danger' : 'success' }} px-3 text-center" data-toggle="tooltip" data-original-title="Edit user" onclick="return confirm('Are you sure want to {{ $payment->PaymentStatus == 'paid' ? 'pending ' : 'paid '}}{{$payment->PaymentMethod}}?')">
+                                                    <i class="fa-solid fa-{{ $payment->PaymentStatus == 'paid' ? 'xmark' : 'check' }}"></i>
                                                 </button>
                                             </form>
                                         </td>

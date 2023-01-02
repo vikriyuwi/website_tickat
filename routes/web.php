@@ -48,9 +48,15 @@ Route::prefix('dashboard')->group(function () {
         Route::get('{event_organizer}/active',[EventOrganizer::class, 'active']);
         Route::get('{event_organizer}/deactive',[EventOrganizer::class, 'deactive']);
     });
+    Route::resource('payment', Payment::class);
+    Route::prefix('payment')->group(function () {
+        Route::get('{payment}/paid',[Payment::class, 'paid']);
+        Route::get('{payment}/pending',[Payment::class, 'pending']);
+        Route::get('{payment}/fail',[Payment::class, 'fail']);
+    });
+
     Route::resource('event-type', EventType::class);
     Route::resource('event', Event::class);
     Route::resource('ticket', Ticket::class);
-    Route::resource('payment', Payment::class);
     Route::resource('readem', TicketReadem::class);
 });

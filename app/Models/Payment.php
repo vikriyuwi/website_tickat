@@ -13,11 +13,17 @@ class Payment extends Model
     protected $primaryKey = 'PaymentId';
 
     protected $table = "Payment";
+
+    public function Payment() {
+        return $this->hasMany('App\Models\Payment','PaymentId','PaymentId');
+    }
+    
     protected $fillable = [
         'PaymentMethod',
         'PaymentCode',
         'PaymentVerification',
         'PaymentTime',
         'PaymentVerificationTime',
+        'PaymentStatus',
     ];
 }
