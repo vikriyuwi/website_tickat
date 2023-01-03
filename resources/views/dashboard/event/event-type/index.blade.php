@@ -98,9 +98,9 @@
                                 <tbody>
                                     @foreach ($ets as $ets)
                                     <tr>
-                                        {{-- <td class="text-center">
+                                        <td class="text-center">
                                             <p class="text-xs font-weight-bold mb-0">{{ $loop->iteration }}</p>
-                                        </td> --}}
+                                        </td>
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div>
@@ -108,6 +108,7 @@
                                                 </div>
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <h6 class="mb-0 text-sm">{{ $ets->EventTypeName }}</h6>
+                                                    {{-- <p class="text-xs text-secondary mb-0">{{ $event->EventOrganizer->EventOrganizerName }}</p> --}}
                                                     {{-- <p class="text-xs text-secondary mb-0">{{ $event->EventOrganizer->EventOrganizerName }}</p> --}}
                                                 </div>
                                             </div>
