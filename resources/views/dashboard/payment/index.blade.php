@@ -170,7 +170,7 @@
                                             <a href="{{ url('/dashboard/payment/'.$payment->PaymentId.'/edit') }}" class="btn btn-sm btn-secondary px-3 text-light text-center me-2">
                                                 <i class="fa-solid fa-pen" aria-hidden="true"></i>
                                             </a>
-                                            <form action="{{ url('/dashboard/payment/'.$payment->PaymentId) }}{{$payment->PaymentStatus == 'paid' ? '/pending' : '/paid'}}" method="get">
+                                            <form action="{{ url('/dashboard/payment/pay/'.$payment->PaymentId) }}" method="get">
                                                 @csrf
                                                 <button class="btn btn-sm btn-{{ $payment->PaymentStatus == 'paid' ? 'danger' : 'success' }} px-3 text-center" data-toggle="tooltip" data-original-title="Edit user" onclick="return confirm('Are you sure want to {{ $payment->PaymentStatus == 'paid' ? 'pending ' : 'paid '}}{{$payment->PaymentMethod}}?')">
                                                     <i class="fa-solid fa-{{ $payment->PaymentStatus == 'paid' ? 'xmark' : 'check' }}"></i>

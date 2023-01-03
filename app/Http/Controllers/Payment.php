@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Payment as PaymentModel;
+use Carbon\Carbon;
 
 class Payment extends Controller
 {
@@ -74,29 +75,20 @@ class Payment extends Controller
         return redirect('/dashboard/payment')->with('status', $request->method.' has been updated!');
     }
 
-    public function paid($id)
+    public function pay(Request $request)
     {
-        $payments = PaymentModel::find($id);
-        $payments->PaymentStatus = 'paid';
-        $payments->save();
+        $id = $request->id;
 
-        return redirect('/dashboard/payment')->with('status', $payments->PaymentMethod.' has been paid!');
-    }
-
-    public function pending($id)
-    {
-        $payments = PaymentModel::find($id);
-        $payments->PaymentStatus = 'pending';
-        $payments->save();
-        return redirect('/dashboard/payment')->with('status', $payments->PaymentMethod.' has been pending!');
-    }
-
-    public function fail($id)
-    {
-        $payments = PaymentModel::find($id);
-        $payments->PaymentStatus = 'fail';
-        $payments->save();
-        return redirect('/dashboard/payment')->with('status', $payments->PaymentMethod.' has been fail!');
+        $payment = PaymentModel::find($id);
+        if ($payment->PaymentTime <= Carbon::now()) {
+            $payment->PaymentStatus = 'fail';
+            $payment->save();
+            return redirect('dashboard/payment')->with('status', 'Payment fail!');
+        } else {
+            $payment->PaymentStatus = 'paid';
+            $payment->save();
+            return redirect('dashboard/payment')->with('status', 'Payment paid!');
+        }   
     }
 
     public function destroy($id)

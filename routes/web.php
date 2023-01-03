@@ -50,9 +50,8 @@ Route::prefix('dashboard')->group(function () {
     });
     Route::resource('payment', Payment::class);
     Route::prefix('payment')->group(function () {
-        Route::get('{payment}/paid',[Payment::class, 'paid']);
         Route::get('{payment}/pending',[Payment::class, 'pending']);
-        Route::get('{payment}/fail',[Payment::class, 'fail']);
+        Route::get('pay/{id}',[Payment::class, 'pay']);
     });
 
     Route::resource('event-type', EventType::class);
