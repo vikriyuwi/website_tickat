@@ -10,8 +10,10 @@
 
 <div class="card p-3" id="loginEO">
     <div class="card-header">
-        <h5 class="mb-0 text-primary"><b>Login<br>Event Organizer</b></h5>
-        Are you an Customer? <a href="{{ url('/login') }}">Login here</a>
+        <h5 class="mb-0 text-primary"><b>Login<br>Master</b></h5>
+        Are you a Customer? <a href="{{ url('/login') }}">Login here</a>
+        <br>
+        Are you an Event Organizer? <a href="{{ url('/login/event-organizer') }}">Login here</a>
         <br>
         {{Session::get('Login')}}
     </div>

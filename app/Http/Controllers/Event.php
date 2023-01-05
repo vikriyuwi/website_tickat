@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use App\Models\Event as EModel;
 use App\Models\EventOrganizer as EOModel;
 use App\Models\EventType as ETModel;
