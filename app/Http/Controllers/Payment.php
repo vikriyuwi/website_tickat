@@ -11,17 +11,32 @@ class Payment extends Controller
  
     public function index()
     {
+        if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+        {
+            return redirect('/login/master')->with('status', 'You have to login first!');
+        }
+
         $payments = PaymentModel::all();
-       return view('dashboard.payment.index', ['payments' => $payments]);
+        return view('dashboard.payment.index', ['payments' => $payments]);
     }
 
     public function create()
     {
+        if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+        {
+            return redirect('/login/master')->with('status', 'You have to login first!');
+        }
+
         return view('dashboard.payment.create');
     }
 
     public function store(Request $request)
     {
+        if(!Session::get('Login'))
+        {
+            return redirect('/login')->with('status', 'You have to login first!');
+        }
+
         $request->validate([
         'method' => 'required|in:Cash,Transfer,Debit,Credit',
         'code' => 'required|max:64',
@@ -31,11 +46,11 @@ class Payment extends Controller
         ]);
 
         $datas = [
-        'PaymentMethod' => $request->method,
-        'PaymentCode' => $request->code,
-        'PaymentVerification' => $request->verification,
-        'PaymentTime' => $request->time,
-        'PaymentVerificationTime' => $request->verificationtime,
+            'PaymentMethod' => $request->method,
+            'PaymentCode' => $request->code,
+            'PaymentVerification' => $request->verification,
+            'PaymentTime' => $request->time,
+            'PaymentVerificationTime' => $request->verificationtime,
         ];
 
         PaymentModel::save($datas);
@@ -44,18 +59,33 @@ class Payment extends Controller
 
     public function show($id)
     {
+        if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+        {
+            return redirect('/login/master')->with('status', 'You have to login first!');
+        }
+
         $payments = PaymentModel::find($id);
         return view('dashboard.payment.show', ['payments' => $payments]);
     }
 
     public function edit($id)
     {
+        if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+        {
+            return redirect('/login/master')->with('status', 'You have to login first!');
+        }
+
         $payments = PaymentModel::find($id);
         return view('dashboard.payment.edit',['payments' => $payments]);
     }
 
     public function update(Request $request, $id)
     {
+        if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+        {
+            return redirect('/login/master')->with('status', 'You have to login first!');
+        }
+        
         $request->validate([
         'method' => 'required|in:Cash,Transfer,Debit,Credit',
         'code' => 'required|max:64',

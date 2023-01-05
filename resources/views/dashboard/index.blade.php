@@ -18,6 +18,7 @@
         <div class="row">
             <div class="col-12 text-center">
                 <h1>Dashboard is under development</h1>
+                {{ Session::get('LoginRole') }}
             </div>
         </div>
     </div>

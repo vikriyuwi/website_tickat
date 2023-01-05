@@ -9,12 +9,22 @@ class Customer extends Controller
 {
     public function index()
     {
+        if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+        {
+            return redirect('/login/master')->with('status', 'You have to login first!');
+        }
+
         $customers = CustomerModel::all();
-       return view('dashboard.customer.index', ['customers' => $customers]);
+        return view('dashboard.customer.index', ['customers' => $customers]);
     }
 
     public function create()
     {
+        if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+        {
+            return redirect('/login/master')->with('status', 'You have to login first!');
+        }
+
         return view('dashboard.customer.create');
     }
 
@@ -47,12 +57,22 @@ class Customer extends Controller
 
     public function show($id)
     {
+        if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+        {
+            return redirect('/login/master')->with('status', 'You have to login first!');
+        }
+
         $customers = CustomerModel::find($id);
         return view('dashboard.customer.show', ['customers' => $customers]);
     }
 
     public function edit($id)
     {
+        if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+        {
+            return redirect('/login/master')->with('status', 'You have to login first!');
+        }
+
         $customers = CustomerModel::find($id);
         return view('dashboard.customer.edit',['customers' => $customers]);
     }
@@ -81,6 +101,11 @@ class Customer extends Controller
     
     public function active($id)
     {
+        if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+        {
+            return redirect('/login/master')->with('status', 'You have to login first!');
+        }
+
         $customers = CustomerModel::find($id);
         $customers->CustomerStatus = 'active';
         $customers->save();
@@ -90,6 +115,11 @@ class Customer extends Controller
 
     public function deactive($id)
     {
+        if(!Session::get('Login') || Session::get('LoginRole') != 'Master' || Session::get('LoginRole') != 'Customer')
+        {
+            return redirect('/login/master')->with('status', 'You have to login first!');
+        }
+        
         $customers = CustomerModel::find($id);
         $customers->CustomerStatus = 'deactive';
         $customers->save();
@@ -98,6 +128,11 @@ class Customer extends Controller
 
     public function destroy($id)
     {
+        if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+        {
+            return redirect('/login/master')->with('status', 'You have to login first!');
+        }
+        
         $customers = CustomerModel::find($id);
         CustomerModel::destroy($id);
         

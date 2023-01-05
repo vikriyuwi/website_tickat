@@ -17,6 +17,11 @@ class Event extends Controller
      */
     public function index()
     {
+        if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+        {
+            return redirect('/login/master')->with('status', 'You have to login first!');
+        }
+
         $events = EModel::with(['EventOrganizer','EventType'])->get();
         $eos = EOModel::all();
         $ets = ETModel::all();
@@ -30,6 +35,11 @@ class Event extends Controller
      */
     public function create()
     {
+        if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+        {
+            return redirect('/login/master')->with('status', 'You have to login first!');
+        }
+        
         $eos = EOModel::all();
         $ets = ETModel::all();
         return view('dashboard.event.create',['eos' => $eos,'ets' => $ets]);
@@ -68,6 +78,10 @@ class Event extends Controller
             'EventGmapsCode' => $request->gmapsCode,
             'EventDetailPlace' => $request->detailPlace
         ];
+
+        if(Session::get('LoginRole') == 'EventOrganizer') {
+            data_set($data,'EventOrganizerId',Session::get('LoginId'),false);
+        }
         
         EModel::create($data);
         
@@ -82,6 +96,11 @@ class Event extends Controller
      */
     public function show($id)
     {
+        if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+        {
+            return redirect('/login/master')->with('status', 'You have to login first!');
+        }
+
         $event = EModel::with(['EventOrganizer','EventType'])->find($id)->first();
         $EventStart=  explode(" ", $event->EventStart );
         $EventEnd=  explode(" ", $event->EventEnd );
@@ -124,6 +143,11 @@ class Event extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+        {
+            return redirect('/login/master')->with('status', 'You have to login first!');
+        }
+
         $request->validate([
             'name' => 'required|max:64',
             'eventOrganizer' => 'required|exists:EventOrganizer,EventOrganizerId',
@@ -141,7 +165,11 @@ class Event extends Controller
         $event = EModel::find($id);
 
         $event->EventName = $request->name;
-        $event->EventOrganizerId = $request->eventOrganizer;
+        if(Session::get('LoginRole') == 'EventOrganizer') {
+            $event->EventOrganizerId = Session::get('LoginId');
+        } else {
+            $event->EventOrganizerId = $request->eventOrganizer;
+        }
         $event->EventTypeId = $request->eventType;
         $event->EventDesc = $request->description;
         $event->EventStart = $request->eventStartDate.' '.$request->eventStartTime;
@@ -163,6 +191,11 @@ class Event extends Controller
      */
     public function destroy($id)
     {
+        if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+        {
+            return redirect('/login/master')->with('status', 'You have to login first!');
+        }
+        
         $event = EModel::find($id);
         EModel::destroy($id);
         

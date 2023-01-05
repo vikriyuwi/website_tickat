@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Redirect;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Models\EventOrganizer as EOModel;
+
 
 class EventOrganizer extends Controller
 {
@@ -12,8 +16,14 @@ class EventOrganizer extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
+        if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+        {
+            return redirect('/login/master')->with('status', 'You have to login first!');
+        }
+
         $eos = EOModel::all();
         return view('dashboard.event-organizer.index',['eos' => $eos]);
     }
@@ -25,6 +35,11 @@ class EventOrganizer extends Controller
      */
     public function create()
     {
+        if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+        {
+            return redirect('/login/master')->with('status', 'You have to login first!');
+        }
+
         return view('dashboard.event-organizer.create');
     }
 
@@ -69,6 +84,11 @@ class EventOrganizer extends Controller
      */
     public function show($id)
     {
+        if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+        {
+            return redirect('/login/master')->with('status', 'You have to login first!');
+        }
+
         $eos = EOModel::find($id);
         return view('dashboard.event-organizer.show',['eos' => $eos]);
     }
@@ -81,6 +101,11 @@ class EventOrganizer extends Controller
      */
     public function edit($id)
     {
+        if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+        {
+            return redirect('/login/master')->with('status', 'You have to login first!');
+        }
+
         $eos = EOModel::find($id);
         return view('dashboard.event-organizer.edit',['eos' => $eos]);
     }
@@ -117,6 +142,11 @@ class EventOrganizer extends Controller
 
     public function active($id)
     {
+        if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+        {
+            return redirect('/login/master')->with('status', 'You have to login first!');
+        }
+
         $eos = EOModel::find($id);
         $eos->EventOrganizerStatus = 'active';
         $eos->save();
@@ -126,6 +156,11 @@ class EventOrganizer extends Controller
 
     public function deactive($id)
     {
+        if(!Session::get('Login') || Session::get('LoginRole') != 'Master' || Session::get('LoginRole') != 'EventOrganizer')
+        {
+            return redirect('/login/event-organizer')->with('status', 'You have to login first!');
+        }
+
         $eos = EOModel::find($id);
         $eos->EventOrganizerStatus = 'deactive';
         $eos->save();
@@ -141,6 +176,11 @@ class EventOrganizer extends Controller
      */
     public function destroy($id)
     {
+        if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+        {
+            return redirect('/login/master')->with('status', 'You have to login first!');
+        }
+        
         $eo = EOModel::find($id);
         EOModel::destroy($id);
         

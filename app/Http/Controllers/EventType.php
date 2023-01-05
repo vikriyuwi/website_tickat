@@ -14,6 +14,11 @@ class EventType extends Controller
      */
     public function index()
     {
+        if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+        {
+            return redirect('/login/master')->with('status', 'You have to login first!');
+        }
+        
         $ets = ETModel::all();
         return view('dashboard.event.event-type.index',['ets' => $ets]);
     }

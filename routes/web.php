@@ -8,7 +8,6 @@ use App\Http\Controllers\EventType;
 use App\Http\Controllers\Payment;
 use App\Http\Controllers\Ticket;
 use App\Http\Controllers\TicketReadem;
-
 use App\Http\Controllers\Authentication;
 /*
 |--------------------------------------------------------------------------
@@ -25,9 +24,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::prefix('login')->group(function () {
+    Route::get('/',[Authentication::class, 'index']);
+    Route::get('/event-organizer',[Authentication::class, 'eventOrganizer']);
+    Route::get('/master',[Authentication::class, 'master']);
+});
+
 Route::prefix('auth')->group(function () {
     Route::controller(Authentication::class)->group(function () {
-        Route::get('/', 'index');
+        Route::post('/customer','loginC');
+        Route::post('/event-organizer','loginEO');
+        Route::post('/master','loginMaster');
         Route::post('/customer/resgister', 'customerRegister');
         Route::post('/event-organizer/register', 'eventOrganizerRegister');
         Route::get('/logout', 'logout');
