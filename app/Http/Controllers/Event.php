@@ -126,6 +126,11 @@ class Event extends Controller
      */
     public function edit($id)
     {
+        if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+        {
+            return redirect('/login/master')->with('status', 'You have to login first!');
+        }
+
         $eos = EOModel::all();
         $ets = ETModel::all();
         $es = EModel::find($id);
@@ -144,7 +149,7 @@ class Event extends Controller
      */
     public function update(Request $request, $id)
     {
-        if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+        if(!Session::get('Login') || (Session::get('LoginRole') != 'Master' && Session::get('LoginRole') != 'EventOrganizer'))
         {
             return redirect('/login/master')->with('status', 'You have to login first!');
         }

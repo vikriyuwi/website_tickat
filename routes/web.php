@@ -9,6 +9,7 @@ use App\Http\Controllers\Payment;
 use App\Http\Controllers\Ticket;
 use App\Http\Controllers\TicketReadem;
 use App\Http\Controllers\Authentication;
+use App\Http\Controllers\RoleCustomer;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,9 +21,7 @@ use App\Http\Controllers\Authentication;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',[RoleCustomer::class, 'index']);
 
 Route::prefix('login')->group(function () {
     Route::get('/',[Authentication::class, 'index']);

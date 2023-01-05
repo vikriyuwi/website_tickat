@@ -116,7 +116,7 @@ class Customer extends Controller
 
     public function deactive($id)
     {
-        if(!Session::get('Login') || Session::get('LoginRole') != 'Master' || Session::get('LoginRole') != 'Customer')
+        if(!Session::get('Login') || (Session::get('LoginRole') != 'Master' && Session::get('LoginRole') != 'Customer'))
         {
             return redirect('/login/master')->with('status', 'You have to login first!');
         }
