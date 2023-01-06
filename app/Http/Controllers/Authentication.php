@@ -152,15 +152,15 @@ class Authentication extends Controller
             'password' => 'required'
         ]);
 
-        $c = EOModel::where('CustomerEmail',$request->email)->first();
+        $c = CModel::where('CustomerEmail',$request->email)->first();
 
-        if($c->CustomerPassword != $request->password)
+        if($c->CustomerPass != $request->password)
         {
             return redirect('/login')->with('status', 'Wrong password!');
         } else {
             Session::put('Login',TRUE);
-            Session::put('LoginName',$eo->CustomerName);
-            Session::put('LoginId',$eo->CustomerId);
+            Session::put('LoginName',$c->CustomerName);
+            Session::put('LoginId',$c->CustomerId);
             Session::put('LoginRole','Customer');
             return redirect('/');
         }
@@ -168,6 +168,6 @@ class Authentication extends Controller
 
     public function logout(){
         Session::flush();
-        return redirect('/login');
+        return redirect('/');
     }
 }

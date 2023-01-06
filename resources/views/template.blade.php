@@ -72,10 +72,9 @@
     }
 
     #header {
-        background: url('/assets/img/landing/party.jpg');
+        background: url('/assets/img/curved-images/curved7.jpg');
         background-size: cover;
         background-attachment: fixed;
-        color: white !important;
     }
 
     .overlaybox {
@@ -90,16 +89,9 @@
         z-index: 3;
     }
 
-    .overlaybox::after {
-        content:'';
-        position: absolute;
-        top:0;
-        left:0;
-        width:100%;
-        height:100%;
-        background-color: rgba(0,0,0,.9999999);
-        opacity: 50%;
-        z-index: 2;
+    .widget-maps {
+      background: url('/assets/img/maps.png');
+      background-size: cover;
     }
   </style>
 </head>

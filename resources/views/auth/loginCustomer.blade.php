@@ -15,9 +15,12 @@
     <div class="card-body">
         <div class="row">
             <div class="col-md-12">
-                @if(session()->has('success'))
-                <div class="alert alert-success" role="alert">
-                    {{ session('success') }}
+                @if(session()->has('status'))
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Opps..</strong> {{ session('status') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
                 </div>
                 @endif
                 <form action="{{ url('/auth/customer') }}" method="post" class="text-start">

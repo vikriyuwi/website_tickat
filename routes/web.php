@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Customer;
 use App\Http\Controllers\Event;
 use App\Http\Controllers\EventOrganizer;
@@ -22,6 +23,11 @@ use App\Http\Controllers\RoleCustomer;
 */
 
 Route::get('/',[RoleCustomer::class, 'index']);
+Route::get('/event/{ecent}',[RoleCustomer::class, 'event']);
+
+Route::get('/master',function(){
+    return redirect('/dashboard');
+});
 
 Route::prefix('login')->group(function () {
     Route::get('/',[Authentication::class, 'index']);
@@ -41,9 +47,7 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::prefix('dashboard')->group(function () {
-    Route::get('/', function () {
-        return view('dashboard.index');
-    });
+    Route::get('/',[Dashboard::class, 'index']);
     Route::resource('customer', Customer::class);
     Route::prefix('customer')->group(function () {
         Route::get('{customer}/active',[Customer::class, 'active']);
