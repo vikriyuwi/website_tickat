@@ -60,8 +60,13 @@ Route::prefix('dashboard')->group(function () {
         Route::get('pay/{id}',[Payment::class, 'pay']);
     });
 
+    Route::resource('readem', TicketReadem::class);
+    Route::prefix('readem')->group(function () {
+        Route::get('{readem}/expired',[TicketReadem::class, 'expired']);
+        Route::get('ready/{id}',[TicketReadem::class, 'ready']);
+    });
+    
     Route::resource('event-type', EventType::class);
     Route::resource('event', Event::class);
     Route::resource('ticket', Ticket::class);
-    Route::resource('readem', TicketReadem::class);
 });
