@@ -124,12 +124,10 @@
             </div>
             <div class="col-md-6 mt-4" style="overflow: hidden">
                 <div class="card h-100 widget-maps">
-                    <div class="row my-auto">
-                        <div class="col-md-12 text-center">
-                            <a href="{{ $event->EventGmapsCode }}" class="btn btn-success mx-auto">
-                                <i class="fas fa-location-dot"></i> Open in Google Maps
-                            </a>
-                        </div>
+                    <div class="card-header h-100 d-flex">
+                        <a href="{{ $event->EventGmapsCode }}" class="btn btn-success mx-auto my-auto">
+                            <i class="fas fa-location-dot"></i> Open in Google Maps
+                        </a>
                     </div>
                 </div>
             </div>
@@ -160,8 +158,8 @@
                                         </div>
                                         <div class="col-auto d-flex align-items-center">
                                             <td class="text-center d-flex">
-                                                <a href="{{ url('/dashboard/book/'.$ticket->TicketId) }}" class="btn btn-success text-center">
-                                                    <i class="fas fa-receipt"></i> BOOK
+                                                <a href="{{ url('/my-ticket/book/'.$ticket->TicketId) }}" class="btn btn-success text-center">
+                                                    <i class="fas fa-receipt"> BOOK
                                                 </a>
                                             </td>
                                         </div>

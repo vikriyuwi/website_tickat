@@ -33,4 +33,13 @@ class RoleCustomer extends Controller
 
         return view('customer.event',['EventId' => $id, 'event' => $event, 'est' => $EventStart, 'een' => $EventEnd, 'tickets' => $tickets]);
     }
+
+    public function book($id)
+    {
+        // if(!Session::get('Login') || Session::get('LoginRole') != 'Customer')
+        // {
+        //     return redirect('/login')->with('status', 'You have to login first!');
+        // }
+        return view('customer.dashboard.book');
+    }
 }

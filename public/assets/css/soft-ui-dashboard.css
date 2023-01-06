@@ -24160,7 +24160,7 @@ html {
     color: #141727;
 }
 
-.navbar-vertical .navbar-nav .nav-item .nav-link .icon i {
+.navbar-vertical .navbar-nav .nav-item .nav-link.active .icon i {
     color: #fff;
 }
 

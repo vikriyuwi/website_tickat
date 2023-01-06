@@ -25,6 +25,16 @@ use App\Http\Controllers\RoleCustomer;
 Route::get('/',[RoleCustomer::class, 'index']);
 Route::get('/event/{ecent}',[RoleCustomer::class, 'event']);
 
+Route::prefix('/my-ticket')->group(function () {
+    Route::controller(RoleCustomer::class)->group(function () {
+        Route::get('/','myTicket');
+        Route::get('/book/{ticket}','book');
+        Route::post('/book','storeBook');
+        Route::get('/pay/{ticket}','pay');
+        Route::post('/pay','storePay');
+    });
+});
+
 Route::get('/master',function(){
     return redirect('/dashboard');
 });
