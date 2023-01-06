@@ -209,6 +209,11 @@
                                                 <button class="btn btn-sm btn-danger px-3 text-center" data-toggle="tooltip" data-original-title="Edit user" onclick="return confirm('Are you sure want to delete {{ $item->ReademCode }}?')">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                                 </button>
+                                                <form action="{{ url('/dashboard/readem/'.$item->TicketId) }}{{$data->Status == 'expired' ? '/deactive' : '/active'}}" method="get">
+                                                    @csrf
+                                                    <button class="btn btn-sm btn-{{ $data->Status == 'ready' ? 'danger' : 'success' }} px-3 text-center" data-toggle="tooltip" data-original-title="Edit user" onclick="return confirm('Are you sure want to {{ $data->Status == 'ready' ? 'deactive ' : 'active '}}{{$data->customer->CustomerName}}?')">
+                                                        <i class="fa-solid fa-{{ $data->Status == 'ready' ? 'xmark' : 'check' }}"></i>
+                                                    </button>
                                             </form>
                                         </td>
                                     </tr>
