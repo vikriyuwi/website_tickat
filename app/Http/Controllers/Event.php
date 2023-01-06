@@ -102,7 +102,8 @@ class Event extends Controller
             return redirect('/login/master')->with('status', 'You have to login first!');
         }
 
-        $event = EModel::with(['EventOrganizer','EventType'])->find($id)->first();
+        $event = EModel::with(['EventOrganizer','EventType'])->where('EventId','=',$id)->first();
+
         $EventStart=  explode(" ", $event->EventStart );
         $EventEnd=  explode(" ", $event->EventEnd );
         $tickets = TModel::where('EventId','=',$id)->get();
