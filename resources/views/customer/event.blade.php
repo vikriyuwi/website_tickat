@@ -159,7 +159,7 @@
                                         <div class="col-auto d-flex align-items-center">
                                             <td class="text-center d-flex">
                                                 <a href="{{ url('/my-ticket/book/'.$ticket->TicketId) }}" class="btn btn-success text-center">
-                                                    <i class="fas fa-receipt"> BOOK
+                                                    <i class="fas fa-receipt"></i> BOOK
                                                 </a>
                                             </td>
                                         </div>

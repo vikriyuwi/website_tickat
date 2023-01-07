@@ -162,7 +162,7 @@ class Authentication extends Controller
             Session::put('LoginName',$c->CustomerName);
             Session::put('LoginId',$c->CustomerId);
             Session::put('LoginRole','Customer');
-            return redirect('/');
+            return redirect($this->redirectPath()->redirectPath());
         }
     }
 
