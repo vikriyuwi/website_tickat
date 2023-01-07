@@ -25,8 +25,6 @@ use App\Http\Controllers\RoleCustomer;
 Route::get('/',[RoleCustomer::class, 'index']);
 Route::get('/event/{ecent}',[RoleCustomer::class, 'event']);
 
-<<<<<<< HEAD
-=======
 Route::prefix('/my-ticket')->group(function () {
     Route::controller(RoleCustomer::class)->group(function () {
         Route::get('/','myTicket');
@@ -37,7 +35,6 @@ Route::prefix('/my-ticket')->group(function () {
     });
 });
 
->>>>>>> newbranch
 Route::get('/master',function(){
     return redirect('/dashboard');
 });
