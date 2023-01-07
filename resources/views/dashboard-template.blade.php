@@ -181,7 +181,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  " href="{{ url('pages/tables.html') }}">
+          <a class="nav-link {{ Request::is('dashboard/ticket*') ? 'active' : '' }}" href="{{ url('/dashboard/ticket') }}">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>office</title>
@@ -222,7 +222,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  " href="{{ url('pages/tables.html') }}">
+          <a class="nav-link   {{ Request::is('dashboard/readem*') ? 'active' : '' }}" href="{{ url('/dashboard/readem') }}">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>office</title>
@@ -324,7 +324,7 @@
   <script src="{{ url('assets/js/core/bootstrap.min.js') }}"></script>
   <script src="{{ url('assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
   <script src="{{ url('assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
-  @if(isset($ticket))
+  @if(isset($tickets))
   <script>
     var selectedColor = 'bg-<?php echo $ticket->TicketColor ?>';
   </script>

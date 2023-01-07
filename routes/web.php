@@ -25,6 +25,19 @@ use App\Http\Controllers\RoleCustomer;
 Route::get('/',[RoleCustomer::class, 'index']);
 Route::get('/event/{ecent}',[RoleCustomer::class, 'event']);
 
+<<<<<<< HEAD
+=======
+Route::prefix('/my-ticket')->group(function () {
+    Route::controller(RoleCustomer::class)->group(function () {
+        Route::get('/','myTicket');
+        Route::get('/book/{ticket}','book');
+        Route::post('/book','storeBook');
+        Route::get('/pay/{ticket}','pay');
+        Route::post('/pay','storePay');
+    });
+});
+
+>>>>>>> newbranch
 Route::get('/master',function(){
     return redirect('/dashboard');
 });
@@ -64,8 +77,13 @@ Route::prefix('dashboard')->group(function () {
         Route::get('pay/{id}',[Payment::class, 'pay']);
     });
 
+    Route::resource('readem', TicketReadem::class);
+    Route::prefix('readem')->group(function () {
+        Route::get('{readem}/expired',[TicketReadem::class, 'expired']);
+        Route::get('ready/{id}',[TicketReadem::class, 'ready']);
+    });
+    
     Route::resource('event-type', EventType::class);
     Route::resource('event', Event::class);
     Route::resource('ticket', Ticket::class);
-    Route::resource('readem', TicketReadem::class);
 });
