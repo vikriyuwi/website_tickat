@@ -44,6 +44,7 @@
                                     <tr>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">ID</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Time</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
                                     </tr>
@@ -63,19 +64,23 @@
                                             </div>
                                         </td>
                                         <td>
+                                            <div class="d-flex px-2 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <h6 class="mb-0 text-sm">{{ $payment->PaymentTime }}</h6>
+                                                    @if($payment->PaymentVerificationTime !== NULL)
+                                                    <p class="text-xs text-secondary mb-0"><strong>Verified at </strong>{{ $payment->PaymentVerificationTime }}</p>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
                                             <span class="badge badge-sm bg-gradient-{{ $payment->PaymentVerification == 'PAID' ? 'success' : 'danger' }}">{{ $payment->PaymentVerification }}</span>
                                         </td>
                                         <td class="text-center d-flex">
-                                            <a href="{{ url('/dashboard/payment/'.$payment->PaymentId) }}" class="btn btn-sm btn-primary px-3 text-light text-center me-2">
-                                                <i class="fa-solid fa-eye" aria-hidden="true"></i>
-                                            </a>
-                                            <a href="{{ url('/dashboard/payment/'.$payment->PaymentId.'/edit') }}" class="btn btn-sm btn-secondary px-3 text-light text-center me-2">
-                                                <i class="fa-solid fa-pen" aria-hidden="true"></i>
-                                            </a>
                                             <form action="{{ url('/dashboard/payment/pay/'.$payment->PaymentId) }}" method="get">
                                                 @csrf
-                                                <button class="btn btn-sm btn-{{ $payment->PaymentStatus == 'paid' ? 'danger' : 'success' }} px-3 text-center" data-toggle="tooltip" data-original-title="Edit user" onclick="return confirm('Are you sure want to {{ $payment->PaymentStatus == 'paid' ? 'pending ' : 'paid '}}{{$payment->PaymentMethod}}?')">
-                                                    <i class="fa-solid fa-{{ $payment->PaymentStatus == 'paid' ? 'xmark' : 'check' }}"></i>
+                                                <button class="btn btn-sm btn-{{ $payment->PaymentVerification == 'PAID' ? 'danger' : 'success' }} px-3 text-center" data-toggle="tooltip" data-original-title="Edit user" onclick="return confirm('Are you sure want to {{ $payment->PaymentVerification == 'PAID' ? 'pending ' : 'verify '}}{{$payment->PaymentCode}}?')">
+                                                    <i class="fa-solid fa-{{ $payment->PaymentVerification == 'PAID' ? 'xmark' : 'check' }}"></i>
                                                 </button>
                                             </form>
                                         </td>

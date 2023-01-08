@@ -90,7 +90,6 @@ class MyTicket extends Controller
             'PaymentId' => $payment->PaymentId,
             'TicketId' => $request->id,
             'RedeemCode' => $code,
-            'RedeemAt' => $date->format('Y-m-d H:i:s'),
             'Status' => 'PENDING',
         ];
 

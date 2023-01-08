@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use App\Models\TicketReadem as TRModel;
+use App\Models\TicketRedeem as TRModel;
 use App\Models\Customer as CustomerModel;
 use App\Models\Payment as PaymentModel;
 use App\Models\Ticket as TicketModel;
 
-class TicketReadem extends Controller
+class TicketRedeem extends Controller
 {
 
     public function index()
@@ -18,11 +18,13 @@ class TicketReadem extends Controller
         {
             return redirect('/login/master')->with('status', 'You have to login first!');
         }
+
         TRModel::with(['customer','ticket'])->get();
         $customers = CustomerModel::all();
         $payments = PaymentModel::all();
         $ticket = TicketModel::all();
         $readem = TRModel::all();
+
         return view('dashboard.readem.index',['customers' => $customers,'payments' => $payments,'ticket' => $ticket,'readem' => $readem]);
 
     }
@@ -33,6 +35,8 @@ class TicketReadem extends Controller
         {
             return redirect('/login/master')->with('status', 'You have to login first!');
         }
+
+        return redirect('dashboard/redeem');
     }
 
     public function store(Request $request)
@@ -41,6 +45,7 @@ class TicketReadem extends Controller
         {
             return redirect('/login/master')->with('status', 'You have to login first!');
         }
+        return redirect('dashboard/redeem');
     }
     
     public function show($id)
@@ -49,6 +54,7 @@ class TicketReadem extends Controller
         {
             return redirect('/login/master')->with('status', 'You have to login first!');
         }
+        return redirect('dashboard/redeem');
     }
 
     public function edit($id)
@@ -57,6 +63,7 @@ class TicketReadem extends Controller
         {
             return redirect('/login/master')->with('status', 'You have to login first!');
         }
+        return redirect('dashboard/redeem');
     }
 
     public function update(Request $request, $id)
@@ -65,6 +72,7 @@ class TicketReadem extends Controller
         {
             return redirect('/login/master')->with('status', 'You have to login first!');
         }
+        return redirect('dashboard/redeem');
     }
 
     public function ready($id)
@@ -75,7 +83,7 @@ class TicketReadem extends Controller
         }
 
         $readem = TRModel::find($id);
-        $readem->Status = 'ready';
+        $readem->Status = 'READY';
         $readem->save();
 
         return redirect('/dashboard/readem')->with('status', $readem->Status.' has been ready!');
@@ -89,7 +97,7 @@ class TicketReadem extends Controller
         }
         
         $readem = TRModel::find($id);
-        $readem->CustomerStatus = 'expired';
+        $readem->CustomerStatus = 'EXPIRED';
         $readem->save();
         return redirect('/dashboard/readem')->with('status', $reade->Status.' has been expired!');
     }

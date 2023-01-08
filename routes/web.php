@@ -8,7 +8,7 @@ use App\Http\Controllers\EventOrganizer;
 use App\Http\Controllers\EventType;
 use App\Http\Controllers\Payment;
 use App\Http\Controllers\Ticket;
-use App\Http\Controllers\TicketReadem;
+use App\Http\Controllers\TicketRedeem;
 use App\Http\Controllers\Authentication;
 use App\Http\Controllers\RoleCustomer;
 use App\Http\Controllers\MyTicket;
@@ -72,10 +72,9 @@ Route::prefix('dashboard')->group(function () {
         Route::get('pay/{id}',[Payment::class, 'pay']);
     });
 
-    Route::resource('readem', TicketReadem::class);
-    Route::prefix('readem')->group(function () {
-        Route::get('{readem}/expired',[TicketReadem::class, 'expired']);
-        Route::get('ready/{id}',[TicketReadem::class, 'ready']);
+    Route::resource('redeem', TicketRedeem::class);
+    Route::prefix('redeem')->group(function () {
+        Route::get('ready/{id}',[TicketRedeem::class, 'ready']);
     });
     
     Route::resource('event-type', EventType::class);
