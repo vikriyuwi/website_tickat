@@ -89,11 +89,7 @@
         z-index: 3;
     }
 
-<<<<<<< HEAD
-    .widget-maps {
-=======
     .widget-maps .card-header {
->>>>>>> newbranch
       background: url('/assets/img/maps.png');
       background-size: cover;
     }
