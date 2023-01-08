@@ -89,7 +89,7 @@
         z-index: 3;
     }
 
-    .widget-maps .card-header {
+    .widget-maps{
       background: url('/assets/img/maps.png');
       background-size: cover;
     }

@@ -15,6 +15,13 @@
 
 @section('main-content')
 
-
+@if(session()->has('status'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Yeay!</strong> {{ session('status') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+        <i class="fas fa-times"></i>
+    </button>
+</div>
+@endif
 
 @endsection
