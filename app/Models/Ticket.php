@@ -16,6 +16,10 @@ class Ticket extends Model
         return $this->belongsTo('App\Models\Event','EventId','EventId');
     }
 
+    public function TicketRedeem() {
+        return $this->belongsTo('App\Models\TicketRedeem','PaymentId','PaymentId');
+    }
+
     protected $fillable = [
         'EventId',
         'TicketName',

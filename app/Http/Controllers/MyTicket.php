@@ -6,11 +6,12 @@ use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
+use App\Models\Customer as CModel;
 use App\Models\Event as EModel;
 use App\Models\EventOrganizer as EOModel;
 use App\Models\EventType as ETModel;
 use App\Models\Ticket as TModel;
-use App\Models\TicketReadem as TRModel;
+use App\Models\TicketRedeem as TRModel;
 use App\Models\Payment as PModel;
 
 class MyTicket extends Controller
@@ -22,36 +23,9 @@ class MyTicket extends Controller
      */
     public function index()
     {
-        return view('customer.dashboard.index');
-    }
+        $redeem = TRModel::with(['Customer','Ticket','Payment'])->where('CustomerId','=',Session::get('LoginId'))->where('Status','=','READY')->get();
 
-    public function myBook()
-    {
-        if(!Session::get('Login') || Session::get('LoginRole') != 'Customer')
-        {
-            return redirect('/login')->with('status', 'You have to login first!');
-        }
-        return view('customer.dashboard.mybook');
-    }
-
-    public function book($id)
-    {
-        $ticket = TModel::find($id);
-
-        $event = EModel::find($ticket->EventId)->first();
-        $eo = EOModel::find($ticket->EventId)->first();
-
-        $EventStart=  explode(" ", $event->EventStart );
-        $EventEnd=  explode(" ", $event->EventEnd );
-
-        $char = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $int = '0123456789';
-
-        if(!Session::get('Login') || Session::get('LoginRole') != 'Customer')
-        {
-            return redirect('/login')->with('status', 'You have to login first!');
-        }
-        return view('customer.dashboard.book',['ticket'=>$ticket,'event'=>$event,'eo'=>$eo,'est'=>$EventStart,'een'=>$EventEnd]);
+        return view('customer.dashboard.index',['redeems' => $redeem]);
     }
 
     /**
@@ -115,13 +89,13 @@ class MyTicket extends Controller
             'CustomerId' => Session::get('LoginId'),
             'PaymentId' => $payment->PaymentId,
             'TicketId' => $request->id,
-            'ReademCode' => $code,
-            'ReademAt' => $date->format('Y-m-d H:i:s'),
-            'Status' => 'READY',
+            'RedeemCode' => $code,
+            'RedeemAt' => $date->format('Y-m-d H:i:s'),
+            'Status' => 'PENDING',
         ];
 
         $validator = Validator::make($data, [
-            'ReademCode' => 'unique:TicketReadem,ReademCode'
+            'RedeemCode' => 'unique:TicketRedeem,RedeemCode'
         ]);
 
         TRModel::create($data);
@@ -143,7 +117,8 @@ class MyTicket extends Controller
      */
     public function show($id)
     {
-        //
+        $redeem = TRModel::with(['Customer','Ticket','Payment'])->find($id);
+        return view('customer.dashboard.ticket',['redeem' => $redeem]);
     }
 
     /**

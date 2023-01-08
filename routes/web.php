@@ -27,11 +27,11 @@ Route::get('/',[RoleCustomer::class, 'index']);
 Route::get('event/{event}',[RoleCustomer::class, 'event']);
 
 Route::prefix('my-ticket')->group(function () {
-    Route::resource('/', MyTicket::class);
-    Route::get('book',[MyTicket::class, 'myBook']);
-    Route::get('book/{ticket}/make',[MyTicket::class,'book']);
-    Route::get('pay/{ticket}',[MyTicket::class,'pay']);
+    Route::get('book',[RoleCustomer::class, 'myBook']);
+    Route::get('book/{ticket}/make',[RoleCustomer::class,'book']);
+    Route::get('pay/{ticket}',[RoleCustomer::class,'pay']);
 });
+Route::resource('my-ticket', MyTicket::class);
 
 Route::get('/master',function(){
     return redirect('/dashboard');

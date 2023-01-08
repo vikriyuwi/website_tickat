@@ -14,8 +14,8 @@ class Payment extends Model
 
     protected $table = "Payment";
 
-    public function Payment() {
-        return $this->hasMany('App\Models\Payment','PaymentId','PaymentId');
+    public function TicketRedeem() {
+        return $this->belongsTo('App\Models\TicketRedeem','PaymentId','PaymentId');
     }
     
     protected $fillable = [
@@ -24,6 +24,5 @@ class Payment extends Model
         'PaymentVerification',
         'PaymentTime',
         'PaymentVerificationTime',
-        'PaymentStatus',
     ];
 }

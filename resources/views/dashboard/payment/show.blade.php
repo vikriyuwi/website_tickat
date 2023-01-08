@@ -36,7 +36,7 @@
                                         {{ $payments->PaymentMethod }}
                                     </h5>
                                     <p class="mb-0 font-weight-bold text-sm">
-                                        {{ $payments->PaymentTime }}
+                                        {{ $payments->PaymentCode }}
                                     </p>
                                 </div>
                             </div>
@@ -65,9 +65,12 @@
                         </p>
                         <hr class="horizontal gray-light my-4">
                         <ul class="list-group">
-                            <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Verification:</strong> &nbsp; {{ $payments->PaymentVerification }}</li>
                             <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Code:</strong> &nbsp; {{ $payments->PaymentCode }}</li>
-                            <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">VerificationTime:</strong> &nbsp; {{ $payments->PaymentVerificationTime }}</li>
+                            <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Payment Time:</strong> &nbsp; {{ $payments->PaymentTime }}</li>
+                            <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Verification:</strong> &nbsp; {{ $payments->PaymentVerification }}</li>
+                            @if($payments->PaymentVerificationTime != NULL)
+                            <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Payment Verification Time:</strong> &nbsp; {{ $payments->PaymentVerificationTime }}</li>
+                            @endif
                             {{-- <li class="list-group-item border-0 ps-0 pb-0">
                                 <strong class="text-dark text-sm">Social:</strong> &nbsp;
                                 <a class="btn btn-facebook btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">

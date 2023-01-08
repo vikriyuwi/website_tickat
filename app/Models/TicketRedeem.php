@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TicketReadem extends Model
+class TicketRedeem extends Model
 {
-    protected $table = "TicketReadem";
-    protected $primaryKey = 'TicketReademId';
+    protected $table = "TicketRedeem";
+    protected $primaryKey = 'TicketRedeemId';
     
     public $timestamps = false;
 
@@ -20,7 +20,7 @@ class TicketReadem extends Model
         return $this->belongsTo('App\Models\Ticket','TicketId','TicketId');
     }
 
-    public function PaymentId() {
+    public function Payment() {
         return $this->hasMany('App\Models\Payment','PaymentId','PaymentId');
     }
 
@@ -28,8 +28,8 @@ class TicketReadem extends Model
         'CustomerId',
         'TicketId',
         'PaymentId',
-        'ReademCode',
-        'ReademAt',
+        'RedeemCode',
+        'RedeemAt',
         'Status',
     ];
 
