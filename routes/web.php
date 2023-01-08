@@ -84,3 +84,7 @@ Route::prefix('dashboard')->group(function () {
     Route::resource('event', Event::class);
     Route::resource('ticket', Ticket::class);
 });
+
+Route::prefix('event_organizer')->group(function () {
+    
+});
