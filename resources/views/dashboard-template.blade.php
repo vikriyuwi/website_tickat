@@ -324,7 +324,7 @@
   <script src="{{ url('assets/js/core/bootstrap.min.js') }}"></script>
   <script src="{{ url('assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
   <script src="{{ url('assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
-  @if(isset($tickets))
+  @if(isset($ticket))
   <script>
     var selectedColor = 'bg-<?php echo $ticket->TicketColor ?>';
   </script>
