@@ -43,10 +43,11 @@ class Ticket extends Controller
      */
     public function store(Request $request)
     {
-        if(!Session::get('Login') || (Session::get('LoginRole') != 'Master' || Session::get('LoginRole') != 'EventOrganizer'))
+        if(!Session::get('Login') || (Session::get('LoginRole') != 'Master' && Session::get('LoginRole') != 'EventOrganizer'))
         {
             return redirect('/login/master')->with('status', 'You have to login first!');
         }
+
         $request->validate([
             'name' => 'required|max:64',
             'amount' => 'required',
@@ -75,7 +76,12 @@ class Ticket extends Controller
      */
     public function show($id)
     {
-        //
+        if(!Session::get('Login') || (Session::get('LoginRole') != 'Master' && Session::get('LoginRole') != 'EventOrganizer'))
+        {
+            return redirect('/login/master')->with('status', 'You have to login first!');
+        }
+
+        return redirect('/dashboard');
     }
 
     /**
