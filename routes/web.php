@@ -11,6 +11,7 @@ use App\Http\Controllers\Ticket;
 use App\Http\Controllers\TicketReadem;
 use App\Http\Controllers\Authentication;
 use App\Http\Controllers\RoleCustomer;
+use App\Http\Controllers\MyTicket;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,16 +24,13 @@ use App\Http\Controllers\RoleCustomer;
 */
 
 Route::get('/',[RoleCustomer::class, 'index']);
-Route::get('/event/{ecent}',[RoleCustomer::class, 'event']);
+Route::get('event/{event}',[RoleCustomer::class, 'event']);
 
-Route::prefix('/my-ticket')->group(function () {
-    Route::controller(RoleCustomer::class)->group(function () {
-        Route::get('/','myTicket');
-        Route::get('/book/{ticket}','book');
-        Route::post('/book','storeBook');
-        Route::get('/pay/{ticket}','pay');
-        Route::post('/pay','storePay');
-    });
+Route::prefix('my-ticket')->group(function () {
+    Route::resource('/', MyTicket::class);
+    Route::get('book',[MyTicket::class, 'myBook']);
+    Route::get('book/{ticket}/make',[MyTicket::class,'book']);
+    Route::get('pay/{ticket}',[MyTicket::class,'pay']);
 });
 
 Route::get('/master',function(){
@@ -86,5 +84,5 @@ Route::prefix('dashboard')->group(function () {
 });
 
 Route::prefix('event_organizer')->group(function () {
-    
+
 });

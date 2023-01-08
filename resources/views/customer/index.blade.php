@@ -26,7 +26,7 @@
                 </li>
                 @if(Session::get('Login'))
                     <li class="nav-item ms-lg-5">
-                        <a class="nav-link active" aria-current="page" href="{{ url('/dashboard') }}">My account</a>
+                        <a class="nav-link active" aria-current="page" href="{{ url('/my-ticket') }}">My account</a>
                     </li>
                 @else
                     <li class="nav-item ms-lg-5">

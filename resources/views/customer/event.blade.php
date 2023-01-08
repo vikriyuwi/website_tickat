@@ -25,7 +25,7 @@
                 </li>
                 @if(Session::get('Login'))
                     <li class="nav-item ms-lg-5">
-                        <a class="nav-link active" aria-current="page" href="{{ url('/dashboard') }}">My account</a>
+                        <a class="nav-link active" aria-current="page" href="{{ url('/my-ticket') }}">My account</a>
                     </li>
                 @else
                     <li class="nav-item ms-lg-5">
@@ -160,7 +160,7 @@
                                         </div>
                                         <div class="col-auto d-flex align-items-center">
                                             <td class="text-center d-flex">
-                                                <a href="{{ url('/my-ticket/book/'.$ticket->TicketId) }}" class="btn btn-success text-center">
+                                                <a href="{{ url('/my-ticket/book/'.$ticket->TicketId.'/make') }}" class="btn btn-success text-center">
                                                     <i class="fas fa-receipt"></i> BOOK
                                                 </a>
                                             </td>

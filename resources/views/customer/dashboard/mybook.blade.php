@@ -5,7 +5,7 @@
 @section('page-title','Dashboard')
 
 {{-- Sessuain --}}
-@section('title','Make book')
+@section('title','My Book')
 
 {{--  --}}
 @section('breadcrumb')
