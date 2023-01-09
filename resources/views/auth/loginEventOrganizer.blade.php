@@ -48,6 +48,7 @@
                     </div>
                     <button class="btn btn-primary mt-2 w-100" type="submit">Log in</button>
                 </form>
+                {{-- Want to get an account? <a href="{{ url('/register/event-organizer') }}">Register here</a> --}}
             </div>
         </div>
     </div>

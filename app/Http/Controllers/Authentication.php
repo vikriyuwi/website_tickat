@@ -23,7 +23,7 @@ class Authentication extends Controller
             } else if(Session::get('LoginRole') == 'EventOrganizer') {
                 return redirect('/mydashboard');
             } else {
-                return redirect('/');
+                return redirect('/my-ticket');
             }
         }
 
@@ -39,7 +39,7 @@ class Authentication extends Controller
             } else if(Session::get('LoginRole') == 'EventOrganizer') {
                 return redirect('/mydashboard');
             } else {
-                return redirect('/');
+                return redirect('/my-ticket');
             }
         }
         
@@ -55,7 +55,7 @@ class Authentication extends Controller
             } else if(Session::get('LoginRole') == 'EventOrganizer') {
                 return redirect('/mydashboard');
             } else {
-                return redirect('/');
+                return redirect('/my-ticket');
             }
         }
         
@@ -77,7 +77,7 @@ class Authentication extends Controller
             } else if(Session::get('LoginRole') == 'EventOrganizer') {
                 return redirect('/mydashboard');
             } else {
-                return redirect('/');
+                return redirect('/my-ticket');
             }
         }
 
@@ -110,7 +110,7 @@ class Authentication extends Controller
             } else if(Session::get('LoginRole') == 'EventOrganizer') {
                 return redirect('/mydashboard');
             } else {
-                return redirect('/');
+                return redirect('/my-ticket');
             }
         }
 
@@ -148,7 +148,7 @@ class Authentication extends Controller
             } else if(Session::get('LoginRole') == 'EventOrganizer') {
                 return redirect('/mydashboard');
             } else {
-                return redirect('/');
+                return redirect('/my-ticket');
             }
         }
 
@@ -169,7 +169,7 @@ class Authentication extends Controller
                 Session::put('LoginName',$c->CustomerName);
                 Session::put('LoginId',$c->CustomerId);
                 Session::put('LoginRole','Customer');
-                return redirect('/');
+                return redirect('/my-ticket');
             } else {
                 return redirect('/login')->with('status', 'Your account is deactive. Please contact admin!');
             }
@@ -179,5 +179,46 @@ class Authentication extends Controller
     public function logout(){
         Session::flush();
         return redirect('/');
+    }
+
+    public function registercustomer()
+    {
+        if(Session::get('Login'))
+        {
+            if(Session::get('LoginRole') == 'Master') {
+                return redirect('/dashboard');
+            } else if(Session::get('LoginRole') == 'EventOrganizer') {
+                return redirect('/mydashboard');
+            } else {
+                return redirect('/my-ticket');
+            }
+        }
+
+        return view('auth.registercustomer');
+    }
+
+    public function storecustomer(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|max:64',
+            'email' => 'required|max:64',
+            'phone' => 'required|numeric|max_digits:16',
+            'gender' => 'required|in:Male,Female',
+            'password' => 'required',
+            'password-confirm' => 'required|same:password',
+        ]);
+
+        $data = [
+            'CustomerName' => $request->name,
+            'CustomerEmail' => $request->email,
+            'CustomerPhone' => $request->phone,
+            'CustomerGender' => $request->gender,
+            'CustomerPass' => $request->password,
+            'CustomerStatus' => 'active',
+            ];
+            
+        CModel::create($data);
+
+        return redirect('/login')->with('status', $request->name.' has been registered. You can login with your account now!');
     }
 }

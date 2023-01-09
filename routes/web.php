@@ -43,6 +43,11 @@ Route::prefix('login')->group(function () {
     Route::get('/master',[Authentication::class, 'master']);
 });
 
+Route::prefix('register')->group(function () {
+    Route::get('/',[Authentication::class, 'registercustomer']);
+    Route::post('/',[Authentication::class, 'storecustomer']);
+});
+
 Route::prefix('auth')->group(function () {
     Route::controller(Authentication::class)->group(function () {
         Route::post('/customer','loginC');

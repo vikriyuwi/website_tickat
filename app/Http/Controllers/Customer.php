@@ -31,7 +31,6 @@ class Customer extends Controller
 
     public function store(Request $request)
     {
-
         $request->validate([
             'name' => 'required|max:64',
             'email' => 'required|max:64',

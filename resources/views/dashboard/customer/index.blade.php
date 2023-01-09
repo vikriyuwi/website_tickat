@@ -70,7 +70,11 @@
                             </div>
                             <div class="mb-2">
                                 <label for="gender">Customer Gender</label>
-                                <input class="form-control @error('gender') is-invalid @enderror" type="text" name="gender" id="gender" placeholder="Male" value="{{ old('gender') }}">
+                                <select name="gender" id="gender" class="form-select @error('gender') is-invalid @enderror">
+                                    <option value="">Select gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
                                 @error('gender')
                                     <div class="invalid-feedback">
                                         {{ $message }}
