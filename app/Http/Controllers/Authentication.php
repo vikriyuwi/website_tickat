@@ -125,11 +125,16 @@ class Authentication extends Controller
         {
             return redirect('/login/event-organizer')->with('status', 'Wrong password!');
         } else {
-            Session::put('Login',TRUE);
-            Session::put('LoginName',$eo->EventOrganizerName);
-            Session::put('LoginId',$eo->EventOrganizerId);
-            Session::put('LoginRole','EventOrganizer');
-            return redirect('/mydashboard');
+            if($eo->EventOrganizerStatus == 'active')
+            {
+                Session::put('Login',TRUE);
+                Session::put('LoginName',$eo->EventOrganizerName);
+                Session::put('LoginId',$eo->EventOrganizerId);
+                Session::put('LoginRole','EventOrganizer');
+                return redirect('/mydashboard');
+            } else {
+                return redirect('/login/event-organizer')->with('status', 'Your account is deactive. Please contact admin!');
+            }
         }
         
     }
@@ -158,11 +163,16 @@ class Authentication extends Controller
         {
             return redirect('/login')->with('status', 'Wrong password!');
         } else {
-            Session::put('Login',TRUE);
-            Session::put('LoginName',$c->CustomerName);
-            Session::put('LoginId',$c->CustomerId);
-            Session::put('LoginRole','Customer');
-            return redirect('/');
+            if($c->CustomerStatus == 'active')
+            {
+                Session::put('Login',TRUE);
+                Session::put('LoginName',$c->CustomerName);
+                Session::put('LoginId',$c->CustomerId);
+                Session::put('LoginRole','Customer');
+                return redirect('/');
+            } else {
+                return redirect('/login')->with('status', 'Your account is deactive. Please contact admin!');
+            }
         }
     }
 
