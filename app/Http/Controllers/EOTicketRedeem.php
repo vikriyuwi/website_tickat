@@ -17,7 +17,7 @@ class EOTicketRedeem extends Controller
         {
             return redirect('/login/event-organizer')->with('status', 'You have to login first!');
         }
-
+        
     }
 
     /**
