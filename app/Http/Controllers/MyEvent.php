@@ -9,31 +9,31 @@ use App\Models\EventOrganizer as EOModel;
 use App\Models\EventType as ETModel;
 use App\Models\Ticket as TModel;
 
-class Event extends Controller
+class MyEvent extends Controller
 {
     public function index()
     {
-        if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+        if(!Session::get('Login') || Session::get('LoginRole') != 'EventOrganizer')
         {
-            return redirect('/login/master')->with('status', 'You have to login first!');
+            return redirect('/login/event-organizer')->with('status', 'You have to login first!');
         }
 
         $events = EModel::with(['EventOrganizer','EventType'])->get();
         $eos = EOModel::all();
         $ets = ETModel::all();
-        return view('dashboard.event.index',['events' => $events,'eos' => $eos,'ets' => $ets]);
+        return view('my-ticket.event.index',['events' => $events,'eos' => $eos,'ets' => $ets]);
     }
 
     public function create()
     {
-        if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+        if(!Session::get('Login') || Session::get('LoginRole') != 'EventOrganizer')
         {
-            return redirect('/login/master')->with('status', 'You have to login first!');
+            return redirect('/login/event-organizer')->with('status', 'You have to login first!');
         }
         
         $eos = EOModel::all();
         $ets = ETModel::all();
-        return view('dashboard.event.create',['eos' => $eos,'ets' => $ets]);
+        return view('my-ticket.event.create',['eos' => $eos,'ets' => $ets]);
     }
 
     public function store(Request $request)
@@ -75,9 +75,9 @@ class Event extends Controller
 
     public function show($id)
     {
-        if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+        if(!Session::get('Login') || Session::get('LoginRole') != 'EventOrganizer')
         {
-            return redirect('/login/master')->with('status', 'You have to login first!');
+            return redirect('/login/event-organizer')->with('status', 'You have to login first!');
         }
 
         $event = EModel::with(['EventOrganizer','EventType'])->where('EventId','=',$id)->first();
@@ -94,14 +94,14 @@ class Event extends Controller
             'warning',
             'danger'
         ];
-        return view('dashboard.event.show',['EventId' => $id, 'event' => $event, 'est' => $EventStart, 'een' => $EventEnd, 'tickets' => $tickets, 'colors' => $colors]);
+        return view('my-ticket.event.show',['EventId' => $id, 'event' => $event, 'est' => $EventStart, 'een' => $EventEnd, 'tickets' => $tickets, 'colors' => $colors]);
     }
 
     public function edit($id)
     {
-        if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+        if(!Session::get('Login') || Session::get('LoginRole') != 'EventOrganizer')
         {
-            return redirect('/login/master')->with('status', 'You have to login first!');
+            return redirect('/login/event-organizer')->with('status', 'You have to login first!');
         }
 
         $eos = EOModel::all();
@@ -110,14 +110,14 @@ class Event extends Controller
         $EventStart=  explode(" ", $es->EventStart );
         $EventEnd=  explode(" ", $es->EventEnd );
 
-        return view('dashboard.event.edit',['eos' => $eos,'ets' => $ets, 'es' => $es, 'est' => $EventStart, 'een' => $EventEnd]);
+        return view('my-ticket.event.edit',['eos' => $eos,'ets' => $ets, 'es' => $es, 'est' => $EventStart, 'een' => $EventEnd]);
     }
 
     public function update(Request $request, $id)
     {
-        if(!Session::get('Login') || (Session::get('LoginRole') != 'Master' && Session::get('LoginRole') != 'EventOrganizer'))
+        if(!Session::get('Login') || (Session::get('LoginRole') != 'EventOrganizer' && Session::get('LoginRole') != 'EventOrganizer'))
         {
-            return redirect('/login/master')->with('status', 'You have to login first!');
+            return redirect('/login/event-organizer')->with('status', 'You have to login first!');
         }
 
         $request->validate([
@@ -157,9 +157,9 @@ class Event extends Controller
 
     public function destroy($id)
     {
-        if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+        if(!Session::get('Login') || Session::get('LoginRole') != 'EventOrganizer')
         {
-            return redirect('/login/master')->with('status', 'You have to login first!');
+            return redirect('/login/event-organizer')->with('status', 'You have to login first!');
         }
         
         $event = EModel::find($id);

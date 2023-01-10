@@ -24,6 +24,6 @@ class Dashboard extends Controller
             return redirect('/login/event-organizer')->with('status', 'You have to login first!');
         }
 
-        return view('dashboard.index');
+        return view('dashboard.my-event');
     }
 }
