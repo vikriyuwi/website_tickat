@@ -125,16 +125,15 @@ class Authentication extends Controller
         {
             return redirect('/login/event-organizer')->with('status', 'Wrong password!');
         } else {
-            if($eo->EventOrganizerStatus == 'deactive')
+            if($eo->EventOrganizerStatus == 'active')
             {
                 Session::put('Login',TRUE);
                 Session::put('LoginName',$eo->EventOrganizerName);
                 Session::put('LoginId',$eo->EventOrganizerId);
                 Session::put('LoginRole','EventOrganizer');
-                return redirect('/login')->with('status', 'Your account is deactive. Please contact admin!');
                 return redirect('/my-event');
             } else {
-                return redirect('/login/event-organizer')->with('status', 'Your account is deactive.');
+                return redirect('/login/event-organizer')->with('status', 'Your account is deactive. Please contact admin!');
             }
         }
         
@@ -170,10 +169,9 @@ class Authentication extends Controller
                 Session::put('LoginName',$c->CustomerName);
                 Session::put('LoginId',$c->CustomerId);
                 Session::put('LoginRole','Customer');
-                return redirect('/login')->with('status', 'Your account is deactive. Please contact admin!');
                 return redirect('/my-ticket');
             } else {
-                return redirect('/login')->with('status', 'Your account is active');
+                return redirect('/login')->with('status', 'Your account is deactive. Please contact admin!');
             }
         }
     }
@@ -239,7 +237,7 @@ class Authentication extends Controller
             }
         }
 
-        return view('auth.registereventorganizer');
+        return view('auth.registerEventOrganizer');
     }
 
     public function storeeventorganizer(Request $request)
@@ -268,6 +266,6 @@ class Authentication extends Controller
 
         EOModel::create($data);
 
-        return redirect('/login/event-organizer')->with('success', $request->name.' Your acount is not active. Please contact admin to activate your account!');
+        return redirect('/login/event-organizer')->with('success', $request->name.' Your acount is registered but not active. Please contact admin to activate your account!');
     }
-    }
+}

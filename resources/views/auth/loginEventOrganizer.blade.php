@@ -15,17 +15,17 @@
     <div class="card-body">
         <div class="row">
             <div class="col-md-12">
-                @if(session()->has('success'))
+                @if(session()->has('status'))
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>Opps..</strong> {{ session('success') }}
+                    <strong>Opps..</strong> {{ session('status') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
                 @endif
-                @if(session()->has('status'))
+                @if(session()->has('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Yey..</strong> {{ session('status') }}
+                    <strong>Yey..</strong> {{ session('success') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                         <i class="fas fa-times"></i>
                     </button>
