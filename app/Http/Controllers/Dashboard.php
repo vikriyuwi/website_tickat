@@ -21,7 +21,7 @@ class Dashboard extends Controller
     {
         if(!Session::get('Login') || Session::get('LoginRole') != 'EventOrganizer')
         {
-            return redirect('/login/master')->with('status', 'You have to login first!');
+            return redirect('/login/event-organizer')->with('status', 'You have to login first!');
         }
 
         return view('dashboard.index');

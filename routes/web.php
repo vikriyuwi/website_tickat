@@ -87,6 +87,9 @@ Route::prefix('dashboard')->group(function () {
     Route::resource('ticket', Ticket::class);
 });
 
-Route::prefix('event_organizer')->group(function () {
-
+Route::prefix('my-event')->group(function () {
+    Route::get('/',[Dashboard::class, 'EventOrganizer']);
+    Route::resource('my-event', MyEvent::class);
+    Route::resource('ticket-redeem', EOTicketRedeem::class);
+    Route::resource('scan-ticket', ScanTicket::class);
 });
