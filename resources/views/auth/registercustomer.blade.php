@@ -44,13 +44,16 @@
                         @enderror
                     </div>
                     <div class="mb-2">
-                        <label for="phone">Customer Phone</label>
-                        <input class="form-control @error('phone') is-invalid @enderror" type="text" name="phone" id="phone" placeholder="62xxxxxxxx" value="{{ old('phone') }}">
-                        @error('phone')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
+                        <label for="email">Phone</label>
+                        <div class="input-group mb-3">
+                            <label for="phone" class="input-group-text mb-0">62</label>
+                            <input type="text" class="form-control @error('phone') is-invalid @enderror" placeholder="8XXXXXXXXX" name="phone" id="phone">
+                            @error('phone')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
                     </div>
                     <div class="mb-2">
                         <label for="gender">Customer Gender</label>

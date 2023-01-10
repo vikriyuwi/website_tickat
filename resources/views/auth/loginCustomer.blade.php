@@ -23,6 +23,14 @@
                     </button>
                 </div>
                 @endif
+                @if(session()->has('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Yey..</strong> {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                @endif
                 <form action="{{ url('/auth/customer') }}" method="post" class="text-start">
                     @csrf
                     <div class="mb-2">

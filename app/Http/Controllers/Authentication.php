@@ -199,6 +199,8 @@ class Authentication extends Controller
 
     public function storecustomer(Request $request)
     {
+        $request->merge(['phone' => '62'.$request->phone]);
+
         $request->validate([
             'name' => 'required|max:64',
             'email' => 'required|max:64|unique:Customer,CustomerEmail',
@@ -219,6 +221,6 @@ class Authentication extends Controller
             
         CModel::create($data);
 
-        return redirect('/login')->with('status', $request->name.' has been registered. You can login with your account now!');
+        return redirect('/login')->with('success', $request->name.' has been registered. You can login with your account now!');
     }
 }

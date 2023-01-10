@@ -31,6 +31,10 @@ class Customer extends Controller
 
     public function store(Request $request)
     {
+        $pre = "/^0/";
+        $rpltxt = "62";
+        $request->phone = preg_replace($pre, $rpltxt, $request->phone);
+        
         $request->validate([
             'name' => 'required|max:64',
             'email' => 'required|max:64|unique:Customer,CustomerEmail',
