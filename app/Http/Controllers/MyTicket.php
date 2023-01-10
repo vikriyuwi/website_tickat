@@ -46,6 +46,9 @@ class MyTicket extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'paymentMethod' => 'required|not_in:0'
+        ]);
 
         $date = new \DateTime('NOW');
         
@@ -78,10 +81,7 @@ class MyTicket extends Controller
             $code = $generate;
         } while (TRModel::where('RedeemCode')->count() > 0);
 
-        $request->validate([
-            'paymentMethod' => 'required|not_in:0'
-        ]);
-
+        // store trm
         $data = [
             'CustomerId' => Session::get('LoginId'),
             'TicketId' => $request->id,
@@ -89,28 +89,18 @@ class MyTicket extends Controller
             'Status' => 'PENDING',
         ];
 
+        $ticketredeem = TRModel::create($data);
 
-
+        // payment
         $pay = [
+            'TicketRedeemId' => $ticketredeem->TicketRedeemId,
             'PaymentMethod' => $request->paymentMethod,
             'PaymentCode' => $paycode,
             'PaymentVerification' => 'PENDING',
             'PaymentTime' => $date->format('Y-m-d H:i:s')
         ];
 
-        $validator = Validator::make($pay, [
-            'PaymentCode' => 'unique:Payment,PaymentCode'
-        ]);
-
         $payment = PModel::create($pay);
-
-        
-
-        $validator = Validator::make($data, [
-            'RedeemCode' => 'unique:TicketRedeem,RedeemCode'
-        ]);
-
-        TRModel::create($data);
 
         $ticket = TModel::find($request->id);
 
