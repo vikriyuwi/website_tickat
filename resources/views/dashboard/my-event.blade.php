@@ -5,7 +5,7 @@
 @section('page-title','Dashboard')
 
 {{-- Sessuain --}}
-@section('title','View Event Organizer')
+@section('title','View My Event')
 
 {{--  --}}
 @section('breadcrumb')
@@ -17,7 +17,7 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-12 text-center">
-                <h1>Dashboard is under development</h1>
+                <h1>Dashboard is under</h1>
                 {{ Session::get('LoginRole') }}
             </div>
         </div>

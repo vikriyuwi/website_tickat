@@ -18,10 +18,10 @@ class MyEvent extends Controller
             return redirect('/login/event-organizer')->with('status', 'You have to login first!');
         }
 
-        $events = EModel::with(['EventOrganizer','EventType'])->get();
+        $events = EModel::with(['EventOrganizer','EventType'])->where('EventOrganizerId','=',Session::get('LoginId'))->get();
         $eos = EOModel::all();
         $ets = ETModel::all();
-        return view('my-ticket.event.index',['events' => $events,'eos' => $eos,'ets' => $ets]);
+        return view('my-event.event.index',['events' => $events,'eos' => $eos,'ets' => $ets]);
     }
 
     public function create()
@@ -33,14 +33,15 @@ class MyEvent extends Controller
         
         $eos = EOModel::all();
         $ets = ETModel::all();
-        return view('my-ticket.event.create',['eos' => $eos,'ets' => $ets]);
+        return view('my-event.event.create',['eos' => $eos,'ets' => $ets]);
     }
 
     public function store(Request $request)
     {
+        $id = Session::get('LoginId');
+
         $request->validate([
             'name' => 'required|max:64',
-            'eventOrganizer' => 'required|exists:EventOrganizer,EventOrganizerId',
             'eventType' => 'required|exists:EventType,EventTypeId',
             'description' => 'required',
             'eventStartDate' => 'required|date|after:today',
@@ -52,9 +53,10 @@ class MyEvent extends Controller
             'detailPlace' => 'required|max:64'
         ]);
 
+
         $data = [
             'EventName' => $request->name,
-            'EventOrganizerId' => $request->eventOrganizer,
+            'EventOrganizerId' => $id,
             'EventTypeId' => $request->eventType,
             'EventDesc' => $request->description,
             'EventStart' => $request->eventStartDate.' '.$request->eventStartTime,
@@ -64,13 +66,9 @@ class MyEvent extends Controller
             'EventDetailPlace' => $request->detailPlace
         ];
 
-        if(Session::get('LoginRole') == 'EventOrganizer') {
-            data_set($data,'EventOrganizerId',Session::get('LoginId'),false);
-        }
-        
         EModel::create($data);
-        
-        return redirect('/dashboard/event')->with('status', $request->name.' has been added!');
+
+        return redirect('/my-event/event')->with('status', $request->name.' has been added!');
     }
 
     public function show($id)
