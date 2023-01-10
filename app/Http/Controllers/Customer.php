@@ -33,7 +33,7 @@ class Customer extends Controller
     {
         $request->validate([
             'name' => 'required|max:64',
-            'email' => 'required|max:64',
+            'email' => 'required|max:64|unique:Customer,CustomerEmail',
             'phone' => 'required|numeric|max_digits:16',
             'gender' => 'required|in:Male,Female',
             'password' => 'required',

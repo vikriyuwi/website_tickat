@@ -53,7 +53,7 @@ class EventOrganizer extends Controller
     {
         $request->validate([
             'name' => 'required|max:64',
-            'email' => 'required|max:64',
+            'email' => 'required|max:64|unique:EventOrganizer,EventOrganizerEmail',
             'phone' => 'required|numeric|max_digits:16',
             'password' => 'required',
             'password-confirm' => 'required|same:password',

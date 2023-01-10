@@ -88,7 +88,7 @@ class Authentication extends Controller
 
         
 
-        if($request->username != 'master' && $request->password != 'master')
+        if($request->username != 'master' || $request->password != 'master')
         {
             return redirect('/login/master')->with('status', 'Wrong authentication!');
         } else {
@@ -201,7 +201,7 @@ class Authentication extends Controller
     {
         $request->validate([
             'name' => 'required|max:64',
-            'email' => 'required|max:64',
+            'email' => 'required|max:64|unique:Customer,CustomerEmail',
             'phone' => 'required|numeric|max_digits:16',
             'gender' => 'required|in:Male,Female',
             'password' => 'required',
