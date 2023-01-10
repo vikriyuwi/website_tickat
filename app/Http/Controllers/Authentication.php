@@ -107,7 +107,7 @@ class Authentication extends Controller
         {
             if(Session::get('LoginRole') == 'Master') {
                 return redirect('/dashboard');
-            } else if(Session::get('LoginRole') == 'EventOrganizer') {
+            } else if(Session::get('LoginRole') == 'Customer') {
                 return redirect('/my-event');
             } else {
                 return redirect('/my-ticket');
@@ -125,15 +125,16 @@ class Authentication extends Controller
         {
             return redirect('/login/event-organizer')->with('status', 'Wrong password!');
         } else {
-            if($eo->EventOrganizerStatus == 'active')
+            if($eo->EventOrganizerStatus == 'deactive')
             {
                 Session::put('Login',TRUE);
                 Session::put('LoginName',$eo->EventOrganizerName);
                 Session::put('LoginId',$eo->EventOrganizerId);
                 Session::put('LoginRole','EventOrganizer');
+                return redirect('/login')->with('status', 'Your account is deactive. Please contact admin!');
                 return redirect('/my-event');
             } else {
-                return redirect('/login/event-organizer')->with('status', 'Your account is deactive. Please contact admin!');
+                return redirect('/login/event-organizer')->with('status', 'Your account is deactive.');
             }
         }
         
@@ -169,9 +170,10 @@ class Authentication extends Controller
                 Session::put('LoginName',$c->CustomerName);
                 Session::put('LoginId',$c->CustomerId);
                 Session::put('LoginRole','Customer');
+                return redirect('/login')->with('status', 'Your account is deactive. Please contact admin!');
                 return redirect('/my-ticket');
             } else {
-                return redirect('/login')->with('status', 'Your account is deactive. Please contact admin!');
+                return redirect('/login')->with('status', 'Your account is active');
             }
         }
     }
@@ -223,4 +225,49 @@ class Authentication extends Controller
 
         return redirect('/login')->with('success', $request->name.' has been registered. You can login with your account now!');
     }
-}
+
+    public function registereventorganizer()
+    {
+        if(Session::get('Login'))
+        {
+            if(Session::get('LoginRole') == 'Master') {
+                return redirect('/dashboard');
+            } else if(Session::get('LoginRole') == 'Customer') {
+                return redirect('/my-event');
+            } else {
+                return redirect('/my-ticket');
+            }
+        }
+
+        return view('auth.registereventorganizer');
+    }
+
+    public function storeeventorganizer(Request $request)
+    {
+        $request->merge(['phone' => '62'.$request->phone]);
+
+        $request->validate([
+            'name' => 'required|max:64',
+            'email' => 'required|max:64|unique:EventOrganizer,EventOrganizerEmail',
+            'phone' => 'required|numeric|max_digits:16|unique:EventOrganizer,EventOrganizerPhone',
+            'password' => 'required',
+            'password-confirm' => 'required|same:password',
+            'location' => 'required|max:100',
+            'description' => 'required',
+        ]);
+
+        $data = [
+            'EventOrganizerName' => $request->name,
+            'EventOrganizerEmail' => $request->email,
+            'EventOrganizerPhone' => $request->phone,
+            'EventOrganizerPass' => $request->password,
+            'EventOrganizerOfficeAddress' => $request->location,
+            'EventOrganizerDesc' => $request->description,
+            'EventOrganizerStatus' => 'deactive',
+        ];
+
+        EOModel::create($data);
+
+        return redirect('/login/event-organizer')->with('success', $request->name.' Your acount is not active. Please contact admin to activate your account!');
+    }
+    }

@@ -7,20 +7,25 @@
 
 @section('main-content')
 
-
 <div class="card p-3" id="loginEO">
     <div class="card-header">
         <h5 class="mb-0 text-primary"><b>Login<br>Event Organizer</b></h5>
         Are you an Customer? <a href="{{ url('/login') }}">Login here</a>
-        <br>
-        {{Session::get('Login')}}
     </div>
     <div class="card-body">
         <div class="row">
             <div class="col-md-12">
-                @if(session()->has('status'))
+                @if(session()->has('success'))
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>Opps..</strong> {{ session('status') }}
+                    <strong>Opps..</strong> {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                @endif
+                @if(session()->has('status'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Yey..</strong> {{ session('status') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
                         <i class="fas fa-times"></i>
                     </button>
@@ -48,7 +53,7 @@
                     </div>
                     <button class="btn btn-primary mt-2 w-100" type="submit">Log in</button>
                 </form>
-                {{-- Want to get an account? <a href="{{ url('/register/event-organizer') }}">Register here</a> --}}
+                Want to get an account? <a href="{{ url('/register/event-organizer') }}">Register here</a> 
             </div>
         </div>
     </div>
