@@ -12,6 +12,9 @@ use App\Http\Controllers\TicketRedeem;
 use App\Http\Controllers\Authentication;
 use App\Http\Controllers\RoleCustomer;
 use App\Http\Controllers\MyTicket;
+use App\Http\Controllers\MyEvent;
+use App\Http\Controllers\EOTicketRedeem;
+use App\Http\Controllers\ScanTicket;
 /*
 |--------------------------------------------------------------------------
 | Web Routes

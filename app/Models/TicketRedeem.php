@@ -21,13 +21,12 @@ class TicketRedeem extends Model
     }
 
     public function Payment() {
-        return $this->hasMany('App\Models\Payment','PaymentId','PaymentId');
+        return $this->hasMany('App\Models\Payment','TicketRedeemId','TicketRedeemId');
     }
 
     protected $fillable = [
         'CustomerId',
         'TicketId',
-        'PaymentId',
         'RedeemCode',
         'RedeemAt',
         'Status',

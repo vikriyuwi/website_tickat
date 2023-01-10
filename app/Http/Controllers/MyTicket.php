@@ -52,25 +52,44 @@ class MyTicket extends Controller
         $char = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $int = '0123456789';
 
+        // buat payment
         $paycode = '';
-        for ($i = 0; $i < 3; $i++) {
-            $paycode .= $char[rand(0, 26 - 1)];
-        }
-        for ($i = 3; $i < 16; $i++) {
-            $paycode .= $int[rand(0, 10 - 1)];
-        }
+        do {
+            $generate = '';
+            for ($i = 0; $i < 3; $i++) {
+            $generate .= $char[rand(0, 26 - 1)];
+            }
+            for ($i = 3; $i < 16; $i++) {
+                $generate .= $int[rand(0, 10 - 1)];
+            }
+            $paycode = $generate;
+        } while (PModel::where('PaymentCode')->count() > 0);
 
+        // buat redeem
         $code = '';
-        for ($i = 0; $i < 3; $i++) {
-            $code .= $char[rand(0, 26 - 1)];
-        }
-        for ($i = 3; $i < 16; $i++) {
-            $code .= $int[rand(0, 10 - 1)];
-        }
+        do {
+            $generate = '';
+            for ($i = 0; $i < 3; $i++) {
+            $generate .= $char[rand(0, 26 - 1)];
+            }
+            for ($i = 3; $i < 16; $i++) {
+                $generate .= $int[rand(0, 10 - 1)];
+            }
+            $code = $generate;
+        } while (TRModel::where('RedeemCode')->count() > 0);
 
         $request->validate([
             'paymentMethod' => 'required|not_in:0'
         ]);
+
+        $data = [
+            'CustomerId' => Session::get('LoginId'),
+            'TicketId' => $request->id,
+            'RedeemCode' => $code,
+            'Status' => 'PENDING',
+        ];
+
+
 
         $pay = [
             'PaymentMethod' => $request->paymentMethod,
@@ -85,13 +104,7 @@ class MyTicket extends Controller
 
         $payment = PModel::create($pay);
 
-        $data = [
-            'CustomerId' => Session::get('LoginId'),
-            'PaymentId' => $payment->PaymentId,
-            'TicketId' => $request->id,
-            'RedeemCode' => $code,
-            'Status' => 'PENDING',
-        ];
+        
 
         $validator = Validator::make($data, [
             'RedeemCode' => 'unique:TicketRedeem,RedeemCode'

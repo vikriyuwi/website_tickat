@@ -21,7 +21,7 @@ class Authentication extends Controller
             if(Session::get('LoginRole') == 'Master') {
                 return redirect('/dashboard');
             } else if(Session::get('LoginRole') == 'EventOrganizer') {
-                return redirect('/mydashboard');
+                return redirect('/my-event');
             } else {
                 return redirect('/my-ticket');
             }
@@ -37,7 +37,7 @@ class Authentication extends Controller
             if(Session::get('LoginRole') == 'Master') {
                 return redirect('/dashboard');
             } else if(Session::get('LoginRole') == 'EventOrganizer') {
-                return redirect('/mydashboard');
+                return redirect('/my-event');
             } else {
                 return redirect('/my-ticket');
             }
@@ -53,7 +53,7 @@ class Authentication extends Controller
             if(Session::get('LoginRole') == 'Master') {
                 return redirect('/dashboard');
             } else if(Session::get('LoginRole') == 'EventOrganizer') {
-                return redirect('/mydashboard');
+                return redirect('/my-event');
             } else {
                 return redirect('/my-ticket');
             }
@@ -75,7 +75,7 @@ class Authentication extends Controller
             if(Session::get('LoginRole') == 'Master') {
                 return redirect('/dashboard');
             } else if(Session::get('LoginRole') == 'EventOrganizer') {
-                return redirect('/mydashboard');
+                return redirect('/my-event');
             } else {
                 return redirect('/my-ticket');
             }
@@ -108,7 +108,7 @@ class Authentication extends Controller
             if(Session::get('LoginRole') == 'Master') {
                 return redirect('/dashboard');
             } else if(Session::get('LoginRole') == 'EventOrganizer') {
-                return redirect('/mydashboard');
+                return redirect('/my-event');
             } else {
                 return redirect('/my-ticket');
             }
@@ -131,7 +131,7 @@ class Authentication extends Controller
                 Session::put('LoginName',$eo->EventOrganizerName);
                 Session::put('LoginId',$eo->EventOrganizerId);
                 Session::put('LoginRole','EventOrganizer');
-                return redirect('/mydashboard');
+                return redirect('/my-event');
             } else {
                 return redirect('/login/event-organizer')->with('status', 'Your account is deactive. Please contact admin!');
             }
@@ -146,7 +146,7 @@ class Authentication extends Controller
             if(Session::get('LoginRole') == 'Master') {
                 return redirect('/dashboard');
             } else if(Session::get('LoginRole') == 'EventOrganizer') {
-                return redirect('/mydashboard');
+                return redirect('/my-event');
             } else {
                 return redirect('/my-ticket');
             }
@@ -188,7 +188,7 @@ class Authentication extends Controller
             if(Session::get('LoginRole') == 'Master') {
                 return redirect('/dashboard');
             } else if(Session::get('LoginRole') == 'EventOrganizer') {
-                return redirect('/mydashboard');
+                return redirect('/my-event');
             } else {
                 return redirect('/my-ticket');
             }

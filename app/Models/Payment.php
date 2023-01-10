@@ -15,10 +15,11 @@ class Payment extends Model
     protected $table = "Payment";
 
     public function TicketRedeem() {
-        return $this->belongsTo('App\Models\TicketRedeem','PaymentId','PaymentId');
+        return $this->belongsTo('App\Models\TicketRedeem','TicketRedeemId','TicketRedeemId');
     }
     
     protected $fillable = [
+        'TicketRedeemId',
         'PaymentMethod',
         'PaymentCode',
         'PaymentVerification',
