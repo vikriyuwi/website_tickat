@@ -198,9 +198,8 @@
                 </div>
             </div>
             <div class="col-md-6 mt-4" style="overflow: hidden">
-                <div class="card h-100">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15775.547854519607!2d115.1794167!3d-8.7022835!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd246b47210cf3d%3A0x61ebeb599ddae08a!2sHillsong%20Church%20Bali%20Campus!5e0!3m2!1sen!2sid!4v1671640234075!5m2!1sen!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
+                <div class="card h-100 widget-maps p-5">
+                    <a href="{{ $event->EventGmapsCode }}" target="_blank" class="btn btn-success my-auto"><i class="fas fa-map"></i> Open maps</a>
                 </div>
             </div>
         </div>

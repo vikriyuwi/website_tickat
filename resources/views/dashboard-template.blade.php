@@ -64,6 +64,11 @@
       display: block;
     }
 
+    .widget-maps{
+      background: url('/assets/img/maps.png');
+      background-size: cover;
+    }
+
   </style>
 </head>
 
