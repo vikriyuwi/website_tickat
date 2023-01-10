@@ -15,7 +15,6 @@
 
 @section('main-content')
 
-
 <section>
     <div class="container">
         @if(session()->has('status'))
@@ -67,9 +66,7 @@
                                             <span class="badge badge-sm bg-gradient-{{ $redeem->payment->last()->PaymentVerification == 'PAID' ? 'success' : 'danger' }}">{{ $redeem->payment->last()->PaymentVerification }}</span>
                                         </td>
                                         <td>
-                                            @if($redeem->Status === 'PENDING')
-                                            <a href="{{ url('my-ticket/book/'.$redeem->TicketRedeemId.'/change-payment') }}" class="btn btn-sm btn-primary px-3 text-center">change payment</a>
-                                            @endif
+                                            <a href="{{ url('my-ticket/book/'.$redeem->TicketRedeemId.'/detail') }}" class="btn btn-sm btn-primary px-3 text-center mb-0"><i class="fas fa-eye"></i> detail</a>
                                         </td>
                                     </tr>
                                     @endforeach

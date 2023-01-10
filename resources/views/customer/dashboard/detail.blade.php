@@ -1,18 +1,16 @@
 {{-- tetep --}}
-@extends('../../dashboard-template')
+@extends('../../customer-dashboard-template')
 
 {{-- tetep --}}
 @section('page-title','Dashboard')
 
 {{-- Sessuain --}}
-@section('title','View Ticket Readem')
-
-{{--  --}}
+@section('title','Make book')
 
 {{--  --}}
 @section('breadcrumb')
-<li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="{{ url('/dashboard') }}">Dashboard</a></li>
-<li class="breadcrumb-item text-sm text-dark active" aria-current="page">Ticket Readem</li>
+<li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="{{ url('/my-ticket') }}">My Ticket</a></li>
+<li class="breadcrumb-item text-sm text-dark active" aria-current="page">Book</li>
 @endsection
 
 @section('main-content')
@@ -135,14 +133,36 @@
                                                         </div>
                                                         @endif
                                                     </div>
-                                                    <div class="row">
-                                                        <form action="{{ url('/dashboard/payment/pay') }}" method="POST" class="mb-0 mt-4">
+                                                    @if($payment->PaymentVerification != 'PAID')
+                                                    <div class="row mt-4">
+                                                        <form action="{{ url('/my-ticket/book/'.$ticketredeem->TicketRedeemId.'/change-payment') }}" method="post">
+                                                            @method('PATCH')
                                                             @csrf
-                                                            <input type="hidden" name="id" value="{{ $payment->PaymentId }}">
-                                                            <button class="btn btn-light col-12 mb-0"><i class="fas fa-{{ $payment->PaymentVerification == 'PAID' ? 'xmark' : 'check' }}"></i> {{ $payment->PaymentVerification == 'PAID' ? 'unverified' : 'verified' }}</button>
+                                                            <input type="hidden" name="id" value="{{$ticket->TicketId}}">
+                                                            <label for="paymentMethod" class="text-light">Payment method :</label>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="input-group">
+                                                                        <select class="form-select @error('paymentMethod') is-invalid @enderror" name="paymentMethod">
+                                                                            <option value="0">Select Payment Method</option>
+                                                                            <option value="OVO">OVO</option>
+                                                                            <option value="Gopay">Gopay</option>
+                                                                            <option value="BCA">BCA bank transfer</option>
+                                                                        </select>
+                                                                        @error('paymentMethod')
+                                                                        <div class="invalid-feedback">
+                                                                            {{ $message }}
+                                                                        </div>
+                                                                        @enderror
+                                                                        <button class="btn btn-success mb-0" type="submit">Button</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </form>
                                                     </div>
+                                                    @endif
                                                 @endif
+                                                
                                             </div>
                                         </div>
                                         @endforeach
@@ -156,5 +176,4 @@
         </div>
     </div>
 </section>
-
 @endsection

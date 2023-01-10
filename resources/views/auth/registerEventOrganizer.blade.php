@@ -100,7 +100,7 @@
                             </div>
                         @enderror
                     </div>
-                    <button class="btn btn-primary mt-2 w-100" type="submit">add this data</button>
+                    <button class="btn btn-primary mt-2 w-100" type="submit">Sign Up</button>
                 </form>
             </div>
         </div>

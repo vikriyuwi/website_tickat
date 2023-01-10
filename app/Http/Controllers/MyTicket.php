@@ -124,8 +124,17 @@ class MyTicket extends Controller
      */
     public function show($id)
     {
-        $redeem = TRModel::with(['Customer','Ticket','Payment'])->find($id);
-        return view('customer.dashboard.ticket',['redeem' => $redeem]);
+        $ticketredeem = TRModel::find($id);
+
+        $ticket = TModel::find($ticketredeem->TicketId);
+        $event = EModel::find($ticket->EventId);
+        $eo = EOModel::find($event->EventOrganizerId);
+        $payment = PModel::where('TicketRedeemId','=',$id)->orderBy('PaymentId','DESC')->first();
+
+        $EventStart=  explode(" ", $event->EventStart );
+        $EventEnd=  explode(" ", $event->EventEnd );
+        
+        return view('customer.dashboard.ticket',['ticketredeem'=>$ticketredeem,'ticket'=>$ticket,'event'=>$event,'eo'=>$eo,'est'=>$EventStart,'een'=>$EventEnd,'payment'=>$payment]);
     }
 
     /**
@@ -146,11 +155,12 @@ class MyTicket extends Controller
         $ticket = TModel::find($ticketredeem->TicketId);
         $event = EModel::find($ticket->EventId);
         $eo = EOModel::find($event->EventOrganizerId);
+        $payments = PModel::where('TicketRedeemId','=',$id)->orderBy('PaymentId','DESC')->get();
 
         $EventStart=  explode(" ", $event->EventStart );
         $EventEnd=  explode(" ", $event->EventEnd );
 
-        return view('customer.dashboard.change-payment',['ticketredeem'=>$ticketredeem,'ticket'=>$ticket,'event'=>$event,'eo'=>$eo,'est'=>$EventStart,'een'=>$EventEnd]);
+        return view('customer.dashboard.detail',['ticketredeem'=>$ticketredeem,'ticket'=>$ticket,'event'=>$event,'eo'=>$eo,'est'=>$EventStart,'een'=>$EventEnd,'payments'=>$payments]);
     }
 
     /**

@@ -32,7 +32,7 @@ Route::get('event/{event}',[RoleCustomer::class, 'event']);
 Route::prefix('my-ticket')->group(function () {
     Route::get('book',[RoleCustomer::class, 'myBook']);
     Route::get('book/{ticket}/make',[RoleCustomer::class,'book']);
-    Route::get('book/{ticket}/change-payment',[MyTicket::class,'edit']);
+    Route::get('book/{ticket}/detail',[MyTicket::class,'edit']);
     Route::put('book/{ticket}/change-payment',[MyTicket::class,'update']);
     Route::get('pay/{ticket}',[RoleCustomer::class,'pay']);
 });
@@ -78,7 +78,7 @@ Route::prefix('dashboard')->group(function () {
         Route::get('{event_organizer}/active',[EventOrganizer::class, 'active']);
         Route::get('{event_organizer}/deactive',[EventOrganizer::class, 'deactive']);
     });
-    Route::resource('payment', Payment::class);
+    Route::post('payment/pay', [Payment::class, 'pay']);
     Route::prefix('payment')->group(function () {
         Route::get('{payment}/pending',[Payment::class, 'pending']);
         Route::get('pay/{id}',[Payment::class, 'pay']);
