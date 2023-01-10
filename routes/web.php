@@ -49,6 +49,8 @@ Route::prefix('login')->group(function () {
 Route::prefix('register')->group(function () {
     Route::get('/',[Authentication::class, 'registercustomer']);
     Route::post('/',[Authentication::class, 'storecustomer']);
+    Route::get('/event-organizer',[Authentication::class, 'registereventorganizer']);
+    Route::post('/event-organizer',[Authentication::class, 'storeeventorganizer']);
 });
 
 Route::prefix('auth')->group(function () {

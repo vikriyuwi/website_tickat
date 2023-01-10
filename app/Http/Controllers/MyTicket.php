@@ -46,6 +46,11 @@ class MyTicket extends Controller
      */
     public function store(Request $request)
     {
+        if(!Session::get('Login') || Session::get('LoginRole') != 'Customer')
+        {
+            return redirect('/login')->with('status', 'You have to login first!');
+        }
+        
         $request->validate([
             'paymentMethod' => 'required|not_in:0'
         ]);
@@ -131,7 +136,21 @@ class MyTicket extends Controller
      */
     public function edit($id)
     {
-        //
+        if(!Session::get('Login') || Session::get('LoginRole') != 'Customer')
+        {
+            return redirect('/login')->with('status', 'You have to login first!');
+        }
+
+        $ticketredeem = TRModel::find($id);
+
+        $ticket = TModel::find($ticketredeem->TicketId);
+        $event = EModel::find($ticket->EventId);
+        $eo = EOModel::find($event->EventOrganizerId);
+
+        $EventStart=  explode(" ", $event->EventStart );
+        $EventEnd=  explode(" ", $event->EventEnd );
+
+        return view('customer.dashboard.change-payment',['ticketredeem'=>$ticketredeem,'ticket'=>$ticket,'event'=>$event,'eo'=>$eo,'est'=>$EventStart,'een'=>$EventEnd]);
     }
 
     /**
@@ -143,7 +162,48 @@ class MyTicket extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'paymentMethod' => 'required|not_in:0'
+        ]);
+
+        $date = new \DateTime('NOW');
+        
+        $char = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $int = '0123456789';
+
+        // buat payment
+        $paycode = '';
+        do {
+            $generate = '';
+            for ($i = 0; $i < 3; $i++) {
+            $generate .= $char[rand(0, 26 - 1)];
+            }
+            for ($i = 3; $i < 16; $i++) {
+                $generate .= $int[rand(0, 10 - 1)];
+            }
+            $paycode = $generate;
+        } while (PModel::where('PaymentCode')->count() > 0);
+
+        $payment = PModel::where('TicketRedeemId','=',$id)->orderBy('PaymentId','DESC')->first();
+        $payment->PaymentVerification = 'CANCELED';
+        $payment->save();
+
+        // payment
+        $pay = [
+            'TicketRedeemId' => $id,
+            'PaymentMethod' => $request->paymentMethod,
+            'PaymentCode' => $paycode,
+            'PaymentVerification' => 'PENDING',
+            'PaymentTime' => $date->format('Y-m-d H:i:s')
+        ];
+
+        PModel::create($pay);
+
+        $ticket = TModel::find($request->id);
+        $ticket->TicketAmount = $ticket->TicketAmount-1;
+        $ticket->save();
+
+        return redirect('/my-ticket/book')->with('status', 'Your ticket is waiting to finish the new payment!');
     }
 
     /**
