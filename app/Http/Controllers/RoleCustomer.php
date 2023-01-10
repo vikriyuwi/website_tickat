@@ -54,8 +54,8 @@ class RoleCustomer extends Controller
     {
         $ticket = TModel::find($id);
 
-        $event = EModel::find($ticket->EventId)->first();
-        $eo = EOModel::find($ticket->EventId)->first();
+        $event = EModel::find($ticket->EventId);
+        $eo = EOModel::find($event->EventOrganizerId);
 
         $EventStart=  explode(" ", $event->EventStart );
         $EventEnd=  explode(" ", $event->EventEnd );
