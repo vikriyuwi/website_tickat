@@ -32,6 +32,8 @@ Route::get('event/{event}',[RoleCustomer::class, 'event']);
 Route::prefix('my-ticket')->group(function () {
     Route::get('book',[RoleCustomer::class, 'myBook']);
     Route::get('book/{ticket}/make',[RoleCustomer::class,'book']);
+    Route::get('book/{ticket}/change-payment',[MyTicket::class,'edit']);
+    Route::put('book/{ticket}/change-payment',[MyTicket::class,'update']);
     Route::get('pay/{ticket}',[RoleCustomer::class,'pay']);
 });
 Route::resource('my-ticket', MyTicket::class);

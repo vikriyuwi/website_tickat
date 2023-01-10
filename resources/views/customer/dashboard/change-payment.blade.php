@@ -63,7 +63,8 @@
                                         </div>
                                         <div class="row mt-4">
                                             <div class="col-12">
-                                                <form action="{{ url('/my-ticket') }}" method="post">
+                                                <form action="{{ url('/my-ticket/book/'.$ticketredeem->TicketRedeemId.'/change-payment') }}" method="post">
+                                                    @method('PUT')
                                                     @csrf
                                                     <input type="hidden" name="id" value="{{$ticket->TicketId}}">
                                                     <label for="paymentMethod">Payment method :</label>

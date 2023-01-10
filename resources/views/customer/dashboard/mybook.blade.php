@@ -67,12 +67,9 @@
                                             <span class="badge badge-sm bg-gradient-{{ $redeem->payment->last()->PaymentVerification == 'PAID' ? 'success' : 'danger' }}">{{ $redeem->payment->last()->PaymentVerification }}</span>
                                         </td>
                                         <td>
-                                            <form action="{{ url('/dashboard/redeem/pay/'.$redeem->redeemId) }}" method="get">
-                                                @csrf
-                                                <button class="btn btn-sm btn-primary px-3 text-center" data-toggle="tooltip" data-original-title="Edit user" onclick="return confirm('Are you sure want to {{ $redeem->redeemStatus == 'paid' ? 'pending ' : 'paid '}}{{$redeem->redeemMethod}}?')">
-                                                    Change Payment
-                                                </button>
-                                            </form>
+                                            @if($redeem->Status === 'PENDING')
+                                            <a href="{{ url('my-ticket/book/'.$redeem->TicketRedeemId.'/change-payment') }}" class="btn btn-sm btn-primary px-3 text-center">change payment</a>
+                                            @endif
                                         </td>
                                     </tr>
                                     @endforeach
