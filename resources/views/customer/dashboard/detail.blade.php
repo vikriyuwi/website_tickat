@@ -136,7 +136,7 @@
                                                     @if($payment->PaymentVerification != 'PAID')
                                                     <div class="row mt-4">
                                                         <form action="{{ url('/my-ticket/book/'.$ticketredeem->TicketRedeemId.'/change-payment') }}" method="post">
-                                                            @method('PATCH')
+                                                            @method('PUT')
                                                             @csrf
                                                             <input type="hidden" name="id" value="{{$ticket->TicketId}}">
                                                             <label for="paymentMethod" class="text-light">Payment method :</label>
@@ -150,7 +150,7 @@
                                                                             <option value="BCA">BCA bank transfer</option>
                                                                         </select>
                                                                         @error('paymentMethod')
-                                                                        <div class="invalid-feedback">
+                                                                        <div class="invalid-feedback text-warning">
                                                                             {{ $message }}
                                                                         </div>
                                                                         @enderror

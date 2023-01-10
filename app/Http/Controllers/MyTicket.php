@@ -213,7 +213,7 @@ class MyTicket extends Controller
         $ticket->TicketAmount = $ticket->TicketAmount-1;
         $ticket->save();
 
-        return redirect('/my-ticket/book')->with('status', 'Your ticket is waiting to finish the new payment!');
+        return redirect('/my-ticket/book/'.$id.'/detail')->with('success', 'Your ticket is waiting to finish the new payment!');
     }
 
     /**
