@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\TicketRedeem as TRModel;
-use App\Models\Customer as CustomerModel;
-use App\Models\Payment as PaymentModel;
-use App\Models\Ticket as TicketModel;
+use App\Models\Customer as CModel;
+use App\Models\Payment as PModel;
+use App\Models\Ticket as TModel;
+use App\Models\Event as EModel;
+use App\Models\EventOrganizer as EOModel;
 
 class TicketRedeem extends Controller
 {
@@ -19,13 +21,9 @@ class TicketRedeem extends Controller
             return redirect('/login/master')->with('status', 'You have to login first!');
         }
 
-        TRModel::with(['customer','ticket'])->get();
-        $customers = CustomerModel::all();
-        $payments = PaymentModel::all();
-        $ticket = TicketModel::all();
-        $readem = TRModel::all();
+        $redeems = TRModel::all();
 
-        return view('dashboard.readem.index',['customers' => $customers,'payments' => $payments,'ticket' => $ticket,'readem' => $readem]);
+        return view('dashboard.redeem.index',['redeems' => $redeems]);
 
     }
 
@@ -54,7 +52,17 @@ class TicketRedeem extends Controller
         {
             return redirect('/login/master')->with('status', 'You have to login first!');
         }
-        return redirect('dashboard/redeem');
+        $ticketredeem = TRModel::find($id);
+
+        $ticket = TModel::find($ticketredeem->TicketId);
+        $event = EModel::find($ticket->EventId);
+        $eo = EOModel::find($event->EventOrganizerId);
+        $payments = PModel::where('TicketRedeemId','=',$id)->orderBy('PaymentId','DESC')->get();
+
+        $EventStart=  explode(" ", $event->EventStart );
+        $EventEnd=  explode(" ", $event->EventEnd );
+
+        return view('dashboard.redeem.detail',['ticketredeem'=>$ticketredeem,'ticket'=>$ticket,'event'=>$event,'eo'=>$eo,'est'=>$EventStart,'een'=>$EventEnd,'payments'=>$payments]);
     }
 
     public function edit($id)

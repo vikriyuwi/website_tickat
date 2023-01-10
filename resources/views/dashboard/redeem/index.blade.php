@@ -53,7 +53,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($readem as $data)
+                                    @foreach ($redeems as $data)
                                     <tr>
                                         <td class="text-center">
                                             <p class="text-xs font-weight-bold mb-0">{{ $loop->iteration }}</p>
@@ -65,7 +65,7 @@
                                                 </div>
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <h6 class="mb-0 text-sm">{{ $data->customer->CustomerName }}</h6>
-                                                    <p class="text-xs text-secondary mb-0">{{ $data->customer->CustomerId }}</p>
+                                                    <p class="text-xs text-secondary mb-0">{{ $data->RedeemCode }}</p>
                                                 </div>
                                             </div>
                                         </td>
@@ -79,6 +79,9 @@
                                         </td>
                                         <td>
                                             <span class="badge badge-sm bg-gradient-{{ $data->Status == 'READY' ? 'success' : 'danger' }}">{{ $data->Status }}</span>
+                                        </td>
+                                        <td>
+                                            <a href="{{ url('dashboard/redeem/'.$data->TicketRedeemId) }}" class="btn btn-sm btn-primary px-3 mb-0"><i class="fas fa-eye"></i></a>
                                         </td>
                                     </tr>
                                     @endforeach
