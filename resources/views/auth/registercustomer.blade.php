@@ -2,7 +2,7 @@
 @extends('../../auth-template')
 
 {{-- tetep --}}
-@section('page-title','Login')
+@section('page-title','Register')
 
 
 @section('main-content')
