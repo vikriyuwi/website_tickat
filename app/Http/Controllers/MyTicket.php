@@ -6,7 +6,7 @@ use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Transaction;
+use Illuminate\Support\Facades\DB;
 use App\Models\Customer as CModel;
 use App\Models\Event as EModel;
 use App\Models\EventOrganizer as EOModel;
@@ -100,7 +100,7 @@ class MyTicket extends Controller
 
         while (!$success)
         {
-            Transaction::begin();
+            DB::beginTransaction();
 
             $ticketredeem = TRModel::create($data);
 
@@ -122,9 +122,9 @@ class MyTicket extends Controller
             $ticket->save();
 
             if((!$ticketredeem || !$payment) || !$ticket) {
-                Transaction::rollback();
+                DB::rollback();
             } else {
-                Transaction::commit();
+                DB::commit();
                 $success = true;
             }
         }
@@ -214,7 +214,7 @@ class MyTicket extends Controller
 
         while (!$success)
         {
-            Transaction::begin();
+            DB::beginTransaction();
 
             $payment = PModel::where('TicketRedeemId','=',$id)->orderBy('PaymentId','DESC')->first();
             $payment->PaymentVerification = 'CANCELED';
@@ -236,9 +236,9 @@ class MyTicket extends Controller
             $ticket->save();
 
             if(!$payment || !$ticket) {
-                Transaction::rollback();
+                DB::rollback();
             } else {
-                Transaction::commit();
+                DB::commit();
                 $success = true;
             }
         }
