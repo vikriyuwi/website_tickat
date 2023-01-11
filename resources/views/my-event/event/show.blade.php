@@ -40,7 +40,7 @@
                                 {{ session('status') }}
                             </div>
                             @endif
-                            <form action="{{ url('/dashboard/ticket/') }}" method="post" class="text-start">
+                            <form action="{{ url('/my-event/ticket/') }}" method="post" class="text-start">
                                 @csrf
 
                                 <input class="form-control" type="hidden" name="eventId" id="eventId" placeholder="VVIP" value="{{ $EventId }}">
@@ -166,7 +166,7 @@
                                 <h6 class="mb-0">Event Information</h6>
                             </div>
                             <div class="col-md-4 text-end">
-                                <a href="{{ url('/dashboard/event/'.$event->EventId.'/edit') }}">
+                                <a href="{{ url('/my-event/event/'.$event->EventId.'/edit') }}">
                                     <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" aria-hidden="true" aria-label="Edit Profile" data-bs-original-title="Edit Profile"></i>
                                     <span class="sr-only">Edit</span>
                                 </a>
@@ -233,7 +233,7 @@
                                                 <a href="{{ url('/dashboard/ticket/'.$ticket->TicketId.'/edit') }}" class="btn btn-sm btn-secondary px-3 text-light text-center me-2">
                                                     <i class="fa-solid fa-pen" aria-hidden="true"></i>
                                                 </a>
-                                                <form action="{{ url('/dashboard/ticket/'.$ticket->TicketId) }}" method="post">
+                                                <form action="{{ url('/my-event/ticket/'.$ticket->TicketId) }}" method="post">
                                                     @method('delete')
                                                     @csrf
                                                     <button class="btn btn-sm btn-danger px-3 text-center" data-toggle="tooltip" data-original-title="Edit user" onclick="return confirm('Are you sure want to delete {{ $ticket->TicketName }}?')">
