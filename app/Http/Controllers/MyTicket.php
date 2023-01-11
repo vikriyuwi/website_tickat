@@ -6,6 +6,7 @@ use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Transaction;
 use App\Models\Customer as CModel;
 use App\Models\Event as EModel;
 use App\Models\EventOrganizer as EOModel;
@@ -94,24 +95,39 @@ class MyTicket extends Controller
             'Status' => 'PENDING',
         ];
 
-        $ticketredeem = TRModel::create($data);
 
-        // payment
-        $pay = [
-            'TicketRedeemId' => $ticketredeem->TicketRedeemId,
-            'PaymentMethod' => $request->paymentMethod,
-            'PaymentCode' => $paycode,
-            'PaymentVerification' => 'PENDING',
-            'PaymentTime' => $date->format('Y-m-d H:i:s')
-        ];
+        $success = false;
 
-        $payment = PModel::create($pay);
+        while (!$success)
+        {
+            Transaction::begin();
 
-        $ticket = TModel::find($request->id);
+            $ticketredeem = TRModel::create($data);
 
-        $ticket->TicketAmount = $ticket->TicketAmount-1;
+            // payment
+            $pay = [
+                'TicketRedeemId' => $ticketredeem->TicketRedeemId,
+                'PaymentMethod' => $request->paymentMethod,
+                'PaymentCode' => $paycode,
+                'PaymentVerification' => 'PENDING',
+                'PaymentTime' => $date->format('Y-m-d H:i:s')
+            ];
 
-        $ticket->save();
+            $payment = PModel::create($pay);
+
+            $ticket = TModel::find($request->id);
+
+            $ticket->TicketAmount = $ticket->TicketAmount-1;
+
+            $ticket->save();
+
+            if((!$ticketredeem || !$payment) || !$ticket) {
+                Transaction::rollback();
+            } else {
+                Transaction::commit();
+                $success = true;
+            }
+        }
 
         return redirect('/my-ticket/book')->with('status', 'Your ticket is waiting to finish the payment!');
     }
@@ -194,24 +210,38 @@ class MyTicket extends Controller
             $paycode = $generate;
         } while (PModel::where('PaymentCode')->count() > 0);
 
-        $payment = PModel::where('TicketRedeemId','=',$id)->orderBy('PaymentId','DESC')->first();
-        $payment->PaymentVerification = 'CANCELED';
-        $payment->save();
+        $success = false;
 
-        // payment
-        $pay = [
-            'TicketRedeemId' => $id,
-            'PaymentMethod' => $request->paymentMethod,
-            'PaymentCode' => $paycode,
-            'PaymentVerification' => 'PENDING',
-            'PaymentTime' => $date->format('Y-m-d H:i:s')
-        ];
+        while (!$success)
+        {
+            Transaction::begin();
 
-        PModel::create($pay);
+            $payment = PModel::where('TicketRedeemId','=',$id)->orderBy('PaymentId','DESC')->first();
+            $payment->PaymentVerification = 'CANCELED';
+            $payment->save();
 
-        $ticket = TModel::find($request->id);
-        $ticket->TicketAmount = $ticket->TicketAmount-1;
-        $ticket->save();
+            // payment
+            $pay = [
+                'TicketRedeemId' => $id,
+                'PaymentMethod' => $request->paymentMethod,
+                'PaymentCode' => $paycode,
+                'PaymentVerification' => 'PENDING',
+                'PaymentTime' => $date->format('Y-m-d H:i:s')
+            ];
+
+            PModel::create($pay);
+
+            $ticket = TModel::find($request->id);
+            $ticket->TicketAmount = $ticket->TicketAmount-1;
+            $ticket->save();
+
+            if(!$payment || !$ticket) {
+                Transaction::rollback();
+            } else {
+                Transaction::commit();
+                $success = true;
+            }
+        }
 
         return redirect('/my-ticket/book/'.$id.'/detail')->with('success', 'Your ticket is waiting to finish the new payment!');
     }
