@@ -108,7 +108,7 @@ class MyEvent extends Controller
         $EventStart=  explode(" ", $es->EventStart );
         $EventEnd=  explode(" ", $es->EventEnd );
         
-        return view('my-ticket.event.edit',['eos' => $eos,'ets' => $ets, 'es' => $es, 'est' => $EventStart, 'een' => $EventEnd]);
+        return view('my-event.event.edit',['eos' => $eos,'ets' => $ets, 'es' => $es, 'est' => $EventStart, 'een' => $EventEnd]);
     }
 
     public function update(Request $request, $id)
@@ -163,6 +163,6 @@ class MyEvent extends Controller
         $event = EModel::find($id);
         EModel::destroy($id);
         
-        return redirect('/dashboard/event')->with('status', $event->EventName.' has been deleted!');
+        return redirect('/my-event/event')->with('status', $event->EventName.' has been deleted!');
     }
 }
