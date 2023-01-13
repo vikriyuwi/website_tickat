@@ -1,16 +1,16 @@
 {{-- tetep --}}
-@extends('../../dashboard-template')
+@extends('../../my-event-template')
 
 {{-- tetep --}}
 @section('page-title','Dashboard')
 
 {{-- Sessuain --}}
-@section('title','Edit Event')
+@section('title','Edit my-event')
 
 {{--  --}}
 @section('breadcrumb')
 <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="{{ url('/dashboard') }}">Dashboard</a></li>
-<li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="{{ url('/dashboard/event') }}">Event</a></li>
+<li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="{{ url('/my-event/event') }}">Event</a></li>
 <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Edit</li>
 @endsection
 
@@ -31,7 +31,7 @@
                                     {{ session('status') }}
                                 </div>
                                 @endif
-                                <form action="{{ url('/dashboard/event/'.$es->EventId) }}" method="post" class="text-start">
+                                <form action="{{ url('/my-event/event/'.$es->EventId) }}" method="post" class="text-start">
                                     @method('patch')
                                     @csrf
                                     <div class="mb-2">

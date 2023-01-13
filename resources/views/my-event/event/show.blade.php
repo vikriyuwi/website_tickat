@@ -1,5 +1,5 @@
 {{-- tetep --}}
-@extends('../../dashboard-template')
+@extends('../../my-event-template')
 
 {{-- tetep --}}
 @section('page-title','Dashboard')

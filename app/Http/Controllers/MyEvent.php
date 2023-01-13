@@ -92,7 +92,7 @@ class MyEvent extends Controller
             'warning',
             'danger'
         ];
-        return view('my-ticket.event.show',['EventId' => $id, 'event' => $event, 'est' => $EventStart, 'een' => $EventEnd, 'tickets' => $tickets, 'colors' => $colors]);
+        return view('my-event.event.show',['EventId' => $id, 'event' => $event, 'est' => $EventStart, 'een' => $EventEnd, 'tickets' => $tickets, 'colors' => $colors]);
     }
 
     public function edit($id)
@@ -107,7 +107,7 @@ class MyEvent extends Controller
         $es = EModel::find($id);
         $EventStart=  explode(" ", $es->EventStart );
         $EventEnd=  explode(" ", $es->EventEnd );
-
+        
         return view('my-ticket.event.edit',['eos' => $eos,'ets' => $ets, 'es' => $es, 'est' => $EventStart, 'een' => $EventEnd]);
     }
 
