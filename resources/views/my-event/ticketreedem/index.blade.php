@@ -64,21 +64,21 @@
                                                     <img src="{{ url('/assets/img/team-1.jpg') }}" class="avatar avatar-sm me-3" alt="user1">
                                                 </div>
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">{{ $data->customer->CustomerName }}</h6>
-                                                    <p class="text-xs text-secondary mb-0">{{ $data->RedeemCode }}</p>
+                                                    <h6 class="mb-0 text-sm">{{ $data->CustomerName }}</h6>
+                                                    <p class="text-xs text-secondary mb-0">{{ $data->EventOrganizerName }}</p>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">{{ $data->ticket->event->EventName }}</h6>
-                                                    <span class="badge badge-sm bg-{{ $data->ticket->TicketColor }}">{{ $data->ticket->TicketName }}</span>
+                                                    {{-- <h6 class="mb-0 text-sm">{{ $data[0]->ticket->event->EventName }}</h6> --}}
+                                                    {{-- <span class="badge badge-sm bg-{{ $data[0]->ticket->TicketColor }}">{{ $data->ticket->TicketName }}</span> --}}
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
-                                            <span class="badge badge-sm bg-gradient-{{ $data->Status == 'READY' ? 'success' : 'danger' }}">{{ $data->Status }}</span>
+                                            {{-- <span class="badge badge-sm bg-gradient-{{ $data[0]->Status == 'READY' ? 'success' : 'danger' }}">{{ $data->Status }}</span> --}}
                                         </td>
                                         <td>
                                             <a href="{{ url('my-event/redeem/'.$data->TicketRedeemId) }}" class="btn btn-sm btn-primary px-3 mb-0"><i class="fas fa-eye"></i></a>
