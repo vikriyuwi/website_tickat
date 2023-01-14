@@ -20,6 +20,10 @@ class Ticket extends Model
         return $this->belongsTo('App\Models\TicketRedeem','PaymentId','PaymentId');
     }
 
+    public function Payment() {
+        return $this->hasMany('App\Models\Payment','TicketRedeemId','TicketRedeemId');
+    }
+
     protected $fillable = [
         'EventId',
         'TicketName',
