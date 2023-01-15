@@ -42,7 +42,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-7 text-center mx-auto">
-          <h1 class="text-white pt-3 mt-n5">Tick At</h1>
+          <h1 class="text-white pt-3 mt-n5">TickAt</h1>
           <p class="lead text-white mt-3">Explore and have a great experience in the middle of people</p>
           <a href="#events" class="btn btn-primary">Explore now</a>
         </div>
