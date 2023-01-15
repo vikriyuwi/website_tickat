@@ -97,7 +97,7 @@
                 <h1><b>Upcoming Event</b></h1>
             </div>
         </div>
-        <a href="">
+        <a href="{{ url('/event/'.$event->EventId) }}">
             <div class="row">
                 <div class="col-12 text-start">
                     <div>

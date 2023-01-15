@@ -138,6 +138,15 @@
 </section>
 <section id="ticket">
     <div class="container mb-4">
+        @if($tickets->count() == 0)
+        <div class="container">
+            <div class="row">
+                <div class="col-12 p-5 text-center">
+                    <p>Sorry, there is no ticket available yet.<br>Please come back later!</p>
+                </div>
+            </div>
+        </div>
+        @endif
         @foreach($tickets as $ticket)
         <div class="row mb-2">
             <div class="col-md-12">
