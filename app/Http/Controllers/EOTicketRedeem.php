@@ -40,8 +40,30 @@ class EOTicketRedeem extends Controller
 
     public function show($id)
     {
+        if(!Session::get('Login') || Session::get('LoginRole') != 'EventOrganizer')
+        {
+            return redirect('/login/event-organizer')->with('status', 'You have to login first!');
+        }
+        $redeems = TRModel::with(['Ticket.Event'])->where('TicketRedeemId','=',$id)->first();
+        $event = EModel::where('EventId','=',$redeems->Ticket->EventId)->first();
+        $EventStart=  explode(" ", $event->EventStart );
+        $EventEnd=  explode(" ", $event->EventEnd );
+        $ticket = TModel::find($redeems->TicketId);
+        $payments = PModel::where('TicketRedeemId','=',$id)->orderBy('PaymentId','DESC')->get();
+
+        $colors = [
+            'primary',
+            'secondary',
+            'success',
+            'info',
+            'warning',
+            'danger'
         
-    }
+        ];
+        return view ('my-event.ticketreedem.show',['redeems' => $redeems,'colors' => $colors,'EventStart' => $EventStart,'EventEnd' => $EventEnd,'event' => $event,'est' => $EventStart,'een' => $EventEnd,'ticket' => $ticket,'payments' => $payments]);
+        }
+        
+    
 
     public function edit($id)
     {
