@@ -1,5 +1,5 @@
 {{-- tetep --}}
-@extends('../../dashboard-template')
+@extends('../../my-event-template')
 
 {{-- tetep --}}
 @section('page-title','Dashboard')
@@ -32,7 +32,7 @@
                                 </div>
                                 @endif
                                 
-                                <form action="{{ url('/dashboard/ticket/'.$ticket->TicketId) }}" method="post" class="text-start">
+                                <form action="{{ url('/my-event/ticket/'.$ticket->TicketId) }}" method="post" class="text-start">
                                     @method('patch')
                                     @csrf
                                     <div class="mb-2">

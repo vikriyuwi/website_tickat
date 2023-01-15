@@ -19,9 +19,8 @@ class MyEvent extends Controller
         }
 
         $events = EModel::with(['EventOrganizer','EventType'])->where('EventOrganizerId','=',Session::get('LoginId'))->get();
-        $eos = EOModel::all();
         $ets = ETModel::all();
-        return view('my-event.event.index',['events' => $events,'eos' => $eos,'ets' => $ets]);
+        return view('my-event.event.index',['events' => $events,'ets' => $ets]);
     }
 
     public function create()
@@ -30,10 +29,8 @@ class MyEvent extends Controller
         {
             return redirect('/login/event-organizer')->with('status', 'You have to login first!');
         }
-        
-        $eos = EOModel::all();
-        $ets = ETModel::all();
-        return view('my-event.event.create',['eos' => $eos,'ets' => $ets]);
+
+        return redirect('my-event/event');
     }
 
     public function store(Request $request)
@@ -78,6 +75,11 @@ class MyEvent extends Controller
             return redirect('/login/event-organizer')->with('status', 'You have to login first!');
         }
 
+        if(Session::get('LoginId') != $id)
+        {
+            return redirect('my-event/event');
+        }
+
         $event = EModel::with(['EventOrganizer','EventType'])->where('EventId','=',$id)->first();
 
         $EventStart=  explode(" ", $event->EventStart );
@@ -102,6 +104,11 @@ class MyEvent extends Controller
             return redirect('/login/event-organizer')->with('status', 'You have to login first!');
         }
 
+        if(Session::get('LoginId') != $id)
+        {
+            return redirect('my-event/event');
+        }
+
         $eos = EOModel::all();
         $ets = ETModel::all();
         $es = EModel::find($id);
@@ -116,6 +123,11 @@ class MyEvent extends Controller
         if(!Session::get('Login') || (Session::get('LoginRole') != 'EventOrganizer' && Session::get('LoginRole') != 'EventOrganizer'))
         {
             return redirect('/login/event-organizer')->with('status', 'You have to login first!');
+        }
+
+        if(Session::get('LoginId') != $id)
+        {
+            return redirect('my-event/event');
         }
 
         $request->validate([
@@ -158,6 +170,11 @@ class MyEvent extends Controller
         if(!Session::get('Login') || Session::get('LoginRole') != 'EventOrganizer')
         {
             return redirect('/login/event-organizer')->with('status', 'You have to login first!');
+        }
+
+        if(Session::get('LoginId') != $id)
+        {
+            return redirect('my-event/event');
         }
         
         $event = EModel::find($id);

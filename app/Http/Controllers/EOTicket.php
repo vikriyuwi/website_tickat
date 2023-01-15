@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use App\Models\Ticket as TModel;
 
 class EOTicket extends Controller
 {
@@ -27,7 +29,11 @@ class EOTicket extends Controller
      */
     public function create()
     {
-        //
+        if(!Session::get('Login') || Session::get('LoginRole') != 'EventOrganizer')
+        {
+            return redirect('/login/event-organizer')->with('status', 'You have to login first!');
+        }
+        return redirect('/my-event/event');
     }
 
     /**
@@ -60,7 +66,7 @@ class EOTicket extends Controller
         
         TModel::create($data);
         
-        return redirect('/dashboard/event/'.$request->eventId)->with('status', $request->name.' has been added!');
+        return redirect('/my-event/event/'.$request->eventId)->with('status', $request->name.' has been added!');
     }
 
     /**
@@ -71,7 +77,11 @@ class EOTicket extends Controller
      */
     public function show($id)
     {
-        //
+        if(!Session::get('Login') || Session::get('LoginRole') != 'EventOrganizer')
+        {
+            return redirect('/login/event-organizer')->with('status', 'You have to login first!');
+        }
+        return redirect('/my-event/event');
     }
 
     /**
@@ -82,7 +92,22 @@ class EOTicket extends Controller
      */
     public function edit($id)
     {
-        //
+        if(!Session::get('Login') || Session::get('LoginRole') != 'EventOrganizer')
+        {
+            return redirect('/login/event-organizer')->with('status', 'You have to login first!');
+        }
+
+        $ticket = TModel::find($id);
+        $colors = [
+            'primary',
+            'secondary',
+            'success',
+            'info',
+            'warning',
+            'danger'
+        ];
+
+        return view('my-event.event.ticket.edit',['ticket' => $ticket,'colors' => $colors]);
     }
 
     /**
@@ -94,7 +119,28 @@ class EOTicket extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if(!Session::get('Login') || Session::get('LoginRole') != 'EventOrganizer')
+        {
+            return redirect('/login/event-organizer')->with('status', 'You have to login first!');
+        }
+
+        $request->validate([
+            'name' => 'required|max:64',
+            'amount' => 'required',
+            'price' => 'required',
+            'color' => 'required|not_in:0',
+        ]);
+
+        $ticket = TModel::find($id);
+
+        $ticket->TicketName = $request->name;
+        $ticket->TicketAmount = $request->amount;
+        $ticket->TicketPrice = $request->price;
+        $ticket->TicketColor = $request->color;
+
+        $ticket->save();
+
+        return redirect( url('/my-event/event/'.$ticket->EventId) )->with('status', 'Ticket '.$request->name.' has been updated!');
     }
 
     /**
@@ -105,6 +151,14 @@ class EOTicket extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(!Session::get('Login') || Session::get('LoginRole') != 'EventOrganizer')
+        {
+            return redirect('/login/event-organizer')->with('status', 'You have to login first!');
+        }
+
+        $ticket = TModel::find($id);
+        TModel::destroy($id);
+        
+        return redirect('/my-event/event/'.$ticket->EventId)->with('status', 'Ticket '.$ticket->TicketName.' has been deleted!');
     }
 }

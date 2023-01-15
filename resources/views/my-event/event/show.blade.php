@@ -230,7 +230,7 @@
                                         </div>
                                         <div class="col-auto d-flex align-items-center">
                                             <td class="text-center d-flex">
-                                                <a href="{{ url('/dashboard/ticket/'.$ticket->TicketId.'/edit') }}" class="btn btn-sm btn-secondary px-3 text-light text-center me-2">
+                                                <a href="{{ url('/my-event/ticket/'.$ticket->TicketId.'/edit') }}" class="btn btn-sm btn-secondary px-3 text-light text-center me-2">
                                                     <i class="fa-solid fa-pen" aria-hidden="true"></i>
                                                 </a>
                                                 <form action="{{ url('/my-event/ticket/'.$ticket->TicketId) }}" method="post">

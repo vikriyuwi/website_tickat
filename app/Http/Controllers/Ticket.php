@@ -73,7 +73,7 @@ class Ticket extends Controller
      */
     public function show($id)
     {
-        if(!Session::get('Login') || (Session::get('LoginRole') != 'Master' && Session::get('LoginRole') != 'EventOrganizer'))
+        if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
         {
             return redirect('/login/master')->with('status', 'You have to login first!');
         }
@@ -116,7 +116,7 @@ class Ticket extends Controller
      */
     public function update(Request $request, $id)
     {
-        if(!Session::get('Login') || Session::get('LoginRole') != 'Master' && Session::get('LoginRole') != 'EventOrganizer')
+        if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
         {
             return redirect('/login/master')->with('status', 'You have to login first!');
         }
