@@ -11,7 +11,4 @@ class EventSales extends Model
 
     // ngasi tau nama tabel
     protected $table = "EventSales";
-
-    // ngasi tau ga ada kolom timestamps
-    public $timestamps = false;
 }

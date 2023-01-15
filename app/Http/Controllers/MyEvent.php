@@ -75,12 +75,12 @@ class MyEvent extends Controller
             return redirect('/login/event-organizer')->with('status', 'You have to login first!');
         }
 
-        if(Session::get('LoginId') != $id)
+        $event = EModel::with(['EventOrganizer','EventType'])->where('EventId','=',$id)->first();
+
+        if(Session::get('LoginId') != $event->EventOrganizerId)
         {
             return redirect('my-event/event');
         }
-
-        $event = EModel::with(['EventOrganizer','EventType'])->where('EventId','=',$id)->first();
 
         $EventStart=  explode(" ", $event->EventStart );
         $EventEnd=  explode(" ", $event->EventEnd );
@@ -104,16 +104,16 @@ class MyEvent extends Controller
             return redirect('/login/event-organizer')->with('status', 'You have to login first!');
         }
 
-        if(Session::get('LoginId') != $id)
-        {
-            return redirect('my-event/event');
-        }
-
         $eos = EOModel::all();
         $ets = ETModel::all();
         $es = EModel::find($id);
         $EventStart=  explode(" ", $es->EventStart );
         $EventEnd=  explode(" ", $es->EventEnd );
+
+        if(Session::get('LoginId') != $es->EventOrganizerId)
+        {
+            return redirect('my-event/event');
+        }
         
         return view('my-event.event.edit',['eos' => $eos,'ets' => $ets, 'es' => $es, 'est' => $EventStart, 'een' => $EventEnd]);
     }
@@ -123,11 +123,6 @@ class MyEvent extends Controller
         if(!Session::get('Login') || (Session::get('LoginRole') != 'EventOrganizer' && Session::get('LoginRole') != 'EventOrganizer'))
         {
             return redirect('/login/event-organizer')->with('status', 'You have to login first!');
-        }
-
-        if(Session::get('LoginId') != $id)
-        {
-            return redirect('my-event/event');
         }
 
         $request->validate([
@@ -145,6 +140,11 @@ class MyEvent extends Controller
         ]);
 
         $event = EModel::find($id);
+
+        if(Session::get('LoginId') != $event->EventOrganizerId)
+        {
+            return redirect('my-event/event');
+        }
 
         $event->EventName = $request->name;
         if(Session::get('LoginRole') == 'EventOrganizer') {
