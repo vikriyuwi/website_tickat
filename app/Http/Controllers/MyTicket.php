@@ -87,6 +87,7 @@ class MyTicket extends Controller
             $code = $generate;
         } while (TRModel::where('RedeemCode')->count() > 0);
 
+
         // store trm
         $data = [
             'CustomerId' => Session::get('LoginId'),
@@ -94,8 +95,7 @@ class MyTicket extends Controller
             'RedeemCode' => $code,
             'Status' => 'PENDING',
         ];
-
-
+        
         $success = false;
 
         while (!$success)
@@ -228,10 +228,6 @@ class MyTicket extends Controller
             ];
 
             PModel::create($pay);
-
-            $ticket = TModel::find($request->id);
-            $ticket->TicketAmount = $ticket->TicketAmount-1;
-            $ticket->save();
 
             if(!$payment || !$ticket) {
                 DB::rollback();

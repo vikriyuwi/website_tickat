@@ -27,7 +27,6 @@ class RoleCustomer extends Controller
         $TicketRedeemCount = TRModel::count();
         $EventOrganizerCount = EOModel::count();
 
-
         return view('customer/index',['event' => $event, 'events' => $events,'est' => $EventStart,'een' => $EventEnd,'EventCount'=>$EventCount,'TicketRedeemCount'=>$TicketRedeemCount,'EventOrganizerCount'=>$EventOrganizerCount]);
     }
 

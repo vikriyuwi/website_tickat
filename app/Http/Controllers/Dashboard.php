@@ -43,13 +43,21 @@ class Dashboard extends Controller
         
         // count days
         $curdate = new DateTime();
-        $eventDate = new DateTime($upcomingEvent->EventStart);
+        if($upcomingEvent == NULL) {
+            $eventDate = new DateTime();
+            $soldCount = null;
+        } else {
+            $eventDate = new DateTime($upcomingEvent->EventStart);
+
+            $soldCount = TicketRedeem::whereHas('Ticket', function($query) use($upcomingEvent){
+            $query->where('EventId','=',$upcomingEvent->EventId);
+        })->count();
+        }
+        
         $interval = $curdate->diff($eventDate);
         $daystogo = $interval->format('%a');
 
-        $soldCount = TicketRedeem::whereHas('Ticket', function($query) use($upcomingEvent){
-            $query->where('EventId','=',$upcomingEvent->EventId);
-        })->count();
+        
 
         $eventSales = EventSales::where('EventOrganizerId','=',Session::get('LoginId'))->get();
 

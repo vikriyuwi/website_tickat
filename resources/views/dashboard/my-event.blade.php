@@ -17,6 +17,7 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-8 mb-3">
+                @if($upcomingEvent!=null)
                 <a href="{{ url('my-event/event/'.$upcomingEvent->EventId) }}">
                     <div class="card bg-gradient-primary h-100">
                         <div class="card-header bg-transparent text-white">
@@ -39,8 +40,25 @@
                         </div>
                     </div>
                 </a>
+                @else
+                <a href="">
+                    <div class="card bg-gradient-primary h-100">
+                        <div class="card-header bg-transparent text-white">
+                            <span class="badge bg-gradient-danger"><b>UPCOMING EVENT</b></span>
+                        </div>
+                        <div class="card-body text-white">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3>No event</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                @endif
             </div>
             <div class="col-md-4 mb-3">
+                @if($upcomingEvent!=null)
                 <div class="card h-100">
                     <div class="card-header text-center">
                         <h1 class="display-1 m-0 text-success"><b>{{ $soldCount }}</b></h1>
@@ -49,6 +67,16 @@
                         Tickets has been sold<br>for this event
                     </div>
                 </div>
+                @else
+                <div class="card h-100">
+                    <div class="card-header text-center">
+                        <h1 class="display-1 m-0 text-success"><b>...</b></h1>
+                    </div>
+                    <div class="card-body text-center">
+                        Tickets has been sold<br>for this event
+                    </div>
+                </div>
+                @endif
             </div>
         </div>
         <div class="row">
@@ -57,7 +85,7 @@
                     <div class="card-header pb-0">
                         <div class="row">
                             <div class="col-md-6">
-                                <h6>Event Data</h6>
+                                <h6>More Upcoming Event Data</h6>
                             </div>
                             <div class="col-md-6 text-end">
                                 
