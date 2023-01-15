@@ -112,13 +112,11 @@ class MyTicket extends Controller
                 'PaymentVerification' => 'PENDING',
                 'PaymentTime' => $date->format('Y-m-d H:i:s')
             ];
-
             $payment = PModel::create($pay);
 
+            // tiket dikurangin
             $ticket = TModel::find($request->id);
-
             $ticket->TicketAmount = $ticket->TicketAmount-1;
-
             $ticket->save();
 
             if((!$ticketredeem || !$payment) || !$ticket) {
