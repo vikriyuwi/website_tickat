@@ -162,7 +162,7 @@ class MyEvent extends Controller
 
         $event->save();
 
-        return redirect('/dashboard/event')->with('status', $request->name.' has been updated!');
+        return redirect('/my-event/event')->with('status', $request->name.' has been updated!');
     }
 
     public function destroy($id)
