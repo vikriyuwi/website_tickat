@@ -24,9 +24,11 @@ class Dashboard extends Controller
             return redirect('/login/master')->with('status', 'You have to login first!');
         }
 
-        
+        $eventSales = EventSales::take(3)->orderBy('JumlahPenjualan','DESC')->get();
+        $redeems = TicketRedeem::where('Status','=','PENDING')->get();
+        $eventHighSold = EventSalesPerMonth::where('month','=',date_format(Carbon::now(),'Y-m'))->orderBy('JumlahPenjualan','DESC')->first();
 
-        return view('dashboard.index');
+        return view('dashboard.index',['redeems'=>$redeems,'eventSales'=>$eventSales,'eventHighSold'=>$eventHighSold]);
     }
 
     public function EventOrganizer()

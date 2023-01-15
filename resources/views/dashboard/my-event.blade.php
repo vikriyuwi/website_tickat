@@ -17,26 +17,28 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-8 mb-3">
-                <div class="card bg-gradient-primary h-100">
-                    <div class="card-header bg-transparent text-white">
-                        <span class="badge bg-gradient-danger"><b>UPCOMING EVENT</b></span>
-                    </div>
-                    <div class="card-body text-white">
-                        <div class="row">
-                            <div class="col-md-9">
-                                <h3>{{ $upcomingEvent->EventName }}</h3>
-                                <span class="badge bg-gradient-light text-dark mb-2">{{ $upcomingEvent->EventType->EventTypeName }}</span>
-                                <br><span>Event will start at <b>{{ $upcomingEvent->EventStart }}</b></span>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="mt-auto h-auto text-white text-end">
-                                    <h1 class=" m-0"><b>{{ $daystogo }}</b></h1>
-                                    days to go
+                <a href="{{ url('my-event/event/'.$upcomingEvent->EventId) }}">
+                    <div class="card bg-gradient-primary h-100">
+                        <div class="card-header bg-transparent text-white">
+                            <span class="badge bg-gradient-danger"><b>UPCOMING EVENT</b></span>
+                        </div>
+                        <div class="card-body text-white">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <h3>{{ $upcomingEvent->EventName }}</h3>
+                                    <span class="badge bg-gradient-light text-dark mb-2">{{ $upcomingEvent->EventType->EventTypeName }}</span>
+                                    <br><span>Event will start at <b>{{ $upcomingEvent->EventStart }}</b></span>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="mt-auto h-auto text-white text-end">
+                                        <h1 class=" m-0"><b>{{ $daystogo }}</b></h1>
+                                        days to go
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-md-4 mb-3">
                 <div class="card h-100">
