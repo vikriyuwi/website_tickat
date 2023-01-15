@@ -72,7 +72,7 @@ class MyTicket extends Controller
                 $generate .= $int[rand(0, 10 - 1)];
             }
             $paycode = $generate;
-        } while (PModel::where('PaymentCode')->count() > 0);
+        } while (PModel::where('PaymentCode','=',$paycode)->count() > 0);
 
         // buat redeem
         $code = '';
@@ -85,7 +85,7 @@ class MyTicket extends Controller
                 $generate .= $int[rand(0, 10 - 1)];
             }
             $code = $generate;
-        } while (TRModel::where('RedeemCode')->count() > 0);
+        } while (TRModel::where('RedeemCode','=',$code)->count() > 0);
 
 
         // store trm
@@ -206,7 +206,7 @@ class MyTicket extends Controller
                 $generate .= $int[rand(0, 10 - 1)];
             }
             $paycode = $generate;
-        } while (PModel::where('PaymentCode')->count() > 0);
+        } while (PModel::where('PaymentCode','=',$paycode)->count() > 0);
 
         $success = false;
 
