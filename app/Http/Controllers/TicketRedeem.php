@@ -22,7 +22,6 @@ class TicketRedeem extends Controller
         }
 
         $redeems = TRModel::all();
-
         return view('dashboard.redeem.index',['redeems' => $redeems]);
 
     }

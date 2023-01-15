@@ -19,9 +19,6 @@ class Ticket extends Controller
         {
             return redirect('/login/master')->with('status', 'You have to login first!');
         }
-        $tickets = TModel::all();
-        
-        dd($tickets);
         return view('dashboard.event.ticket.index',['tickets' => $tickets]);    
     }
 

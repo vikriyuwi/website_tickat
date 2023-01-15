@@ -20,24 +20,12 @@ class EOTicketRedeem extends Controller
         {
             return redirect('/login/event-organizer')->with('status', 'You have to login first!');
         } 
-        $customers = CModel::all();
-        $redeems = DB::table("TicketRedeem AS tr")
-        ->leftJoin('Customer AS c', function($join){
-        $join->on("tr.CustomerId", "=", "c.CustomerId");
-        })
-        ->leftJoin( 'Ticket AS t', function($join){
-	    $join->on("tr.TicketId", "=", "t.TicketId");
-        })
-        ->leftJoin('Event AS e', function($join){
-	    $join->on("t.EventId", "=", "e.EventId");
-        })
-        ->leftJoin('EventOrganizer AS eo', function($join){
-	    $join->on("eo.EventOrganizerId", "=", "e.EventOrganizerId");
-        })
-        ->select("tr.TicketRedeemId", "e.EventOrganizerId", "eo.EventOrganizerName","c.CustomerName")
-        ->where("eo.EventOrganizerId", "=", Session::get('LoginId'))->get();
-        // dd($redeems);
-        return view('my-event.ticketreedem.index',['redeems' => $redeems,'customer' => $customers]);
+
+        $redeems = TRModel::whereHas('Ticket.Event', function($query){
+            $query->where('EventOrganizerId','=',Session::get('LoginId'));
+        })->get();
+        
+        return view('my-event.ticketreedem.index',['redeems' => $redeems]);
     }
 
     public function create()

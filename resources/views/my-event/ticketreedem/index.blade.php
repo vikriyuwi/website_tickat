@@ -64,8 +64,8 @@
                                                     <img src="{{ url('/assets/img/team-1.jpg') }}" class="avatar avatar-sm me-3" alt="user1">
                                                 </div>
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">{{ $data->CustomerName }}</h6>
-                                                    <p class="text-xs text-secondary mb-0">{{ $data->EventOrganizerName }}</p>
+                                                    <h6 class="mb-0 text-sm">{{ $data->Customer->CustomerName }}</h6>
+                                                    <p class="text-xs text-secondary mb-0">{{ $data->Ticket->Event->EventOrganizer->EventOrganizerName }}</p>
                                                 </div>
                                             </div>
                                         </td>
