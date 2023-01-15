@@ -37,58 +37,66 @@
         </div>
     </div>
 </nav>
-<section id="header" class="overlaybox">
-    <div class="container py-5">
-        <div class="row py-5">
-            <div class="card blur shadow-blur overflow-hidden my-auto p-5">
-                <h1><b>Tickat</b></h1>
-                <p>Explore and have a great experience in the middle of people</p>
-                <a href="#events" class="btn btn-primary">Explore now</a>
-            </div>
-            {{-- <div class="card card-body blur shadow-blur overflow-hidden my-auto">
-                <div class="row gx-4">
-                    <div class="col-auto">
-                        <div class="avatar avatar-xl position-relative">
-                            <img src="{{ url('/assets/img/bruce-mars.jpg') }}" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
-                        </div>
-                    </div>
-                    <div class="col-auto my-auto">
-                        <div class="h-100">
-                            <h5 class="mb-1">
-                                {{ $event->EventName }}
-                            </h5>
-                            <p class="mb-0 font-weight-bold text-sm">
-                                {{ $event->EventOrganizer->EventOrganizerName }} <span class="badge badge-sm ms-2 bg-gradient-primary">{{ $event->EventType->EventTypeName }}</span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
-                        <div class="nav-wrapper position-relative end-0">
-                            <div class="row">
-                                <div class="col-auto text-lg-start ms-md-auto me-md-4">
-                                    <b>Start</b>
-                                    <p class="mb-0 font-weight-bold text-sm">
-                                        {{ $est[0] }} <h5>{{ $est[1] }}</h5>
-                                    </p>
-                                </div>
-                                <div class="col-auto text-lg-end me-md-4">
-                                    <b>End</b>
-                                    <p class="mb-0 font-weight-bold text-sm">
-                                        {{ $est[0] }} <h5>{{ $est[1] }}</h5>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
-            {{-- <div class="col-md-12 py-5 text-center my-auto">
-                <h1><b>Tickat</b></h1>
-                <p>Explore and have a great experience in the middle of people</p>
-                <a href="" class="btn btn-outline-light">Explore now</a>
-            </div> --}}
+<header class="header-2">
+  <div class="page-header min-vh-75 relative" style="background-image: url({{url('/assets/img/curved-images/curved.jpg')}})">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-7 text-center mx-auto">
+          <h1 class="text-white pt-3 mt-n5">Tick At</h1>
+          <p class="lead text-white mt-3">Explore and have a great experience in the middle of people</p>
+          <a href="#events" class="btn btn-primary">Explore now</a>
         </div>
+      </div>
     </div>
+    <div class="position-absolute w-100 z-index-1 bottom-0">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 40" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="moving-waves">
+          <use xlink:href="#gentle-wave" x="48" y="-1" fill="rgba(255,255,255,0.40" />
+          <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.35)" />
+          <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.25)" />
+          <use xlink:href="#gentle-wave" x="48" y="8" fill="rgba(255,255,255,0.20)" />
+          <use xlink:href="#gentle-wave" x="48" y="13" fill="rgba(255,255,255,0.15)" />
+          <use xlink:href="#gentle-wave" x="48" y="16" fill="rgba(255,255,255,0.95" />
+        </g>
+      </svg>
+    </div>
+  </div>
+</header>
+<section class="pt-3 pb-4" id="count-stats">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-9 z-index-2 border-radius-xl mt-n10 mx-auto py-3 blur shadow-blur">
+        <div class="row">
+          <div class="col-md-4 position-relative">
+            <div class="p-3 text-center">
+              <h1 class="text-gradient text-primary"><span id="state1" countTo="70">{{ $EventCount }}</span></h1>
+              <h5 class="mt-3">Event</h5>
+              <p class="text-sm">with varous atmosphere</p>
+            </div>
+            <hr class="vertical dark">
+          </div>
+          <div class="col-md-4 position-relative">
+            <div class="p-3 text-center">
+              <h1 class="text-gradient text-primary"> <span id="state2" countTo="15">{{ $EventOrganizerCount }}</span></h1>
+              <h5 class="mt-3">Event Organizer</h5>
+              <p class="text-sm">has been made a wonderful event</p>
+            </div>
+            <hr class="vertical dark">
+          </div>
+          <div class="col-md-4">
+            <div class="p-3 text-center">
+              <h1 class="text-gradient text-primary" id="state3" countTo="4">{{ $TicketRedeemCount }}</h1>
+              <h5 class="mt-3">People</h5>
+              <p class="text-sm">joined</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 <section id="newevent">
     <div class="container">

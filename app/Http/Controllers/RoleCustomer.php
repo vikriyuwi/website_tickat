@@ -23,8 +23,12 @@ class RoleCustomer extends Controller
         $events = EModel::with(['EventOrganizer','EventType'])->where('EventStart', '>', date('Y/m/d'))->orderBy('EventStart', 'ASC')->get();
         $EventStart=  explode(" ", $event->EventStart);
         $EventEnd=  explode(" ", $event->EventEnd);
+        $EventCount = TModel::count();
+        $TicketRedeemCount = TRModel::count();
+        $EventOrganizerCount = EOModel::count();
 
-        return view('customer/index',['event' => $event, 'events' => $events,'est' => $EventStart,'een' => $EventEnd]);
+
+        return view('customer/index',['event' => $event, 'events' => $events,'est' => $EventStart,'een' => $EventEnd,'EventCount'=>$EventCount,'TicketRedeemCount'=>$TicketRedeemCount,'EventOrganizerCount'=>$EventOrganizerCount]);
     }
 
     public function myBook()
