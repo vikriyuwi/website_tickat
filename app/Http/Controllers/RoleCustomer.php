@@ -37,7 +37,7 @@ class RoleCustomer extends Controller
         {
             return redirect('/login')->with('status', 'You have to login first!');
         }
-        $redeem = TRModel::with(['Customer','Ticket','Payment'])->where('CustomerId','=',Session::get('LoginId'))->get();
+        $redeem = TRModel::with(['Customer','Ticket','Payment'])->where('CustomerId','=',Session::get('LoginId'))->where('Status','=','PENDING')->get();
 
         return view('customer.dashboard.mybook',['redeems' => $redeem]);
     }

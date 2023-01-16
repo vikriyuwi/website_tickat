@@ -25,8 +25,8 @@ class MyTicket extends Controller
     public function index()
     {
         $redeem = TRModel::with(['Customer','Ticket','Payment'])->where('CustomerId','=',Session::get('LoginId'))->where('Status','=','READY')->get();
-
-        return view('customer.dashboard.index',['redeems' => $redeem]);
+        $redeemexp = TRModel::with(['Customer','Ticket','Payment'])->where('CustomerId','=',Session::get('LoginId'))->where('Status','=','EXPIRED')->get();
+        return view('customer.dashboard.index',['redeems' => $redeem,'redeemexp'=>$redeemexp]);
     }
 
     /**
@@ -144,11 +144,11 @@ class MyTicket extends Controller
         $event = EModel::find($ticket->EventId);
         $eo = EOModel::find($event->EventOrganizerId);
         $payment = PModel::where('TicketRedeemId','=',$id)->orderBy('PaymentId','DESC')->first();
-
+        $redeemat = explode(" ",$ticketredeem->RedeemAt);
         $EventStart=  explode(" ", $event->EventStart );
         $EventEnd=  explode(" ", $event->EventEnd );
         
-        return view('customer.dashboard.ticket',['ticketredeem'=>$ticketredeem,'ticket'=>$ticket,'event'=>$event,'eo'=>$eo,'est'=>$EventStart,'een'=>$EventEnd,'payment'=>$payment]);
+        return view('customer.dashboard.ticket',['ticketredeem'=>$ticketredeem,'ticket'=>$ticket,'event'=>$event,'eo'=>$eo,'est'=>$EventStart,'een'=>$EventEnd,'payment'=>$payment,'redeemat'=>$redeemat]);
     }
 
     /**
@@ -170,11 +170,12 @@ class MyTicket extends Controller
         $event = EModel::find($ticket->EventId);
         $eo = EOModel::find($event->EventOrganizerId);
         $payments = PModel::where('TicketRedeemId','=',$id)->orderBy('PaymentId','DESC')->get();
+        $redeemat = explode(" ",$ticketredeem->RedeemAt);
 
         $EventStart=  explode(" ", $event->EventStart );
         $EventEnd=  explode(" ", $event->EventEnd );
 
-        return view('customer.dashboard.detail',['ticketredeem'=>$ticketredeem,'ticket'=>$ticket,'event'=>$event,'eo'=>$eo,'est'=>$EventStart,'een'=>$EventEnd,'payments'=>$payments]);
+        return view('customer.dashboard.detail',['ticketredeem'=>$ticketredeem,'ticket'=>$ticket,'event'=>$event,'eo'=>$eo,'est'=>$EventStart,'een'=>$EventEnd,'payments'=>$payments,'redeemat'=>$redeemat]);
     }
 
     /**
@@ -236,7 +237,6 @@ class MyTicket extends Controller
                 $success = true;
             }
         }
-
         return redirect('/my-ticket/book/'.$id.'/detail')->with('success', 'Your ticket is waiting to finish the new payment!');
     }
 
