@@ -51,6 +51,11 @@ class EOTicketRedeem extends Controller
         $ticket = TModel::find($redeems->TicketId);
         $payments = PModel::where('TicketRedeemId','=',$id)->orderBy('PaymentId','DESC')->get();
 
+        $redeemat;
+        if($redeems->RedeemAt != NULL) {
+            $redeemat = explode(" ",$redeems->RedeemAt);
+        }
+
         $colors = [
             'primary',
             'secondary',
@@ -60,7 +65,7 @@ class EOTicketRedeem extends Controller
             'danger'
         
         ];
-        return view ('my-event.ticketreedem.show',['redeems' => $redeems,'colors' => $colors,'EventStart' => $EventStart,'EventEnd' => $EventEnd,'event' => $event,'est' => $EventStart,'een' => $EventEnd,'ticket' => $ticket,'payments' => $payments]);
+        return view ('my-event.ticketreedem.show',['redeems' => $redeems,'colors' => $colors,'EventStart' => $EventStart,'EventEnd' => $EventEnd,'event' => $event,'est' => $EventStart,'een' => $EventEnd,'ticket' => $ticket,'payments' => $payments,'redeemat'=>$redeemat]);
         }
         
     

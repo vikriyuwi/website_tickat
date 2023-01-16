@@ -65,6 +65,7 @@
     }
 
   </style>
+  <script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
@@ -140,7 +141,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link   {{ Request::is('/my-event/scan*') ? 'active' : '' }}" href="{{ url('/my-event/scan') }}">
+          <a class="nav-link   {{ Request::is('my-event/scan*') ? 'active' : '' }}" href="{{ url('/my-event/scan') }}">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>office</title>

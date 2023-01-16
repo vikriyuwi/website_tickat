@@ -65,7 +65,7 @@
                                                 </div>
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <h6 class="mb-0 text-sm">{{ $data->Customer->CustomerName }}</h6>
-                                                    <p class="text-xs text-secondary mb-0">{{ $data->Ticket->Event->EventOrganizer->EventOrganizerName }}</p>
+                                                    <p class="text-xs text-secondary mb-0">{{ $data->RedeemCode }}</p>
                                                 </div>
                                             </div>
                                         </td>

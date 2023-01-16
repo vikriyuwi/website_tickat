@@ -21,7 +21,6 @@ class Payment extends Controller
         $id = $request->id;
 
         $payment = PModel::find($id);
-
         $ticketredeem = TRModel::find($payment->TicketRedeemId);
 
         if ($payment->PaymentVerification === 'PENDING') {

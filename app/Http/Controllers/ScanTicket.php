@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use App\Models\TicketRedeem as TRModel;
 
 class ScanTicket extends Controller
 {
@@ -13,7 +16,11 @@ class ScanTicket extends Controller
      */
     public function index()
     {
-        //
+        if(!Session::get('Login') || (Session::get('LoginRole') != 'EventOrganizer' && Session::get('LoginRole') != 'EventOrganizer'))
+        {
+            return redirect('/login/event-organizer')->with('status', 'You have to login first!');
+        }
+        return view('customer.dashboard.scan');
     }
 
     /**
@@ -21,9 +28,12 @@ class ScanTicket extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($trm)
     {
-        //
+        if(!Session::get('Login') || (Session::get('LoginRole') != 'EventOrganizer' && Session::get('LoginRole') != 'EventOrganizer'))
+        {
+            return redirect('/login/event-organizer')->with('status', 'You have to login first!');
+        }
     }
 
     /**
@@ -32,53 +42,36 @@ class ScanTicket extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function redeem(Request $request)
     {
-        //
-    }
+        if(!Session::get('Login') || (Session::get('LoginRole') != 'EventOrganizer' && Session::get('LoginRole') != 'EventOrganizer'))
+        {
+            return redirect('/login/event-organizer')->with('status', 'You have to login first!');
+        }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        $request->validate([
+            'RedeemCode' => 'exists:TicketRedeem,RedeemCode'
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+        $TR = TRModel::where('RedeemCode','=',$request->RedeemCode)->first();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        if($TR->Ticket->Event->EventOrganizerId != Session::get('LoginId'))
+        {
+            return redirect('/my-event/scan')->with('warning', 'The ticket is not for you event!');
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        if($TR->Status == 'EXPIRED')
+        {
+            return redirect('/my-event/scan')->with('warning', 'Sorry, the ticket is expired!');
+        } else if ($TR->Status != 'READY')
+        {
+            return redirect('/my-event/scan')->with('warning', 'Sorry, the ticket is cannot be used yes! Please complete the payment');
+        }
+
+        $TR->Status = 'EXPIRED';
+        $TR->RedeemAt = new DateTime();
+        $TR->save();
+
+        return redirect('/my-event/scan')->with('status','Ticked has been redeemed!');
     }
 }
