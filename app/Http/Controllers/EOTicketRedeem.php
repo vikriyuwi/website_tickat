@@ -51,10 +51,7 @@ class EOTicketRedeem extends Controller
         $ticket = TModel::find($redeems->TicketId);
         $payments = PModel::where('TicketRedeemId','=',$id)->orderBy('PaymentId','DESC')->get();
 
-        $redeemat;
-        if($redeems->RedeemAt != NULL) {
-            $redeemat = explode(" ",$redeems->RedeemAt);
-        }
+        $redeemat = explode(" ",$redeems->RedeemAt);
 
         $colors = [
             'primary',
