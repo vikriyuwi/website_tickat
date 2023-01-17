@@ -21,8 +21,10 @@ class TicketRedeem extends Controller
             return redirect('/login/master')->with('status', 'You have to login first!');
         }
 
-        $redeems = TRModel::all();
-        return view('dashboard.redeem.index',['redeems' => $redeems]);
+        $redeemspen = TRModel::where('Status','=','PENDING')->get();
+        $redeemsrea = TRModel::where('Status','=','READY')->get();
+        $redeemsexp = TRModel::where('Status','=','EXPIRED')->get();
+        return view('dashboard.redeem.index',['redeemspen' => $redeemspen,'redeemsrea' => $redeemsrea,'redeemsexp' => $redeemsexp]);
 
     }
 
@@ -58,10 +60,12 @@ class TicketRedeem extends Controller
         $eo = EOModel::find($event->EventOrganizerId);
         $payments = PModel::where('TicketRedeemId','=',$id)->orderBy('PaymentId','DESC')->get();
 
+        $redeemat = explode(" ",$ticketredeem->RedeemAt);
+
         $EventStart=  explode(" ", $event->EventStart );
         $EventEnd=  explode(" ", $event->EventEnd );
 
-        return view('dashboard.redeem.detail',['ticketredeem'=>$ticketredeem,'ticket'=>$ticket,'event'=>$event,'eo'=>$eo,'est'=>$EventStart,'een'=>$EventEnd,'payments'=>$payments]);
+        return view('dashboard.redeem.detail',['ticketredeem'=>$ticketredeem,'ticket'=>$ticket,'event'=>$event,'eo'=>$eo,'est'=>$EventStart,'een'=>$EventEnd,'payments'=>$payments,'redeemat'=>$redeemat]);
     }
 
     public function edit($id)

@@ -81,16 +81,18 @@
                                                 <p class="mb-0 font-weight-bold">
                                                     <span class="badge badge-lg bg-gradient-{{ $ticket->TicketColor }}">{{$ticket->TicketName}}</span>
                                                 </p>
-                                                @if($redeemat[0] != NULL)
-                                                <div class="col-12 mt-4">
-                                                    <b>Redeem at</b>
-                                                    <p class="mb-0 font-weight-bold text-sm">
-                                                        {{ $redeemat[0] }} {{ $redeemat[1] }}
-                                                    </p>
-                                                </div>
-                                                @endif
                                             </div>
                                         </div>
+                                        @if($redeemat[0] != NULL)
+                                        <div class="row">
+                                            <div class="col-12 mt-4">
+                                                <b>Redeem at</b>
+                                                <p class="mb-0 font-weight-bold text-sm">
+                                                    {{ $redeemat[0] }} {{ $redeemat[1] }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        @endif
                                     </div>
                                     <div class="col-lg-6">
                                         @foreach($payments as $payment)
