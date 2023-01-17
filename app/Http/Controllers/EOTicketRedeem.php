@@ -21,11 +21,17 @@ class EOTicketRedeem extends Controller
             return redirect('/login/event-organizer')->with('status', 'You have to login first!');
         } 
 
-        $redeems = TRModel::whereHas('Ticket.Event', function($query){
+        $redeemspen = TRModel::whereHas('Ticket.Event', function($query){
             $query->where('EventOrganizerId','=',Session::get('LoginId'));
-        })->get();
+        })->where('Status','=','PENDING')->get();
+        $redeemsrea = TRModel::whereHas('Ticket.Event', function($query){
+            $query->where('EventOrganizerId','=',Session::get('LoginId'));
+        })->where('Status','=','READY')->get();
+        $redeemsexp = TRModel::whereHas('Ticket.Event', function($query){
+            $query->where('EventOrganizerId','=',Session::get('LoginId'));
+        })->where('Status','=','EXPIRED')->get();
         
-        return view('my-event.ticketreedem.index',['redeems' => $redeems]);
+        return view('my-event.ticketreedem.index',['redeemspen' => $redeemspen,'redeemsrea' => $redeemsrea,'redeemsexp' => $redeemsexp]);
     }
 
     public function create()
