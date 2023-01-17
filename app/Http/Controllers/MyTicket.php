@@ -213,7 +213,7 @@ class MyTicket extends Controller
 
         while (!$success)
         {
-            DB::beginTransaction();
+
 
             $payment = PModel::where('TicketRedeemId','=',$id)->orderBy('PaymentId','DESC')->first();
             $payment->PaymentVerification = 'CANCELED';
@@ -228,14 +228,7 @@ class MyTicket extends Controller
                 'PaymentTime' => $date->format('Y-m-d H:i:s')
             ];
 
-            PModel::create($pay);
-
-            if(!$payment || !$ticket) {
-                DB::rollback();
-            } else {
-                DB::commit();
-                $success = true;
-            }
+            $success = true;
         }
         return redirect('/my-ticket/book/'.$id.'/detail')->with('success', 'Your ticket is waiting to finish the new payment!');
     }
