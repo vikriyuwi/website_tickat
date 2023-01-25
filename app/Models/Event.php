@@ -33,7 +33,8 @@ class Event extends Model
         'EventEnd',
         'EventLocation',
         'EventGmapsCode',
-        'EventDetailPlace'
+        'EventDetailPlace',
+        'EventBudget'
     ];
 
     use HasFactory;

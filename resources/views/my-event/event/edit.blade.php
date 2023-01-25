@@ -158,6 +158,15 @@
                                             </div>
                                         @enderror
                                     </div>
+                                    <div class="mb-2">
+                                        <label for="budget">Budget</label>
+                                        <input class="form-control @error('budget') is-invalid @enderror" type="number" name="budget" id="budget" placeholder="Find in google maps" value="{{ old('budget') }}">
+                                        @error('budget')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
                                     <button class="btn btn-primary mt-2 w-100" type="submit">update this data</button>
                                 </form>
                             </div>

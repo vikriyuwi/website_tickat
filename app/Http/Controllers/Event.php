@@ -65,7 +65,8 @@ class Event extends Controller
             'eventEndTime' => 'required',
             'eventLocation' => 'required|max:64',
             'gmapsCode' => 'required',
-            'detailPlace' => 'required|max:64'
+            'detailPlace' => 'required|max:64',
+            'budget' => 'required'
         ]);
 
         $data = [
@@ -77,7 +78,8 @@ class Event extends Controller
             'EventEnd' => $request->eventEndDate.' '.$request->eventEndTime,
             'EventLocation' => $request->eventLocation,
             'EventGmapsCode' => $request->gmapsCode,
-            'EventDetailPlace' => $request->detailPlace
+            'EventDetailPlace' => $request->detailPlace,
+            'EventBudget' => $request->budget
         ];
 
         if(Session::get('LoginRole') == 'EventOrganizer') {
@@ -166,7 +168,8 @@ class Event extends Controller
             'eventEndTime' => 'required',
             'eventLocation' => 'required|max:64',
             'gmapsCode' => 'required',
-            'detailPlace' => 'required|max:64'
+            'detailPlace' => 'required|max:64',
+            'budget' => 'required'
         ]);
 
         $event = EModel::find($id);
@@ -184,6 +187,7 @@ class Event extends Controller
         $event->EventLocation = $request->eventLocation;
         $event->EventGmapsCode = $request->gmapsCode;
         $event->EventDetailPlace = $request->detailPlace;
+        $event->EventBudget = $request->budget;
 
         $event->save();
 
