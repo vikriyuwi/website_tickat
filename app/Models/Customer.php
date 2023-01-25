@@ -20,5 +20,10 @@ class Customer extends Model
         'CustomerPass',
         'CustomerGender',
         'CustomerStatus',
+        'CustomerVerifiedBy'
     ];
+
+    public function Admin() {
+        return $this->belongsTo('App\Models\Admin','CustomerVerifiedBy','AdminId');
+    }
 }

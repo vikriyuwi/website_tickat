@@ -112,6 +112,7 @@ class Customer extends Controller
 
         $customers = CustomerModel::find($id);
         $customers->CustomerStatus = 'active';
+        $customers->CustomerVerifiedBy = Session::get('LoginId');
         $customers->save();
 
         return redirect('/dashboard/customer')->with('status', $customers->CustomerName.' has been activated!');
@@ -126,6 +127,7 @@ class Customer extends Controller
         
         $customers = CustomerModel::find($id);
         $customers->CustomerStatus = 'deactive';
+        $customers->CustomerVerifiedBy = Session::get('LoginId');
         $customers->save();
         return redirect('/dashboard/customer')->with('status', $customers->CustomerName.' has been deactivated!');
     }

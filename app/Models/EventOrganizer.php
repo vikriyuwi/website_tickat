@@ -25,5 +25,10 @@ class EventOrganizer extends Model
         'EventOrganizerOfficeAddress',
         'EventOrganizerDesc',
         'EventOrganizerStatus',
+        'EventOrganizerVerifiedBy'
     ];
+
+    public function Admin() {
+        return $this->belongsTo('App\Models\Admin','EventOrganizerVerifiedBy','AdminId');
+    }
 }

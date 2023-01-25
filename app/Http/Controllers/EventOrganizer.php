@@ -158,6 +158,7 @@ class EventOrganizer extends Controller
 
         $eos = EOModel::find($id);
         $eos->EventOrganizerStatus = 'active';
+        $eos->EventOrganizerVerifiedBy = Session::get('LoginId');
         $eos->save();
 
         return redirect('/dashboard/event-organizer')->with('status', $eos->EventOrganizerName.' is active!');

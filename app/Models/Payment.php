@@ -25,5 +25,10 @@ class Payment extends Model
         'PaymentVerification',
         'PaymentTime',
         'PaymentVerificationTime',
+        'PaymentVerifiedBy'
     ];
+
+    public function Admin() {
+        return $this->belongsTo('App\Models\Admin','PaymentVerifiedBy','AdminId');
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\EventOrganizer as EOModel;
 use App\Models\Customer as CModel;
+use App\Models\Admin as AModel;
 use Illuminate\Support\Facades\Session;
 
 class Authentication extends Controller
@@ -82,19 +83,19 @@ class Authentication extends Controller
         }
 
         $request->validate([
-            'username' => 'required',
+            'username' => 'required|email|exists:Admin,AdminEmail',
             'password' => 'required'
         ]);
 
-        
+        $eo = AModel::where('AdminEmail',$request->username)->first();
 
-        if($request->username != 'master' || $request->password != 'master')
+        if($eo->AdminPass != $request->password)
         {
-            return redirect('/login/master')->with('status', 'Wrong authentication!');
+            return redirect('/login/master')->with('status', 'Wrong password!');
         } else {
             Session::put('Login',TRUE);
-            Session::put('LoginName','Master');
-            Session::put('LoginId','Master');
+            Session::put('LoginName',$eo->AdminName);
+            Session::put('LoginId',$eo->AdminId);
             Session::put('LoginRole','Master');
             return redirect('/dashboard');
         }

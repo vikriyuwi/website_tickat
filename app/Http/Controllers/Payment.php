@@ -29,12 +29,14 @@ class Payment extends Controller
 
             $payment->PaymentVerification = 'PAID';
             $payment->PaymentVerificationTime = Carbon::now();
+            $payment->PaymentVerifiedBy = Session::get('LoginId');
             $payment->save();
 
             return redirect('dashboard/redeem/'.$ticketredeem->TicketRedeemId)->with('success', 'Payment verified!');
         } else {
             $payment->PaymentVerification = 'PENDING';
             $payment->PaymentVerificationTime = NULL;
+            $payment->PaymentVerifiedBy = Session::get('LoginId');
             $payment->save();
             $ticketredeem->Status = 'PENDING';
             $ticketredeem->save();
