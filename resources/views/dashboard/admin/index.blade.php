@@ -137,29 +137,23 @@
                                                     <img src="{{ url('/assets/img/team-1.jpg') }}" class="avatar avatar-sm me-3" alt="user1">
                                                 </div>
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">{{ $Admin->AdminName }}</h6>
-                                                    <p class="text-xs text-secondary mb-0">{{ $Admin->AdminEmail }}</p>
+                                                    <h6 class="mb-0 text-sm">{{ $admin->AdminName }}</h6>
+                                                    <p class="text-xs text-secondary mb-0">{{ $admin->AdminEmail }}</p>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="text-center d-flex">
-                                            <a href="{{ url('/dashboard/customer/'.$customer->CustomerId) }}" class="btn btn-sm btn-primary px-3 text-light text-center me-2">
+                                            <a href="{{ url('/dashboard/customer/'.$admin->AdminId) }}" class="btn btn-sm btn-primary px-3 text-light text-center me-2">
                                                 <i class="fa-solid fa-eye" aria-hidden="true"></i>
                                             </a>
-                                            <a href="{{ url('/dashboard/customer/'.$customer->CustomerId.'/edit') }}" class="btn btn-sm btn-secondary px-3 text-light text-center me-2">
+                                            <a href="{{ url('/dashboard/customer/'.$admin->AdminId.'/edit') }}" class="btn btn-sm btn-secondary px-3 text-light text-center me-2">
                                                 <i class="fa-solid fa-pen" aria-hidden="true"></i>
                                             </a>
-                                            <form action="{{ url('/dashboard/customer/'.$customer->CustomerId) }}" method="post">
+                                            <form action="{{ url('/dashboard/customer/'.$admin->AdminId) }}" method="post">
                                                 @method('delete')
                                                 @csrf
-                                                <button class="btn btn-sm btn-danger px-3 text-center me-2" data-toggle="tooltip" data-original-title="Edit user" onclick="return confirm('Are you sure want to delete {{ $customer->CustomerName }}?')">
+                                                <button class="btn btn-sm btn-danger px-3 text-center me-2" data-toggle="tooltip" data-original-title="Edit user" onclick="return confirm('Are you sure want to delete {{ $admin->AdminName }}?')">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>
-                                                </button>
-                                            </form>
-                                            <form action="{{ url('/dashboard/customer/'.$customer->CustomerId) }}{{$customer->CustomerStatus == 'active' ? '/deactive' : '/active'}}" method="get">
-                                                @csrf
-                                                <button class="btn btn-sm btn-{{ $customer->CustomerStatus == 'active' ? 'danger' : 'success' }} px-3 text-center" data-toggle="tooltip" data-original-title="Edit user" onclick="return confirm('Are you sure want to {{ $customer->CustomerStatus == 'active' ? 'deactive ' : 'active '}}{{$customer->CustomerName}}?')">
-                                                    <i class="fa-solid fa-{{ $customer->CustomerStatus == 'active' ? 'xmark' : 'check' }}"></i>
                                                 </button>
                                             </form>
                                         </td>
