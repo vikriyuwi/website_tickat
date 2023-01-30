@@ -51,6 +51,12 @@ class MyTicket extends Controller
         {
             return redirect('/login')->with('status', 'You have to login first!');
         }
+
+        $ticket = TModel::find($request->id);
+        if($ticket->TicketAmount < 1)
+        {
+            return redirect('/login')->with('status', 'Sorry, ticket amount is not available. You can choose the other ticket');
+        }
         
         $request->validate([
             'paymentMethod' => 'required|not_in:0'
@@ -115,7 +121,6 @@ class MyTicket extends Controller
             $payment = PModel::create($pay);
 
             // tiket dikurangin
-            $ticket = TModel::find($request->id);
             $ticket->TicketAmount = $ticket->TicketAmount-1;
             $ticket->save();
 
