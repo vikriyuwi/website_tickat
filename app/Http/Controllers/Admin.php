@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Admin as AdminModel;
+use Illuminate\Support\Facades\Session;
 
 class Admin extends Controller
 {
