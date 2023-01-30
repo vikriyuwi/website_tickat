@@ -145,6 +145,16 @@
                                                         </div>
                                                         @endif
                                                     </div>
+                                                    @if($payment->PaymentVerifiedBy != NULL)
+                                                    <div class="row mt-2">
+                                                        <div class="col-12">
+                                                            <b>Verified by</b>
+                                                            <p class="mb-0 font-weight-bold text-sm">
+                                                                {{$payment->Admin->AdminName}}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    @endif
                                                     <div class="row">
                                                         <form action="{{ url('/dashboard/payment/pay') }}" method="POST" class="mb-0 mt-4">
                                                             @csrf

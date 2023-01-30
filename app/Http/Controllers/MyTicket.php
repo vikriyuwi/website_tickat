@@ -217,6 +217,7 @@ class MyTicket extends Controller
 
             $payment=PModel::where('TicketRedeemId','=',$id)->orderBy('PaymentId','DESC')->first();
             $payment->PaymentVerification = 'CANCELED';
+            $payment->PaymentVerifiedBy = NULL;
             $payment->save();
 
             // payment
