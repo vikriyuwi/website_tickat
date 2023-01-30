@@ -5,12 +5,12 @@
 @section('page-title','Dashboard')
 
 {{-- Sessuain --}}
-@section('title','View Event Organizer')
+@section('title','View Event Type')
 
 {{--  --}}
 @section('breadcrumb')
 <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="{{ url('/dashboard') }}">Dashboard</a></li>
-<li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="{{ url('/dashboard/event-organizer') }}">Event Organizer</a></li>
+<li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="{{ url('/dashboard/event-type') }}">Event Type</a></li>
 <li class="breadcrumb-item text-sm text-dark active" aria-current="page">View</li>
 @endsection
 
@@ -33,11 +33,8 @@
                             <div class="col-auto my-auto">
                                 <div class="h-100">
                                     <h5 class="mb-1">
-                                        {{ $eos->EventOrganizerName }}
+                                        {{ $ets->EventTypeName }}
                                     </h5>
-                                    <p class="mb-0 font-weight-bold text-sm">
-                                        {{ $eos->EventOrganizerOfficeAddress }}
-                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -49,10 +46,10 @@
                     <div class="card-header p-3">
                         <div class="row">
                             <div class="col-md-8 d-flex align-item-center">
-                                <h6 class="mb-0">Event Organizer Information</h6>
+                                <h6 class="mb-0">Event Type Information</h6>
                             </div>
                             <div class="col-md-4 text-end">
-                                <a href="{{ url('/dashboard/event-organizer/'.$eos->EventOrganizerId.'/edit') }}">
+                                <a href="{{ url('/dashboard/event-type/edit'.$ets->EventTypeId.'/edit') }}">
                                     <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" aria-hidden="true" aria-label="Edit Profile" data-bs-original-title="Edit Profile"></i>
                                     <span class="sr-only">Edit Profile</span>
                                 </a>
@@ -60,13 +57,6 @@
                         </div>
                     </div>
                     <div class="card-body p-3">
-                        <p class="text-sm">
-                            {{ $eos->EventOrganizerDesc }}
-                        </p>
-                        <hr class="horizontal gray-light my-4">
-                        <ul class="list-group">
-                            <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; {{ $eos->EventOrganizerEmail }}</li>
-                            <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Phone:</strong> &nbsp; {{ $eos->EventOrganizerPhone }}</li>
                             {{-- <li class="list-group-item border-0 ps-0 pb-0">
                                 <strong class="text-dark text-sm">Social:</strong> &nbsp;
                                 <a class="btn btn-facebook btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">

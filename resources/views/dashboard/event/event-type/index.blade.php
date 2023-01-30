@@ -117,16 +117,16 @@
                                             <span class="badge badge-sm bg-gradient-primary">{{ $event->EventType->EventTypeName }}</span>
                                         </td> --}}
                                         <td class="text-center d-flex">
-                                            <a href="#" class="btn btn-sm btn-primary px-3 text-light text-center me-2">
+                                            <a href="{{ url('/dashboard/event-type/'.$ets->EventTypeId) }}" class="btn btn-sm btn-primary px-3 text-light text-center me-2">
                                                 <i class="fa-solid fa-eye" aria-hidden="true"></i>
                                             </a>
-                                            <a href="#" class="btn btn-sm btn-secondary px-3 text-light text-center me-2">
+                                            <a href="{{ url('/dashboard/event-type/'.$ets->EventTypeId.'/edit') }}" class="btn btn-sm btn-secondary px-3 text-light text-center me-2">
                                                 <i class="fa-solid fa-pen" aria-hidden="true"></i>
                                             </a>
-                                            <form action="#" method="post">
+                                            <form action="{{ url('/dashboard/event-type/'.$ets->EventTypeId) }}" method="post">
                                                 @method('delete')
                                                 @csrf
-                                                <button class="btn btn-sm btn-danger px-3 text-center" data-toggle="tooltip" data-original-title="Edit user" onclick="return confirm('Are you sure want to delete #?')">
+                                                <button class="btn btn-sm btn-danger px-3 text-center" data-toggle="tooltip" data-original-title="Edit user" onclick="return confirm('Are you sure want to delete {{ $ets->EventTypeName }}?')">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                                 </button>
                                             </form>
