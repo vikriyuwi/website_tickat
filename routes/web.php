@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard;
+use App\Http\Controllers\Admin;
 use App\Http\Controllers\Customer;
 use App\Http\Controllers\Event;
 use App\Http\Controllers\EventOrganizer;
@@ -70,6 +71,7 @@ Route::prefix('auth')->group(function () {
 Route::prefix('dashboard')->group(function () {
     Route::get('/',[Dashboard::class, 'index']);
     Route::resource('customer', Customer::class);
+    Route::resource('admin', Admin::class);
     Route::prefix('customer')->group(function () {
         Route::get('{customer}/active',[Customer::class, 'active']);
         Route::get('{customer}/deactive',[Customer::class, 'deactive']);

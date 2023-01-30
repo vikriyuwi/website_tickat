@@ -105,6 +105,14 @@
           </a>
         </li>
         <li class="nav-item">
+          <a class="nav-link {{ Request::is('dashboard/admin*') ? 'active' : '' }}" href="{{ url('/dashboard/admin') }}">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="fas fa-user"></i>
+            </div>
+            <span class="nav-link-text ms-1">Admin</span>
+          </a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link {{ Request::is('dashboard/customer*') ? 'active' : '' }}" href="{{ url('/dashboard/customer') }}">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fas fa-user"></i>
