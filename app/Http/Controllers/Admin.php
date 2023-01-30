@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Admin as AdminModel;
 
 class Admin extends Controller
 {
@@ -13,7 +14,15 @@ class Admin extends Controller
      */
     public function index()
     {
-        //
+        {
+            if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+            {
+                return redirect('/login/master')->with('status', 'You have to login first!');
+            }
+    
+            $admins = AdminModel::all();
+            return view('dashboard.admin.index', ['admins' => $admins]);
+        }
     }
 
     /**
@@ -23,7 +32,14 @@ class Admin extends Controller
      */
     public function create()
     {
-        //
+        {
+            if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+            {
+                return redirect('/login/master')->with('status', 'You have to login first!');
+            }
+            
+            return view('dashboard.admin.create');
+        }
     }
 
     /**
@@ -34,7 +50,28 @@ class Admin extends Controller
      */
     public function store(Request $request)
     {
-        //
+        {
+            if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+            {
+                return redirect('/login/master')->with('status', 'You have to login first!');
+            }
+    
+            $request->validate([
+                'name' => 'required|max:64',
+                'email' => 'required|max:64|unique:Admin,AdminEmail',
+                'password' => 'required',
+            ]);
+
+            $data = [
+                'AdminName' => $request->name,
+                'AdminEmail' => $request->email,
+                'AdminPass' => $request->password,
+                ];
+
+            AdminModel::create($data);
+
+            return redirect('/dashboard/admin')->with('status', $request->name.' has been added!');
+        }
     }
 
     /**
@@ -45,7 +82,15 @@ class Admin extends Controller
      */
     public function show($id)
     {
-        //
+        {
+            if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+            {
+                return redirect('/login/master')->with('status', 'You have to login first!');
+            }
+    
+            $admins = AdminModel::find($id);
+            return view('dashboard.admin.show', ['admins' => $admins]);
+        }
     }
 
     /**
@@ -56,7 +101,14 @@ class Admin extends Controller
      */
     public function edit($id)
     {
-        //
+        {
+            if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+            {
+                return redirect('/login/master')->with('status', 'You have to login first!');
+            }
+                $admins = AdminModel::find($id);
+                return view('dashboard.admin.edit', ['admins' => $admins]);
+        }
     }
 
     /**
@@ -68,7 +120,27 @@ class Admin extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        {
+            if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+            {
+                return redirect('/login/master')->with('status', 'You have to login first!');
+            }
+            
+            $request->validate([
+                'name' => 'required|max:64',
+                'email' => 'required|max:64|unique:Admin,AdminEmail',
+                'password' => 'required',
+            ]);
+
+            $data = AdminModel::find($id);
+            $data->AdminName = $request->name;
+            $data->AdminEmail = $request->email;
+            $data->AdminPass = $request->password;
+
+            $data->save();
+
+            return redirect('/dashboard/admin')->with('status', $request->name.' has been updated!');
+        }
     }
 
     /**
@@ -79,6 +151,17 @@ class Admin extends Controller
      */
     public function destroy($id)
     {
-        //
+        {
+            if(!Session::get('Login') || Session::get('LoginRole') != 'Master')
+            {
+                return redirect('/login/master')->with('status', 'You have to login first!');
+            }
+    
+            $admins = AdminModel::find($id);
+            AdminModel::destroy($id);
+
+            return redirect('/dashboard/admin')->with('status', $admins->AdminName.' has been deleted!');
+
+        }
     }
 }
