@@ -68,8 +68,8 @@ class EventType extends Controller
             return redirect('/login/master')->with('status', 'You have to login first!');
         }
 
-        $ets = ETModel::find($id);
-        return view('dashboard.event.event-type.edit', ['ets' => $ets]);
+        $et = ETModel::find($id);
+        return view('dashboard.event.event-type.edit', ['et' => $et]);
         
     }
 
@@ -83,11 +83,11 @@ class EventType extends Controller
             'name' => 'required|max:64',
         ]);
 
-       $ets = ETModel::find($id);
-         $ets->EventTypeName = $request->name;
-            $ets->save();
+        $ets = ETModel::find($id);
+        $ets->EventTypeName = $request->name;
+        $ets->save();
 
-        return redirect('/dashboard/event/event-type')->with('status', 'Event Type Updated!');
+        return redirect('/dashboard/event-type')->with('status', 'Event Type Updated!');
         
     }
 
