@@ -143,13 +143,13 @@
                                             </div>
                                         </td>
                                         <td class="text-center d-flex">
-                                            <a href="{{ url('/dashboard/customer/'.$admin->AdminId) }}" class="btn btn-sm btn-primary px-3 text-light text-center me-2">
+                                            <a href="{{ url('/dashboard/admin/'.$admin->AdminId) }}" class="btn btn-sm btn-primary px-3 text-light text-center me-2">
                                                 <i class="fa-solid fa-eye" aria-hidden="true"></i>
                                             </a>
-                                            <a href="{{ url('/dashboard/customer/'.$admin->AdminId.'/edit') }}" class="btn btn-sm btn-secondary px-3 text-light text-center me-2">
+                                            <a href="{{ url('/dashboard/admin/'.$admin->AdminId.'/edit') }}" class="btn btn-sm btn-secondary px-3 text-light text-center me-2">
                                                 <i class="fa-solid fa-pen" aria-hidden="true"></i>
                                             </a>
-                                            <form action="{{ url('/dashboard/customer/'.$admin->AdminId) }}" method="post">
+                                            <form action="{{ url('/dashboard/admin/'.$admin->AdminId) }}" method="post">
                                                 @method('delete')
                                                 @csrf
                                                 <button class="btn btn-sm btn-danger px-3 text-center me-2" data-toggle="tooltip" data-original-title="Edit user" onclick="return confirm('Are you sure want to delete {{ $admin->AdminName }}?')">
