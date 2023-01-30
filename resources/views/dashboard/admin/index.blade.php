@@ -137,8 +137,8 @@
                                                     <img src="{{ url('/assets/img/team-1.jpg') }}" class="avatar avatar-sm me-3" alt="user1">
                                                 </div>
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">{{ $customer->CustomerName }}</h6>
-                                                    <p class="text-xs text-secondary mb-0">{{ $customer->CustomerPhone }}</p>
+                                                    <h6 class="mb-0 text-sm">{{ $Admin->AdminName }}</h6>
+                                                    <p class="text-xs text-secondary mb-0">{{ $Admin->AdminEmail }}</p>
                                                 </div>
                                             </div>
                                         </td>
